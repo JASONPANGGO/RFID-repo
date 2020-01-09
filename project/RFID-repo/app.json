@@ -12,7 +12,12 @@
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
-    "i-button": "./lib/iview/dist/button/index"
+    "i-button": "./lib/iview/dist/button/index",
+    "van-button": "./lib/vant-weapp/dist/button/index",
+    "van-field": "./lib/vant-weapp/dist/field/index",
+    "van-cell": "./lib/vant-weapp/dist/cell/index",
+    "van-cell-group": "./lib/vant-weapp/dist/cell-group/index",
+    "van-notify": "./lib/vant-weapp/dist/notify/index"
   },
   "tabBar": {
     "list": [

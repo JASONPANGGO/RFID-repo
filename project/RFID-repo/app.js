@@ -1,4 +1,7 @@
 //app.js
+// const SERVICE_URL = 'http://127.0.0.1:7001'
+const SERVICE_URL = 'https://jasonpanggo.com/rfid'
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -35,5 +38,8 @@ App({
   },
   globalData: {
     userInfo: null
+  },
+  service:{
+    get:SERVICE_URL+'/get'
   }
 })

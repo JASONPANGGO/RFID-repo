@@ -1,6 +1,16 @@
 <!--index.wxml-->
 <view class="container">
-
-  <i-button type="primary" bind:click="handleClick">这是一个按钮</i-button>
-
+<van-notify id="van-notify" />
+ <van-field
+    label="ID"
+    value="{{ input.id }}"
+    placeholder="请输入ID"
+    border="{{ true }}"
+    bind:change="onInput"
+    data-query="id"
+  />
+  <van-button type="info" bindtap="onSearch" >搜索</van-button>
+  <van-cell-group>
+  <van-cell wx:for="{{users}}" title="{{item.name}}" is-link value="{{item.id}}" />
+</van-cell-group>
 </view>
