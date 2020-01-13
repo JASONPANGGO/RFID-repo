@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/my/my",
+    "pages/nofitication/notification"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -12,7 +13,6 @@
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
-    "i-button": "./lib/iview/dist/button/index",
     "van-button": "./lib/vant-weapp/dist/button/index",
     "van-field": "./lib/vant-weapp/dist/field/index",
     "van-cell": "./lib/vant-weapp/dist/cell/index",
@@ -23,11 +23,11 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": "商品"
       },
       {
-        "pagePath": "pages/logs/logs",
-        "text": "运行"
+        "pagePath": "pages/my/my",
+        "text": "我的"
       }
     ]
   }

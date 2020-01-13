@@ -13,7 +13,7 @@ module.exports = appInfo => {
   const config = exports = {};
 
   // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1578539003304_451';
+  config.keys = appInfo.name + '6210364d346367b6bd0d85f611bfb0df';
 
   // add your middleware config here
   config.middleware = [];
@@ -33,6 +33,8 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+    AppID: 'wx2f4db5dd499270e9',
+    AppSecret: '6210364d346367b6bd0d85f611bfb0df',
   };
 
   return {

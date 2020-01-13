@@ -20,6 +20,19 @@ class UserController extends Controller {
             throw error
         }
     }
+
+    async login() {
+        try {
+            const query = this.ctx.request.query
+            const accept_key = 'code'
+            const code = query[accept_key]
+            const result = await this.app.curl(`https://api.weixin.qq.com/sns/jscode2session?appid=${this.config.AppID}&secret=${this.config.AppSecret}&js_code=${code}&grant_type=authorization_code`)
+            console.log(result)
+            this.ctx.body = result
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 module.exports = UserController;

@@ -9,6 +9,7 @@ module.exports = app => {
   router.get('/', controller.home.index);
 
   // user
-  router.get('/get',controller.user.get);
+  router.get('/get', controller.user.get);
+  router.get('/login', controller.user.login);
 
 };

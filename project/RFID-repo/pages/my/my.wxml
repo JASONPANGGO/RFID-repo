@@ -1,0 +1,2 @@
+<!--pages/my.wxml-->
+<van-button bindtap="onLogin">登录</van-button>
