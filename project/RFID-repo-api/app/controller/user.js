@@ -27,8 +27,7 @@ class UserController extends Controller {
             const accept_key = 'code'
             const code = query[accept_key]
             const result = await this.app.curl(`https://api.weixin.qq.com/sns/jscode2session?appid=${this.config.AppID}&secret=${this.config.AppSecret}&js_code=${code}&grant_type=authorization_code`)
-            console.log(result)
-            this.ctx.body = result
+            this.ctx.body = result.data.toString()
         } catch (error) {
             throw error
         }
