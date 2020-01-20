@@ -1,1 +1,42 @@
 /* pages/my.wxss */
+page{
+  background-color: #eee;
+}
+
+.header {
+  width: 100%;
+  height: 200rpx;
+  background-image: linear-gradient(#1296db, #3dbbff);
+  border-bottom-right-radius: 20px;
+  border-bottom: 0.5px solid #fff;
+}
+
+.info-container {
+  width: 80%;
+  height: 180rpx;
+  padding-top: 10rpx;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.info {
+  width: 300rpx;
+  height: 120rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+}
+
+.repo-container {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-around;
+}
+
+.repo-new {
+  width: 340rpx;
+  height: 300px;
+  display: flex;
+  justify-content: space-around;
+}

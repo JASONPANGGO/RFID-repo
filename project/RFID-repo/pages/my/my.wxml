@@ -1,2 +1,20 @@
 <!--pages/my.wxml-->
-<van-button bindtap="onLogin">登录</van-button>
+<view class="header">
+
+  <view class="info-container">
+    <image class="avatar" src="{{avatar}}"></image>
+    <view class="info" wx:if="{{avatar}}">
+      <text class="nickName" wx:if="{{nickName}}">{{nickName}}</text>
+      <text class="character" wx:if="{{character}}">{{character}}</text>
+      <button wx:else="{{nickName}}" open-type="getUserInfo" bindgetuserinfo="onLogin">登录/注册</button>
+    </view>
+  </view>
+</view>
+<view class="repo-container">
+  <van-button type="primary" icon="home-o" class="repo-new" name="创建仓库">创建仓库</van-button>
+  <van-button type="info" icon="contact" class="repo-new" name="加入仓库">加入仓库</van-button>
+</view>
+
+<view class="menu">
+
+</view>

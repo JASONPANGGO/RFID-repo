@@ -1,9 +1,2 @@
-<!--index.wxml-->
-<view class="container">
-  <van-notify id="van-notify" />
-  <van-field label="ID" value="{{ input.id }}" placeholder="请输入ID" border="{{ true }}" bind:change="onInput" data-query="id" />
-  <van-button type="info" bindtap="onSearch">搜索</van-button>
-  <van-cell-group>
-    <van-cell wx:key="index" wx:for="{{users}}" title="{{item.name}}" is-link value="{{item.id}}" />
-  </van-cell-group>
-</view>
+<!--pages/index/index.wxml-->
+<text>pages/index/index.wxml</text>

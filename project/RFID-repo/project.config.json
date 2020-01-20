@@ -23,7 +23,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
+	"libVersion": "2.10.1",
 	"appid": "wx2f4db5dd499270e9",
 	"projectname": "RFID-repo",
 	"debugOptions": {
