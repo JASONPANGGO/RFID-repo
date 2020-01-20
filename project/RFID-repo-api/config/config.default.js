@@ -18,12 +18,24 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
 
+  // config.mysql = {
+  //   client: {
+  //     host: '129.211.122.221',
+  //     port: '3306',
+  //     user: 'rfid-repo',
+  //     password: 'rfid-repo',
+  //     database: 'rfid'
+  //   },
+  //   app: true,
+  //   agent: false
+  // }
+
   config.mysql = {
     client: {
-      host: '129.211.122.221',
+      host: '127.0.0.1',
       port: '3306',
-      user: 'rfid-repo',
-      password: 'rfid-repo',
+      user: 'rfid',
+      password: 'rfid',
       database: 'rfid'
     },
     app: true,

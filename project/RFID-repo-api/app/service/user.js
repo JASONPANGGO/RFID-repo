@@ -21,6 +21,28 @@ class UserService extends Service {
             throw error
         }
     }
+
+    async login(query) {
+        let res = await this.app.mysql.get(TABLE, {
+            openid: query.openid
+        })
+        if (!res) {
+            return await this.register(query)
+        } else {
+            return res
+        }
+    }
+
+    async register(query) {
+        await this.app.mysql.insert(TABLE, {
+            openid: query.openid,
+            name: JSON.parse(query.userInfo)['nickName']
+        })
+
+        return {
+            character: 0
+        }
+    }
 }
 
 module.exports = UserService;
