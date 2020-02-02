@@ -1,0 +1,34 @@
+<!--pages/createRepo/createRepo.wxml-->
+<view class="header-small">
+  <view>
+    <van-icon name="home-o" style="vertical-align: middle;" /> 创建仓库
+  </view>
+</view>
+
+<view class="header-small-gap">
+  <view class="form">
+    <van-cell-group>
+      <van-field label="仓库名称" value="{{name}}" required placeholder="请输入仓库名称" data-field="name" bind:change="onInput" />
+      <van-field disabled label="创建时间" value="{{create_time}}" />
+      <van-cell title="自定义商品分类">
+        <view>
+          <van-button icon="add-o" class="add-button" size="mini" bindtap="onAddType">
+            添加分类
+          </van-button>
+        </view>
+      </van-cell>
+    </van-cell-group>
+  </view>
+
+  <view class="types">
+    <van-tag type="primary" wx:for="{{types}}" wx:key="index" data-index="{{index}}" size="medium" closable bindtap="onClose" class="type-tag">{{item}}</van-tag>
+  </view>
+
+  <van-dialog use-slot title="请输入分类名称" show="{{onAddingType}}" show-cancel-button bind:confirm="confirmNewType" bind:cancel="cancelNewType">
+    <van-field focus="{{onAddingType}}" border="{{true}}" value="{{newType}}" data-field="newType" bind:change="onInput" />
+  </van-dialog>
+
+  <van-button bindtap="onSubmit" type="primary" block class="submit" loading-text="正在创建仓库..." loading="{{submitting}}">提交</van-button>
+
+  <van-notify id="van-notify" />
+</view>

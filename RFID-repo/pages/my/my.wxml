@@ -2,19 +2,45 @@
 <view class="header">
 
   <view class="info-container">
-    <image class="avatar" src="{{avatar}}"></image>
-    <view class="info" wx:if="{{avatar}}">
-      <text class="nickName" wx:if="{{nickName}}">{{nickName}}</text>
+    <image class="avatar" src="{{avatarUrl}}"></image>
+    <view class="info" wx:if="{{avatarUrl}}">
+      <text class="nickName" wx:if="{{name}}">{{name}}</text>
       <text class="character" wx:if="{{character}}">{{character}}</text>
-      <button wx:else="{{nickName}}" open-type="getUserInfo" bindgetuserinfo="onLogin">登录/注册</button>
+      <button wx:else="{{avatarUrl}}" open-type="getUserInfo" bindgetuserinfo="onLogin">登录/注册</button>
     </view>
   </view>
-</view>
-<view class="repo-container">
-  <van-button type="primary" icon="home-o" class="repo-new" name="创建仓库">创建仓库</van-button>
-  <van-button type="info" icon="contact" class="repo-new" name="加入仓库">加入仓库</van-button>
+
 </view>
 
-<view class="menu">
+<view class="header-gap">
+
+  <view wx:if="{{character === '普通用户'}}" class="repo-container">
+    <van-button data-to='/pages/createRepo/createRepo' bindtap="navigate" type="primary" icon="home-o" class="repo-new" name="创建仓库">创建仓库</van-button>
+    <van-button data-to='/pages/createRepo/createRepo' bindtap="navigate" type="info" icon="contact" class="repo-new" name="加入仓库">加入仓库</van-button>
+  </view>
+
+  <view wx:if="{{character !== 0}}" class="menu-title">管理</view>
+  <view wx:if="{{character !== 0}}" class="menu">
+    <i-cell-group>
+      <i-cell title="仓库管理" is-link url="/pages/repoManage/repoManage">
+        <i-icon color="#2d8cf0" type="homepage" slot="icon" />
+      </i-cell>
+      <i-cell title="成员管理" is-link>
+        <i-icon color="#2d8cf0" type="group" slot="icon" />
+      </i-cell>
+    </i-cell-group>
+  </view>
+
+  <view class="menu-title">关于</view>
+  <view class="menu">
+    <i-cell-group>
+      <i-cell title="关于RFID" is-link>
+        <i-icon color="#2d8cf0" type="prompt" slot="icon" />
+      </i-cell>
+      <i-cell title="关于本应用" is-link>
+        <i-icon color="#2d8cf0" type="prompt" slot="icon" />
+      </i-cell>
+    </i-cell-group>
+  </view>
 
 </view>

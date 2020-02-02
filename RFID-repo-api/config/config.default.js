@@ -42,6 +42,22 @@ module.exports = appInfo => {
     agent: false
   }
 
+  config.session = {
+
+    key: 'EGG_SESS', //eggjs默认session的key
+    maxAge: 24 * 3600 * 1000, // 1 day
+    httpOnly: true,
+    encrypt: true,
+    renew: true //每次访问页面都会给session会话延长时间
+
+  }
+
+  config.security = {
+    csrf: {
+      enable: false
+    }
+  }
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

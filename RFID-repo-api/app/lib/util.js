@@ -8,7 +8,7 @@ module.exports = {
         if (accept_keys instanceof Array) {
             if (params instanceof Object) {
                 accept_keys.forEach(key => {
-                    filtedParams[key] = params[key]
+                    if (params[key] !== undefined) filtedParams[key] = params[key]
                 })
             } else {
                 throw new Error('the second parameter must be an object')

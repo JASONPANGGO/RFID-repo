@@ -1,0 +1,13 @@
+module.exports = {
+  includes: function(arr, value) {
+    if (arr && arr.length) {
+      if (arr.indexOf(value) < 0) {
+        return false
+      } else {
+        return true
+      }
+    } else {
+      return false
+    }
+  }
+}

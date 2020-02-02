@@ -19,7 +19,7 @@ Component({
       },
       {
         pagePath: "scan",
-        iconPath: "/image/scan.png",
+        iconPath: "/image/good-op.png",
         text: '',
         styleClass: 'tab-bar-item tab-bar-middle'
       },
@@ -45,11 +45,10 @@ Component({
       const data = e.currentTarget.dataset
       const url = data.path
       if (url === 'scan') {
-        wx.scanCode({
-
+        wx.navigateTo({
+          url: '/pages/addGoods/addGoods',
         })
       } else {
-
         wx.switchTab({
           url
         })
@@ -60,7 +59,6 @@ Component({
       }
     },
     getClass(index) {
-      console.log(index)
       return 'tab-bar-item'
     }
   }

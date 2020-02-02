@@ -11,8 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    avatar: '../../image/my.png',
-    nickName: null,
+    avatarUrl: '../../image/my.png',
+    name: null,
     character: null
   },
 
@@ -34,22 +34,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    // 控制tabbar
     if (typeof this.getTabBar === 'function' &&
       this.getTabBar()) {
       this.getTabBar().setData({
         selected: 4
       })
     }
-    const userInfo = app.globalData.userInfo
+
+    // 从本地缓存取得已登录用户的数据
     const user = app.globalData.user
-    if (userInfo) {
+    if (user) {
       this.setData({
-        avatar: userInfo.avatarUrl,
-        nickName: userInfo.nickName
-      })
-    }
-    if (user.character != undefined) {
-      this.setData({
+        name: user.name,
+        avatarUrl: user.avatarUrl,
         character: config.character[user.character].name
       })
     }
@@ -59,7 +57,7 @@ Page({
 
     wxLogin().then(res => {
       return request({
-        url: app.service.login,
+        url: app.service.user.login,
         data: {
           code: res.code,
           userInfo: userInfo
@@ -68,18 +66,21 @@ Page({
       })
     }).then(res => {
       const user = res.data
+      console.log(user)
       wx.setStorageSync('user', user)
+      wx.setStorageSync('cookie', res.cookies[0])
       this.setData({
-        character: config.character[user.character].name
+        character: config.character[user.character].name,
+        name: user.name,
+        avatarUrl: user.avatarUrl
       })
     })
 
-    if (userInfo) {
-      app.globalData.userInfo = userInfo
-      this.setData({
-        avatar: userInfo.avatarUrl,
-        nickName: userInfo.nickName
-      })
-    }
+
+  },
+  navigate(e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.to,
+    })
   }
 })

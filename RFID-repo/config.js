@@ -15,5 +15,14 @@ module.exports = {
       value: 3,
       name: '员工'
     }
+  ],
+  repo_status: [{
+      value: 0,
+      name: '废弃'
+    },
+    {
+      value: 1,
+      name: '在用'
+    }
   ]
 }

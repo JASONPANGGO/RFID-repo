@@ -1,8 +1,11 @@
 {
   "pages": [
-    "pages/my/my",
-    "pages/index/index",
     "pages/goods/goods",
+    "pages/addGoods/addGoods",
+    "pages/my/my",
+    "pages/repoManage/repoManage",
+    "pages/index/index",
+    "pages/createRepo/createRepo",
     "pages/task/task"
   ],
   "tabBar": {
@@ -41,7 +44,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#1296db",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "RFID智能仓库",
     "navigationBarTextStyle": "black"
   },
   "style": "v2",
@@ -52,6 +55,16 @@
     "van-cell": "./lib/vant-weapp/dist/cell/index",
     "van-cell-group": "./lib/vant-weapp/dist/cell-group/index",
     "van-notify": "./lib/vant-weapp/dist/notify/index",
-    "van-overlay": "./lib/vant-weapp/dist/overlay/index"
+    "van-overlay": "./lib/vant-weapp/dist/overlay/index",
+    "van-icon": "./lib/vant-weapp/dist/icon/index",
+    "van-tag": "./lib/vant-weapp/dist/tag/index",
+    "van-dialog": "./lib/vant-weapp/dist/dialog/index",
+    "van-search": "./lib/vant-weapp/dist/search/index",
+    "van-uploader": "./lib/vant-weapp/dist/uploader/index",
+    "van-picker": "./lib/vant-weapp/dist/picker/index",
+    "van-popup": "./lib/vant-weapp/dist/popup/index",
+    "i-cell-group": "./lib/iview-weapp/dist/cell-group/index",
+    "i-cell": "./lib/iview-weapp/dist/cell/index",
+    "i-icon": "./lib/iview-weapp/dist/icon/index"
   }
 }

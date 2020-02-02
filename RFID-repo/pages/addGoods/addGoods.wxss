@@ -1,0 +1,48 @@
+/* pages/addGoods/addGoods.wxss */
+
+.header-small-gap {
+  margin-top: 120rpx;
+}
+
+.goods-image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-uploader {
+  width: 700rpx;
+  height: 300rpx;
+  border: 1px dashed #eee;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eee;
+  margin-bottom: 20rpx;
+}
+
+.image-uploader text {
+  margin-left: 10px;
+}
+
+.bottom-button {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+}
+
+.bottom-button button {
+  width: 100%;
+  border-radius: 0;
+}
+
+.scan-btn {
+  width: 50%;
+}
+
+.sub-btn {
+  width: 50%;
+}

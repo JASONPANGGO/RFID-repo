@@ -1,0 +1,138 @@
+/* pages/repoManage/repoManage.wxss */
+
+page {
+  background-color: #eee;
+}
+
+.info-container {
+  width: 90%;
+  height: 180rpx;
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto;
+}
+
+image.avatar {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.instance-name {
+  font-size: 60rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+.create-time {
+  font-size: 25rpx;
+  color: #eee;
+}
+
+.creater {
+  color: #ddd;
+  display: flex;
+  font-size: 30rpx;
+}
+
+.avatar {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.creater-name {
+  color: #fff;
+  height: 1rem;
+  margin-left: 0.5em;
+}
+
+.repos {
+  width: 100%;
+  margin-top: 230rpx;
+}
+
+.repo-item {
+  width: 90%;
+  height: 80px;
+  background: #fff;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-top: 10px;
+  position: relative;
+  box-shadow: 10px 10px 10px #ddd;
+}
+
+.repo-item van-icon {
+  vertical-align: middle;
+}
+
+.create-repo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  box-shadow: none;
+  height: 40px;
+}
+
+.create-repo-title {
+  margin-left: 30rpx;
+}
+
+.repo-name {
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+}
+
+.repo-id {
+  font-size: 10px;
+  position: absolute;
+  bottom: 17px;
+  left: 10px;
+  color: #aaa;
+}
+
+.repo-create-time {
+  color: #aaa;
+  font-size: 10px;
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+}
+
+.repo-status {
+  position: absolute;
+  right: 5px;
+  font-size: 12px;
+  top: 5px;
+}
+
+.repo-status-1::before {
+  display: inline-block;
+  content: '';
+  width: 0.5em;
+  height: 0.5em;
+  background-color: green;
+  color: green;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.repo-status-0::before {
+  display: inline-block;
+  content: '';
+  width: 0.5em;
+  height: 0.5em;
+  background-color: gray;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.arrow {
+  position: absolute;
+  right: 5px;
+  bottom: 0;
+}

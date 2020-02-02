@@ -1,0 +1,22 @@
+/* pages/createRepo/createRepo.wxss */
+
+.add-button button {
+  width: 200rpx;
+  height: 30px;
+  line-height: 30px;
+}
+
+.types {
+  margin: 10rpx;
+}
+
+.type-tag {
+  margin: 10px;
+  margin-right: 0;
+}
+
+.submit button {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

@@ -1,2 +1,49 @@
 <!--pages/goods/goods.wxml-->
-<text>pages/goods/goods.wxml</text>
+<wxs src="../../utils/util.wxs" module="tool" />
+
+<view class="header">
+  <van-search value="{{ input }}" use-action-slot placeholder="请输入搜索关键词" background="rgba(0,0,0,0)">
+    <view style="color:#fff" slot="action" bind:tap="onSearch">搜索</view>
+  </van-search>
+  <view class="selector">
+    <view class="repo" data-selector="repo" bindtap="onSelector">
+      <text>仓库</text>
+      <van-icon name="{{selectorStatus == 'repo' ? 'arrow-up' : 'arrow-down'}}" />
+    </view>
+    <view class="types" data-selector="types" bindtap="onSelector">
+      <text>分类</text>
+      <van-icon name="{{selectorStatus == 'types' ? 'arrow-up' : 'arrow-down'}}" />
+    </view>
+    <view class="status" data-selector="status" bindtap="onSelector">
+      <text>状态</text>
+      <van-icon name="{{selectorStatus == 'status'? 'arrow-up' : 'arrow-down'}}" />
+    </view>
+    <view class="order" data-selector="order" bindtap="onSelector">
+      <image class="order-icon" src="/image/selector-order.png"></image>
+    </view>
+  </view>
+</view>
+
+<view class="selector-expand" wx:if="{{selectorStatus}}">
+
+  <view class="selector-item {{tool.includes(query[selectorStatus],item) ? 'selector-item-selected' : ''}}" wx:for="{{currentSelector}}" wx:key="index" data-query="{{item}}" bindtap="onSelect">
+    {{item}}
+    <van-icon name="success" color="#52c41a" style="visibility:{{tool.includes(query[selectorStatus],item) ? '' : 'hidden'}}" />
+  </view>
+
+  <view class="selector-item-order" wx:for="{{orders}}" wx:if="{{selectorStatus == 'order'}}" wx:key="index">
+    {{item}}
+  </view>
+
+  <view class="selector-op" wx:if="{{selectorStatus && selectorStatus !== 'order'}}">
+    <van-button bindtap="reset" type="default" size="normal">重置</van-button>
+    <van-button type="primary" size="normal">确认</van-button>
+  </view>
+
+</view>
+
+<view class="goods-list">
+  <view class="goods-item" wx:for="{{goods}}" wx:key="index">
+    {{item.name}}
+  </view>
+</view>

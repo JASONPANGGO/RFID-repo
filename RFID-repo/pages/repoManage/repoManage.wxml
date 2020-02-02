@@ -1,0 +1,48 @@
+<!--pages/repoManage/repoManage.wxml-->
+<view class="header">
+  <view class="info-container">
+    <view class="repo">
+      <view class="instance-name">
+        {{name}}
+      </view>
+      <view class="create-time">
+        {{create_time}}
+      </view>
+    </view>
+    <view class="creater">
+      创建者：
+      <image class="avatar" src="{{creater.avatarUrl}}">
+      </image>
+      <view class="creater-name">
+        {{creater.name}}
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="repos">
+  <view class="repo-item" wx:for="{{repos}}" wx:key="{{index}}">
+
+    <view class="repo-name">
+      <van-icon name="points" /> {{item.name}}
+    </view>
+    <view class="repo-status {{item.status == 1 ? 'repo-status-1' : 'repo-status-0'}}">
+      {{item.status_text}}
+    </view>
+    <view class="repo-id">
+      id: {{item.id}}</view>
+    <view class="repo-create-time">
+      创建时间:{{item.create_time}}
+    </view>
+    <van-icon name="arrow" class="arrow" />
+
+  </view>
+  <view class="repo-item create-repo" bindtap="onCreate">
+    <van-icon name="add-o" />
+    <view class="create-repo-title">创建子仓库</view>
+  </view>
+</view>
+
+<van-dialog use-slot title="请输入子仓库名称" show="{{onCreating}}" show-cancel-button bind:confirm="confirmNewRepo" bind:cancel="cancelNewRepo">
+  <van-field focus="{{onCreating}}" border="{{true}}" value="{{repo_name}}" data-field="repo_name" bind:change="onInput" />
+</van-dialog>
