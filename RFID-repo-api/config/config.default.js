@@ -22,6 +22,7 @@ module.exports = appInfo => {
     mode: 'file'
   }
 
+  // 服务器
   // config.mysql = {
   //   client: {
   //     host: '129.211.122.221',
@@ -34,6 +35,7 @@ module.exports = appInfo => {
   //   agent: false
   // }
 
+  // 本地
   config.mysql = {
     client: {
       host: '127.0.0.1',

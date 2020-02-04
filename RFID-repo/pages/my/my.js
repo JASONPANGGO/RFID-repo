@@ -4,6 +4,7 @@ const {
   wxLogin,
   request
 } = require('../../utils/promisefy.js')
+import Toast from '../../lib/vant-weapp/dist/toast/toast';
 // pages/my.js
 Page({
 
@@ -53,7 +54,7 @@ Page({
     }
   },
   onLogin(res) {
-    
+
     const userInfo = res.detail.userInfo
 
     wxLogin().then(res => {
@@ -67,14 +68,21 @@ Page({
       })
     }).then(res => {
       const user = res.data
-      console.log(user)
-      wx.setStorageSync('user', user)
-      wx.setStorageSync('cookie', res.cookies[0])
-      this.setData({
-        character: config.character[user.character].name,
-        name: user.name,
-        avatarUrl: user.avatarUrl
-      })
+      if (user.id) {
+
+        wx.setStorageSync('user', user)
+        wx.setStorageSync('cookie', res.cookies[0])
+        this.setData({
+          character: config.character[user.character].name,
+          name: user.name,
+          avatarUrl: user.avatarUrl
+        })
+
+      } else {
+        Toast.fail('登录失败，请检查网络状态。')
+      }
+    }).catch(e => {
+        Toast.fail('登录失败，请检查网络状态。')
     })
 
 

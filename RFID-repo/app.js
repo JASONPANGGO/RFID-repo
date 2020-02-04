@@ -1,6 +1,6 @@
 //app.js
-const SERVICE_URL = 'http://127.0.0.1:7001'
-// const SERVICE_URL = 'https://jasonpanggo.com/rfid'
+// const SERVICE_URL = 'http://127.0.0.1:7001'
+const SERVICE_URL = 'https://jasonpanggo.com/rfid'
 
 const config = require('./config.js')
 const {
@@ -16,25 +16,6 @@ App({
       this.globalData.user = user
       this.onLogin(user)
     }
-
-    // wx.getSetting({
-    //   success: res => {
-    //     if (res.authSetting['scope.userInfo']) {
-    //       // 获取微信用户开放信息
-    //       wx.getUserInfo({
-    //         success: res => {
-    //           if (res.userInfo) {
-    //             this.globalData.userInfo = res.userInfo
-    //           }
-    //         },
-    //         fail(res) {
-    //           console.log(res)
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
-
   },
   onLogin(user) {
 
