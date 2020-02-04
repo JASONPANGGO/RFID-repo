@@ -1,5 +1,6 @@
 // pages/addGoods/addGoods.js
-import Notify from '../../lib/vant-weapp/dist/notify/notify';
+import Dialog from '../../lib/vant-weapp/dist/dialog/dialog';
+
 const {
   request,
   wxGetStorage
@@ -13,12 +14,16 @@ Page({
    */
   data: {
     fileList: [],
-    repo_list: [1, 2, 3, 4],
+    repo_list: [],
+    types: [],
+    picker_list: [],
+    img_url: '',
     name: '',
     create_time: '',
     price: '',
     amount: '',
     bar_code: '',
+    comment: '',
     show_select: false,
     repo: '',
     user: {}
@@ -47,9 +52,14 @@ Page({
       user: wx.getStorageSync('user')
     })
     this.getRepos()
+    this.getInstance()
   },
   onInput(e) {
-    console.log(e)
+    const field = e.currentTarget.dataset['field']
+    const value = e.detail
+    this.setData({
+      [field]: value
+    })
   },
   scan() {
     wx.scanCode({
@@ -62,22 +72,50 @@ Page({
     })
   },
   onSubmit() {
-    request({
-      url: app.service.goods.add,
-      header: {
-        'cookie': wx.getStorageSync('cookie')
-      },
-      data: {
-          
-        name: this.data.name,
-        price: this.data.price,
-        bar_code: this.data.bar_code,
-        amount: this.data.amount
-      },
-      method: 'post'
-    }).then(res => {
-      console.log(res)
-    })
+    const {
+      name,
+      price,
+      bar_code,
+      amount,
+      repo,
+      img_url,
+      comment,
+      type
+    } = this.data
+    if (!name || !price || !amount || !repo || !type) {
+      Dialog.confirm({
+        message: '请先填写完所有必填字段'
+      })
+    } else {
+
+      request({
+        url: app.service.goods.add,
+        header: {
+          'cookie': wx.getStorageSync('cookie')
+        },
+        data: {
+          name: name,
+          price: price,
+          bar_code: bar_code,
+          amount: amount,
+          repoid: repo.id,
+          img_url: img_url,
+          comment: comment,
+          type: type
+        },
+        method: 'post'
+      }).then(res => {
+        Dialog.alert({
+          title: '商品添加成功',
+          message: ''
+        }).then(res => {
+          wx.switchTab({
+            url: '/pages/goods/goods'
+          })
+        })
+      })
+
+    }
   },
   getRepos() {
     request({
@@ -87,21 +125,39 @@ Page({
       },
       method: 'get'
     }).then(res => {
-      console.log(res)
       if (res.data instanceof Array) {
         this.setData({
           repo_list: res.data.map(e => {
             e.text = e.name
-            // e.value = e.id
             return e
           })
         })
       }
     })
   },
+  getInstance() {
+    request({
+      url: app.service.instance.get,
+      data: {
+        instanceid: this.data.user.instanceid
+      },
+      method: 'get'
+    }).then(res => {
+      this.setData({
+        types: res.data.instanceData.goods_type.split(',')
+      })
+    })
+  },
   onSelectRepo() {
     this.setData({
-      show_select: true
+      show_select: 'repo',
+      picker_list: this.data.repo_list
+    })
+  },
+  onSelectType() {
+    this.setData({
+      show_select: 'type',
+      picker_list: this.data.types
     })
   },
   onSelect(e) {
@@ -111,8 +167,9 @@ Page({
       index
     } = e.detail;
     console.log(e.detail)
+    const key = this.data.show_select
     this.setData({
-      repo: value,
+      [key]: value,
       show_select: false
     })
   },
@@ -120,5 +177,31 @@ Page({
     this.setData({
       show_select: false
     })
+  },
+
+  afterRead(e) {
+    const file = e.detail.file
+    const _this = this
+    console.log(file)
+    wx.uploadFile({
+      header: {
+        'cookie': wx.getStorageSync('cookie')
+      },
+      url: app.service.goods.upload,
+      filePath: file.path,
+      name: 'file',
+      success(res) {
+        console.log(res)
+        // 上传完成需要更新 fileList
+        _this.setData({
+          img_url: app.service.img_url + JSON.parse(res.data).img_url
+        })
+      },
+      fail(res) {
+        console.log(res)
+      }
+    })
   }
+
+
 })

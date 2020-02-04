@@ -18,6 +18,10 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
 
+  config.multipart = {
+    mode: 'file'
+  }
+
   // config.mysql = {
   //   client: {
   //     host: '129.211.122.221',
@@ -60,9 +64,8 @@ module.exports = appInfo => {
 
   // add your user config here
   const userConfig = {
-    // myAppName: 'egg',
     AppID: 'wx2f4db5dd499270e9',
-    AppSecret: '6210364d346367b6bd0d85f611bfb0df',
+    AppSecret: '6210364d346367b6bd0d85f611bfb0df'
   };
 
   return {

@@ -27,4 +27,5 @@ module.exports = app => {
   // goods 
   router.get('/goods/get', controller.goods.get)
   router.post('/goods/add', middleware.auth(), controller.goods.add)
+  router.post('/goods/upload', middleware.auth(), controller.goods.upload)
 };

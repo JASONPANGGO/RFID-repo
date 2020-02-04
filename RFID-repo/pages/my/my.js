@@ -53,6 +53,7 @@ Page({
     }
   },
   onLogin(res) {
+    
     const userInfo = res.detail.userInfo
 
     wxLogin().then(res => {

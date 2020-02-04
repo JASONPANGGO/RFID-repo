@@ -1,3 +1,4 @@
+
 module.exports = {
     /**
      * @param {Array} accept_keys 
@@ -17,5 +18,17 @@ module.exports = {
             throw new Error('the first parameter must be an array')
         }
         return filtedParams
+    },
+    /**
+     * @param {Array} accept_keys 
+     * @param {Object} obj
+     */
+    jsonParser(accept_keys, obj) {
+        for (key of accept_keys) {
+            if (obj[key]) {
+                obj[key] = JSON.parse(obj[key])
+            }
+        }
+        return obj
     }
 }

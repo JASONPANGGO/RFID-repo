@@ -1,5 +1,5 @@
 // pages/goods/goods.js
-import Notify from '../../lib/vant-weapp/dist/notify/notify';
+import Toast from '../../lib/vant-weapp/dist/toast/toast';
 const app = getApp()
 const {
   request
@@ -17,16 +17,8 @@ Page({
     user: {},
     selectorStatus: null,
     query: {},
-    types: [],
-    repo: [
-      '啊啊啊',
-      '起请求',
-      '起请求',
-      '起请求',
-      '起请求',
-      '起请求',
-      '新学习'
-    ],
+    type: [],
+    repoid: [],
     status: [],
     currentSelector: [],
     orders: [
@@ -41,14 +33,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.checkSession({
-      success(e) {
-        console.log(e)
-      },
-      fail(e) {
-        console.log(e)
+    const user = wx.getStorageSync('user')
+    this.setData({
+      user: user,
+      query: {
+        instanceid: user.instanceid
       }
     })
+    this.initData()
   },
 
   /**
@@ -62,10 +54,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    const user = wx.getStorageSync('user')
-    this.setData({
-      user: user
-    })
+
     if (typeof this.getTabBar === 'function' &&
       this.getTabBar()) {
       this.getTabBar().setData({
@@ -73,47 +62,83 @@ Page({
       })
     }
 
-    this.getInstance()
-    this.getRepos()
-
+  },
+  initData() {
+    wx.showNavigationBarLoading()
+    Toast.loading({
+      mask: false,
+      message: '加载中...'
+    })
+    Promise.all([this.getRepos(), this.getInstance(), this.getGoods()]).then(e => {
+      wx.hideNavigationBarLoading()
+      Toast.clear()
+    })
   },
   getGoods() {
-    request({
-      url: app.service.goods.get,
-      data: {
-        instanceid: this.data.user.instanceid
-      },
-      method: 'get'
+    return new Promise((resolve, rej) => {
+
+      request({
+        url: app.service.goods.get,
+        data: this.data.query,
+        method: 'get'
+      }).then(res => {
+        if (res.data instanceof Array) {
+          if (res.data.length === 0) {
+            Toast.fail('无数据，请尝试更换筛选条件。')
+          } else {
+            this.setData({
+              goods: res.data.map(g => {
+                g.create_time = new Date(g.create_time).toLocaleDateString()
+                g.repo = this.data.repoid.find(e => e.id === g.repoid)
+                return g
+              })
+            })
+          }
+
+        } else {
+          Toast.fail('查询失败')
+        }
+        resolve()
+
+      })
+
     })
   },
   getRepos() {
-    request({
-      url: app.service.repo.get,
-      data: {
-        instanceid: this.data.user.instanceid
-      },
-      method: 'get'
-    }).then(res => {
-      if (res.data instanceof Array) {
-        this.setData({
-          repo: res.data.map(e => e.name)
-        })
-      }
+    return new Promise((resolve, rej) => {
+      request({
+        url: app.service.repo.get,
+        data: {
+          instanceid: this.data.user.instanceid
+        },
+        method: 'get'
+      }).then(res => {
+        if (res.data instanceof Array) {
+          this.setData({
+            repoid: res.data
+          })
+        }
+        resolve()
+      })
     })
   },
   getInstance() {
-    request({
-      url: app.service.instance.get,
-      data: {
-        instanceid: this.data.user.instanceid
-      },
-      method: 'get'
-    }).then(res => {
-      if (res.data.instanceData) {
-        this.setData({
-          types: res.data.instanceData.goods_type.split(',')
-        })
-      }
+    return new Promise((resolve, rej) => {
+
+      request({
+        url: app.service.instance.get,
+        data: {
+          instanceid: this.data.user.instanceid
+        },
+        method: 'get'
+      }).then(res => {
+        if (res.data.instanceData) {
+          this.setData({
+            type: res.data.instanceData.goods_type.split(',')
+          })
+        }
+        resolve()
+      })
     })
   },
   onSelector(e) {
@@ -124,10 +149,11 @@ Page({
     })
   },
   onSelect(e) {
-    console.log(e.currentTarget.dataset.query)
+
     const key = this.data.selectorStatus
     const value = e.currentTarget.dataset.query
     const query = this.data.query
+
     if (!query[key]) {
       query[key] = [value]
     } else if (query[key] instanceof Array && query[key].includes(value)) {
@@ -135,15 +161,35 @@ Page({
     } else {
       query[key].push(value)
     }
-    console.log(query)
+
     this.setData({
       query: query
     })
   },
   reset() {
     this.setData({
-      query: {}
+      query: {
+        instanceid: this.data.user.instanceid
+      }
+    })
+  },
+  onPullDownRefresh() {
+    this.initData()
+  },
+  onSelectOrder(e) {
+    const value = e.currentTarget.dataset.query
+    this.setData({
+      query: Object.assign(this.data.query, {
+        order: value
+      })
+    })
+    this.getGoods()
+  },
+  onInput(e) {
+    this.setData({
+      query: Object.assign(this.data.query, {
+        name: e.detail
+      })
     })
   }
-
 })

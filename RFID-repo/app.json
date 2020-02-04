@@ -63,6 +63,7 @@
     "van-uploader": "./lib/vant-weapp/dist/uploader/index",
     "van-picker": "./lib/vant-weapp/dist/picker/index",
     "van-popup": "./lib/vant-weapp/dist/popup/index",
+    "van-toast": "./lib/vant-weapp/dist/toast/index",
     "i-cell-group": "./lib/iview-weapp/dist/cell-group/index",
     "i-cell": "./lib/iview-weapp/dist/cell/index",
     "i-icon": "./lib/iview-weapp/dist/icon/index"

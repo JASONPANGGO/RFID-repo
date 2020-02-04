@@ -2,17 +2,17 @@
 <wxs src="../../utils/util.wxs" module="tool" />
 
 <view class="header">
-  <van-search value="{{ input }}" use-action-slot placeholder="请输入搜索关键词" background="rgba(0,0,0,0)">
-    <view style="color:#fff" slot="action" bind:tap="onSearch">搜索</view>
+  <van-search value="{{ query.name }}" bind:change="onInput" use-action-slot placeholder="请输入搜索名称关键词" background="rgba(0,0,0,0)">
+    <view style="color:#fff" slot="action" bind:tap="getGoods">搜索</view>
   </van-search>
   <view class="selector">
-    <view class="repo" data-selector="repo" bindtap="onSelector">
+    <view class="repo" data-selector="repoid" bindtap="onSelector">
       <text>仓库</text>
-      <van-icon name="{{selectorStatus == 'repo' ? 'arrow-up' : 'arrow-down'}}" />
+      <van-icon name="{{selectorStatus == 'repoid' ? 'arrow-up' : 'arrow-down'}}" />
     </view>
-    <view class="types" data-selector="types" bindtap="onSelector">
+    <view class="types" data-selector="type" bindtap="onSelector">
       <text>分类</text>
-      <van-icon name="{{selectorStatus == 'types' ? 'arrow-up' : 'arrow-down'}}" />
+      <van-icon name="{{selectorStatus == 'type' ? 'arrow-up' : 'arrow-down'}}" />
     </view>
     <view class="status" data-selector="status" bindtap="onSelector">
       <text>状态</text>
@@ -26,24 +26,45 @@
 
 <view class="selector-expand" wx:if="{{selectorStatus}}">
 
-  <view class="selector-item {{tool.includes(query[selectorStatus],item) ? 'selector-item-selected' : ''}}" wx:for="{{currentSelector}}" wx:key="index" data-query="{{item}}" bindtap="onSelect">
+  <view class="selector-item {{tool.includes(query[selectorStatus],item) ? 'selector-item-selected' : ''}}" wx:for="{{currentSelector}}" wx:if="{{selectorStatus!=='repoid'}}" wx:key="index" data-query="{{item}}" bindtap="onSelect">
     {{item}}
     <van-icon name="success" color="#52c41a" style="visibility:{{tool.includes(query[selectorStatus],item) ? '' : 'hidden'}}" />
   </view>
 
-  <view class="selector-item-order" wx:for="{{orders}}" wx:if="{{selectorStatus == 'order'}}" wx:key="index">
+  <view class="selector-item {{tool.includes(query[selectorStatus],item.id) ? 'selector-item-selected' : ''}}" wx:for="{{currentSelector}}" wx:if="{{selectorStatus === 'repoid'}}" wx:key="index" data-query="{{item.id}}" bindtap="onSelect">
+    {{item.name}}
+    <van-icon name="success" color="#52c41a" style="visibility:{{tool.includes(query[selectorStatus],item.id) ? '' : 'hidden'}}" />
+  </view>
+
+  <view class="selector-item-order {{query.order == index ? 'selector-item-selected' : ''}}" data-query="{{index}}" bindtap="onSelectOrder" wx:for="{{orders}}" wx:if="{{selectorStatus == 'order'}}" wx:key="index">
     {{item}}
+    <van-icon name="success" color="#52c41a" style="visibility:{{query.order == index ? '' : 'hidden'}}" />
   </view>
 
   <view class="selector-op" wx:if="{{selectorStatus && selectorStatus !== 'order'}}">
     <van-button bindtap="reset" type="default" size="normal">重置</van-button>
-    <van-button type="primary" size="normal">确认</van-button>
+    <van-button bindtap="getGoods" type="primary" size="normal">确认</van-button>
   </view>
 
 </view>
 
 <view class="goods-list">
   <view class="goods-item" wx:for="{{goods}}" wx:key="index">
-    {{item.name}}
+    <image src="{{item.img_url}}"></image>
+    <view class="goods-name">{{item.name}}</view>
+    <view class="goods-type">
+      <van-tag type="primary">
+        {{item.type}}
+      </van-tag>
+    </view>
+    <view class="goods-id">{{item.id}}</view>
+    <view class="goods-create-time">{{item.create_time}}</view>
+    <view class="goods-repo">
+      <van-icon class="goods-repo-icon" name="points" />{{item.repo.name}}</view>
+    <view class="goods-amount">{{item.amount}}</view>
+    <view class="goods-price">{{item.price}}</view>
+
   </view>
 </view>
+
+<van-toast id="van-toast" />

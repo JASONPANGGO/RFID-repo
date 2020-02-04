@@ -2,22 +2,40 @@
 
 const Controller = require('egg').Controller;
 const {
-    paramFilter
+    paramFilter,
+    jsonParser
 } = require('../lib/util')
 
 class GoodsController extends Controller {
     async get() {
+        try {
 
+            const query = paramFilter(['instanceid', 'repoid', 'type', 'order', 'name'], this.ctx.request.query)
+            jsonParser(['repoid', 'type'], query)
+
+            this.ctx.body = await this.ctx.service.goods.get(query)
+        } catch (error) {
+            throw error
+        }
     }
 
-    async add(userInfo) {
+    async add() {
         try {
-            console.log(userInfo)
-            const query = paramFilter(['name', 'price', 'amount', 'bar_code'], this.ctx.request.query)
-            
-            // await this.ctx.service.goods.add(query)
+            const userInfo = this.ctx.session.userInfo
+            const query = paramFilter(['name', 'type', 'price', 'amount', 'bar_code', 'repoid', 'img_url', 'comment'], this.ctx.request.body)
+            query.instanceid = userInfo.instanceid
+            this.ctx.body = await this.ctx.service.goods.add(query)
         } catch (error) {
+            throw error
+        }
+    }
 
+    async upload() {
+        try {
+            const file = this.ctx.request.files[0]
+            this.ctx.body = await this.ctx.service.goods.upload(file)
+        } catch (error) {
+            throw error
         }
     }
 

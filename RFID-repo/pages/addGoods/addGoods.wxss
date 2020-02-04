@@ -2,6 +2,9 @@
 
 .header-small-gap {
   margin-top: 120rpx;
+  overflow: scroll;
+  margin-bottom: 44px;
+  z-index: 1;
 }
 
 .goods-image {
@@ -21,6 +24,7 @@
   align-items: center;
   color: #eee;
   margin-bottom: 20rpx;
+  overflow: hidden;
 }
 
 .image-uploader text {
@@ -28,7 +32,7 @@
 }
 
 .bottom-button {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   display: flex;
