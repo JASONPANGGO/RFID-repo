@@ -1,5 +1,7 @@
 // pages/repoManage/repoManage.js
 import Notify from '../../lib/vant-weapp/dist/notify/notify';
+import Toast from '../../lib/vant-weapp/dist/toast/toast';
+import Dialog from '../../lib/vant-weapp/dist/dialog/dialog';
 const app = getApp()
 const {
   request
@@ -17,7 +19,18 @@ Page({
     creater: {},
     repos: [],
     onCreating: false,
-    repo_name: ''
+    repo_name: '',
+    repoMoreShow: false,
+    selectedRepo: {},
+    actions: [{
+      name: '生成邀请码',
+      color: '#1890ff',
+      api: app.service.repo.invite
+    }, {
+      name: '弃用/恢复',
+      color: '#f5222d',
+      api: app.service.repo.update
+    }]
   },
 
   /**
@@ -38,8 +51,29 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getInstance()
-    this.getRepos()
+    const user = wx.getStorageSync('user')
+    if (!user.id) {
+      Dialog.confirm({
+        title: '未登录',
+        message: '使用本程序需要登录，请先登录/注册'
+      }).then(() => {
+        wx.switchTab({
+          url: '/pages/my/my'
+        })
+      })
+    } else if (!user.instanceid) {
+      Dialog.confirm({
+        title: '无仓库',
+        message: '先创建或者加入一个仓库'
+      }).then(() => {
+        wx.switchTab({
+          url: '/pages/my/my'
+        })
+      })
+    } else {
+      this.getInstance()
+      this.getRepos()
+    }
   },
   getInstance() {
 
@@ -60,10 +94,12 @@ Page({
         creater = creater[0]
       }
       if (instance) {
+        const date = new Date(instance.create_time)
+        const create_time = date.getFullYear() + '/' + (date.getMonth() + 1) + "/" + date.getDate()
         this.setData({
           instanceid: instance.id,
           name: instance.name,
-          create_time: new Date(instance.create_time).toLocaleString(),
+          create_time: create_time,
           creater: {
             avatarUrl: creater.avatarUrl,
             name: creater.name
@@ -84,14 +120,14 @@ Page({
       },
       method: 'get'
     }).then(res => {
-      console.log(res)
       if (res.data) {
         if (!(res.data instanceof Array)) {
           res.data = [res.data]
         }
         res.data = res.data.map(repo => {
           repo.status_text = config.repo_status[repo.status].name
-          repo.create_time = new Date(repo.create_time).toLocaleString()
+          const date = new Date(repo.create_time)
+          repo.create_time = date.getFullYear() + '/' + (date.getMonth() + 1) + "/" + date.getDate()
           return repo
         })
         this.setData({
@@ -133,5 +169,47 @@ Page({
       [e.target.dataset.field]: e.detail
     })
   },
+  onSelectRepo(e) {
+    const repo = e.target.dataset.repo
+    this.setData({
+      selectedRepo: repo,
+      repoMoreShow: true
+    })
+  },
+  onCloseMore() {
+    this.setData({
+      selectedRepo: {},
+      repoMoreShow: false
+    })
+  },
+  onSelectAction(e) {
 
+    request({
+      url: e.detail.api,
+      header: {
+        'cookie': wx.getStorageSync('cookie')
+      },
+      method: 'post',
+      data: {
+        id: this.data.selectedRepo.id,
+        status: !this.data.selectedRepo.status * 1 // 布尔转数字
+      }
+    }).then(res => {
+      if (res.data.invite_code) {
+        wx.setClipboardData({
+          data: res.data.invite_code,
+        })
+        Dialog.confirm({
+          title: '生成成功',
+          message: '邀请码已复制到剪贴板。'
+        })
+      } else {
+        Toast.success('操作成功')
+        this.getRepos()
+      }
+    }).catch(e => {
+      Toast.fail('操作失败')
+    })
+
+  }
 })

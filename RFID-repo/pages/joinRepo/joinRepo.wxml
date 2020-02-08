@@ -1,0 +1,26 @@
+<!--pages/joinRepo/joinRepo.wxml-->
+<van-field label="邀请码" bind:change="onInput" placeholder="请联系仓库管理员得到邀请码" value="{{invite_code}}" />
+<van-transition show="{{!!repo}}" name="fade-down">
+  <view class="repo-container" wx:if="{{repo}}">
+    <van-icon class="bg-repo-icon" name="home-o" />
+    <van-icon class="repo-icon" name="points" />
+    <view class="repo-name">{{repo.name}}</view>
+    <view class="status {{repo.status == 1 ? 'repo-status-1' : 'repo-status-0'}}">{{repo.status_text}}</view>
+    <view class="instance-name">{{instance.name}}</view>
+    <view class="creater">
+      <image class="avatar" src="{{creater.avatarUrl}}"></image>
+      {{creater.name}}
+    </view>
+  </view>
+</van-transition>
+<van-transition show="{{!!repo}}" name="fade">
+  <view class="operation" wx:if="{{repo}}">
+    <van-button size="small" round type="primary" bindtap="join">加 入</van-button>
+  </view>
+</van-transition>
+
+<view class="confirm">
+  <van-button type="info" bindtap="confirm">搜 索</van-button>
+</view>
+
+<van-toast id="van-toast" />

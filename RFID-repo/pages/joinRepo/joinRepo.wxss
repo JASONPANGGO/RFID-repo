@@ -1,0 +1,111 @@
+/* pages/joinRepo/joinRepo.wxss */
+
+page {
+  background-color: #eee;
+}
+
+.confirm {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.confirm button {
+  width: 100%;
+  border-radius: none;
+}
+
+.repo-container {
+  margin: 0 auto;
+  width: 90%;
+  height: 300rpx;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  margin-top: 100rpx;
+  background-color: #fff;
+  box-shadow: 10px 10px 10px #ddd;
+  position: relative;
+}
+
+image.avatar {
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+}
+
+.repo-icon {
+  position: absolute;
+  top: 10px;
+  left: 11px;
+}
+
+.repo-name {
+  position: absolute;
+  top: 5px;
+  left: 31px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.status {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 0.8em;
+}
+
+.repo-status-1::before {
+  display: inline-block;
+  content: '';
+  width: 0.5em;
+  height: 0.5em;
+  background-color: green;
+  color: green;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.repo-status-0::before {
+  display: inline-block;
+  content: '';
+  width: 0.5em;
+  height: 0.5em;
+  background-color: gray;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.instance-name {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+
+.creater {
+  position: absolute;
+  bottom: 5px;
+  right: 20px;
+}
+
+.operation {
+  margin: 0 auto;
+  margin-top: 30rpx;
+  width: 90%;
+}
+
+.operation button {
+  width: 100%;
+}
+
+.bg-repo-icon {
+  position: absolute;
+  width: 100rpx;
+  height: 100rpx;
+  z-index: 0;
+  color: #eee;
+  bottom: 23px;
+  right: 28px;
+  font-size: 100px;
+}

@@ -1,9 +1,11 @@
 {
   "pages": [
+    "pages/my/my",
+    "pages/memberManage/memberManage",
+    "pages/joinRepo/joinRepo",
+    "pages/repoManage/repoManage",
     "pages/goods/goods",
     "pages/addGoods/addGoods",
-    "pages/my/my",
-    "pages/repoManage/repoManage",
     "pages/index/index",
     "pages/createRepo/createRepo",
     "pages/task/task"
@@ -64,6 +66,13 @@
     "van-picker": "./lib/vant-weapp/dist/picker/index",
     "van-popup": "./lib/vant-weapp/dist/popup/index",
     "van-toast": "./lib/vant-weapp/dist/toast/index",
+    "van-action-sheet": "./lib/vant-weapp/dist/action-sheet/index",
+    "van-divider": "./lib/vant-weapp/dist/divider/index",
+    "van-transition": "./lib/vant-weapp/dist/transition/index",
+    "van-sidebar": "./lib/vant-weapp/dist/sidebar/index",
+    "van-sidebar-item": "./lib/vant-weapp/dist/sidebar-item/index",
+    "van-tab": "./lib/vant-weapp/dist/tab/index",
+    "van-tabs": "./lib/vant-weapp/dist/tabs/index",
     "i-cell-group": "./lib/iview-weapp/dist/cell-group/index",
     "i-cell": "./lib/iview-weapp/dist/cell/index",
     "i-icon": "./lib/iview-weapp/dist/icon/index"

@@ -1,0 +1,32 @@
+<!--pages/memberManage/memberManage.wxml-->
+<view class="header-small">
+  <view>
+    <van-icon name="friends-o" style="vertical-align: middle;" /> 成员管理
+  </view>
+</view>
+
+
+<view class="header-small-gap">
+
+  <view class="member-list">
+    <view class="member-item" data-user="{{item}}" bindtap="onSelectUser" wx:for="{{activeUsers}}" wx:key="index">
+      <image class="avatar" src="{{item.avatarUrl}}"></image>
+      <view class="member-name">{{item.name}}</view>
+      <view class="member-character">{{item.character}}</view>
+    </view>
+  </view>
+
+  <van-sidebar custom-class="my-sidebar" active-key="{{ activeRepo }}" bind:change="onChange">
+    <van-sidebar-item title="{{item.name}}" wx:for="{{repo}}" wx:key="index" />
+  </van-sidebar>
+</view>
+
+
+<van-action-sheet show="{{userMoreShow}}" bind:select="onSelectAction" actions="{{actions}}" bind:close="onCloseMore" bind:click-overlay="onCloseMore" close-on-click-action />
+
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />
+
+<van-popup show="{{ showCharacter }}" bind:close="onCloseCharacter" position="bottom">
+  <van-picker columns="{{ characterList }}" show-toolbar bind:cancel="onCloseCharacter" bind:confirm="onSelectCharacter" />
+</van-popup>

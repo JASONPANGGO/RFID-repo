@@ -1,2 +1,9 @@
 <!--pages/task/task.wxml-->
-<text>pages/task/task.wxml</text>
+<van-tabs active="{{ activeTab }}" bind:change="onTabChange" swipeable animated>
+  <van-tab title="标签 1">内容 1</van-tab>
+  <van-tab title="标签 2">内容 2</van-tab>
+  <van-tab title="标签 3">内容 3</van-tab>
+  <van-tab title="标签 4">内容 4</van-tab>
+</van-tabs>
+
+<van-dialog id="van-dialog" />

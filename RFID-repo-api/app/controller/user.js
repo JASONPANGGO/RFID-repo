@@ -8,7 +8,7 @@ class UserController extends Controller {
     async get() {
         try {
             const query = this.ctx.request.query;
-            const accept_keys = ['name', 'id'];
+            const accept_keys = ['name', 'id', 'instanceid'];
             const accept_query = {};
             const result = {};
             accept_keys.forEach(key => {
@@ -35,6 +35,16 @@ class UserController extends Controller {
             this.ctx.body = result;
         } catch (error) {
             throw error;
+        }
+    }
+
+    async update() {
+        try {
+            const query = paramFilter(['id', 'name', 'avatarUrl', 'instanceid', 'repoid', 'character'], this.ctx.request.body)
+            console.log(query)
+            this.ctx.body = await this.ctx.service.user.update(query)
+        } catch (error) {
+            throw error
         }
     }
 

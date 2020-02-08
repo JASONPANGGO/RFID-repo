@@ -15,7 +15,7 @@ Page({
     name: '',
     create_time: '',
     types: [
-      
+
     ],
     onAddingType: false,
     newType: '',
@@ -43,6 +43,21 @@ Page({
     this.setData({
       create_time: new Date().toLocaleString()
     })
+
+
+    const user = wx.getStorageSync('user')
+    if (!user.id) {
+      Dialog.confirm({
+        title: '未登录',
+        message: '使用本程序需要登录，请先登录/注册'
+      }).then(() => {
+        wx.switchTab({
+          url: '/pages/my/my'
+        })
+      })
+    } else {
+
+    }
   },
   onClose(e) {
     const types = this.data.types
@@ -98,9 +113,8 @@ Page({
           })
           const user = wx.getStorageSync('user')
           user.instanceid = res.data.instanceid
+          user.character = 1
           wx.setStorageSync('user', user)
-          app.globalData.user.character = 1
-          app.globalData.user.instanceid = res.data.instanceid
           Notify({
             backgroundColor: 'rgb(7,193,96)',
             text: "仓库创建成功！"

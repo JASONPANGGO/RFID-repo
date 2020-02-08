@@ -13,7 +13,6 @@ App({
     // 从storage获取user用户信息
     let user = wx.getStorageSync('user')
     if (user) {
-      this.globalData.user = user
       this.onLogin(user)
     }
   },
@@ -36,17 +35,18 @@ App({
       console.log(user)
       wx.setStorageSync('user', user)
       wx.setStorageSync('cookie', res.cookies[0])
+    }).catch(res => {
+      console.log('登陆失败', res)
     })
 
 
   },
-  globalData: {
-    user: {}
-  },
   service: {
     img_url: SERVICE_URL + '/public/img/',
     user: {
-      login: SERVICE_URL + '/login'
+      login: SERVICE_URL + '/user/login',
+      update: SERVICE_URL + '/user/update',
+      get: SERVICE_URL + '/user/get'
     },
     instance: {
       add: SERVICE_URL + '/instance/add',
@@ -55,6 +55,8 @@ App({
     repo: {
       get: SERVICE_URL + '/repo/get',
       add: SERVICE_URL + '/repo/add',
+      invite: SERVICE_URL + '/repo/invite',
+      update: SERVICE_URL + '/repo/update'
     },
     goods: {
       get: SERVICE_URL + '/goods/get',

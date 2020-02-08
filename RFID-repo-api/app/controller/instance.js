@@ -25,8 +25,6 @@ class InstanceController extends Controller {
         } else {
             this.ctx.status = 404
         }
-
-        console.log(query)
     }
 
     async get() {

@@ -7,16 +7,20 @@ page {
 .info-container {
   width: 90%;
   height: 180rpx;
-  display: flex;
-  justify-content: space-evenly;
   margin: auto;
 }
 
 image.avatar {
-  width: 40rpx;
-  height: 40rpx;
+  width: 30rpx;
+  height: 30rpx;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.4);
+  vertical-align: middle;
+}
+
+.repo {
+  position: absolute;
+  left: 20px;
 }
 
 .instance-name {
@@ -30,10 +34,18 @@ image.avatar {
   color: #eee;
 }
 
+.create-time::before {
+  content: '创建时间：';
+}
+
 .creater {
   color: #ddd;
-  display: flex;
-  font-size: 30rpx;
+  font-size: 25rpx;
+  position: absolute;
+  right: 20px;
+  width: 300rpx;
+  height: 60rpx;
+  line-height: 60rpx;
 }
 
 .avatar {
@@ -43,8 +55,8 @@ image.avatar {
 
 .creater-name {
   color: #fff;
-  height: 1rem;
   margin-left: 0.5em;
+  display: inline;
 }
 
 .repos {

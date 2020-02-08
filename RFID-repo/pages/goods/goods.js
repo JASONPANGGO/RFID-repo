@@ -1,5 +1,6 @@
 // pages/goods/goods.js
 import Toast from '../../lib/vant-weapp/dist/toast/toast';
+import Dialog from '../../lib/vant-weapp/dist/dialog/dialog';
 const app = getApp()
 const {
   request
@@ -34,7 +35,7 @@ Page({
    */
   onLoad: function(options) {
 
-   
+
   },
 
   /**
@@ -48,19 +49,41 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    const user = wx.getStorageSync('user')
-    this.setData({
-      user: user,
-      query: {
-        instanceid: user.instanceid
-      }
-    })
-    this.initData()
     if (typeof this.getTabBar === 'function' &&
       this.getTabBar()) {
       this.getTabBar().setData({
         selected: 1
       })
+    }
+    const user = wx.getStorageSync('user')
+    if (!user.id) {
+      Dialog.confirm({
+        title: '未登录',
+        message: '使用本程序需要登录，请先登录/注册'
+      }).then(() => {
+        wx.switchTab({
+          url: '/pages/my/my'
+        })
+      })
+    } else if (!user.instanceid) {
+      Dialog.confirm({
+        title: '无仓库',
+        message: '先创建或者加入一个仓库'
+      }).then(() => {
+        wx.switchTab({
+          url: '/pages/my/my'
+        })
+      })
+    } else {
+
+      this.setData({
+        user: user,
+        query: {
+          instanceid: user.instanceid
+        }
+      })
+      this.initData()
+
     }
 
   },

@@ -21,7 +21,7 @@
 </view>
 
 <view class="repos">
-  <view class="repo-item" wx:for="{{repos}}" wx:key="{{index}}">
+  <view class="repo-item" wx:for="{{repos}}" wx:key="index" bindtap="onSelectRepo" data-repo="{{item}}">
 
     <view class="repo-name">
       <van-icon name="points" /> {{item.name}}
@@ -46,3 +46,8 @@
 <van-dialog use-slot title="请输入子仓库名称" show="{{onCreating}}" show-cancel-button bind:confirm="confirmNewRepo" bind:cancel="cancelNewRepo">
   <van-field focus="{{onCreating}}" border="{{true}}" value="{{repo_name}}" data-field="repo_name" bind:change="onInput" />
 </van-dialog>
+
+<van-action-sheet show="{{repoMoreShow}}" bind:select="onSelectAction" actions="{{actions}}" bind:close="onCloseMore" bind:click-overlay="onCloseMore" close-on-click-action />
+
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />

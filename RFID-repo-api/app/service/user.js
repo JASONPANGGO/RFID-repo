@@ -49,6 +49,7 @@ class UserService extends Service {
 
     async update(query) {
         try {
+            console.log(query)
             return await this.app.mysql.update(TABLE, query)
         } catch (error) {
             throw error

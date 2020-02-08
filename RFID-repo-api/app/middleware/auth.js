@@ -4,7 +4,7 @@ module.exports = (options, app) => {
         const userInfo = ctx.session.userInfo
         if (userInfo) await next()
         else ctx.body = {
-            message: 'expire'
+            message: 'login expire'
         }
     }
 }

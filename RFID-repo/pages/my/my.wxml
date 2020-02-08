@@ -16,16 +16,16 @@
 
   <view wx:if="{{character === '普通用户'}}" class="repo-container">
     <van-button data-to='/pages/createRepo/createRepo' bindtap="navigate" type="primary" icon="home-o" class="repo-new" name="创建仓库">创建仓库</van-button>
-    <van-button data-to='/pages/createRepo/createRepo' bindtap="navigate" type="info" icon="contact" class="repo-new" name="加入仓库">加入仓库</van-button>
+    <van-button data-to='/pages/joinRepo/joinRepo' bindtap="navigate" type="info" icon="contact" class="repo-new" name="加入仓库">加入仓库</van-button>
   </view>
 
   <view wx:if="{{character !== 0}}" class="menu-title">管理</view>
   <view wx:if="{{character !== 0}}" class="menu">
     <i-cell-group>
-      <i-cell title="仓库管理" is-link url="/pages/repoManage/repoManage">
+      <i-cell title="仓库管理" disabled  is-link url="/pages/repoManage/repoManage">
         <i-icon color="#2d8cf0" type="homepage" slot="icon" />
       </i-cell>
-      <i-cell title="成员管理" is-link>
+      <i-cell title="成员管理" is-link url="/pages/memberManage/memberManage">
         <i-icon color="#2d8cf0" type="group" slot="icon" />
       </i-cell>
     </i-cell-group>
