@@ -16,6 +16,8 @@ module.exports = app => {
   router.get('/user/get', controller.user.get);
   router.get('/user/login', controller.user.login);
   router.post('/user/update', middleware.auth(), controller.user.update);
+  router.post('/user/join', middleware.auth(), controller.user.join);
+  router.post('/user/quit', middleware.auth(), controller.user.quit);
 
   // instance
   router.post('/instance/add', controller.instance.add)
@@ -32,5 +34,9 @@ module.exports = app => {
   router.post('/goods/add', middleware.auth(), controller.goods.add)
   router.post('/goods/upload', middleware.auth(), controller.goods.upload)
 
+  // task
+  router.get('/task/get', middleware.auth(), controller.task.get)
+  router.post('/task/add', middleware.auth(), controller.task.add)
+  router.post('/task/update', middleware.auth(), controller.task.update)
 
 };

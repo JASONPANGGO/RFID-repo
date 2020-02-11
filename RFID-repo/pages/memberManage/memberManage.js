@@ -22,7 +22,7 @@ Page({
     selectedUser: {},
     actions: [{
         name: '移 除',
-        api: app.service.user.update
+        api: app.service.user.quit
       },
       {
         name: '更 改',
@@ -114,7 +114,7 @@ Page({
         if (res.data.data) {
 
           this.setData({
-            users: res.data.data.map(e => {
+            users: res.data.map(e => {
               e.character = config.character[e.character].name
               return e
             })
@@ -207,9 +207,8 @@ Page({
             },
             data: {
               id: this.data.selectedUser.id,
-              character: 0,
-              instanceid: null,
-              repoid: null
+              instanceid: this.data.selectedUser.instanceid,
+              repoid: this.data.selectedUser.repoid
             },
             method: 'post'
           }).then(res => {

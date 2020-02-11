@@ -9,7 +9,7 @@ const {
 class GoodsController extends Controller {
     async get() {
         try {
-
+            console.log(this.ctx.request.header)
             const query = paramFilter(['instanceid', 'repoid', 'type', 'order', 'name'], this.ctx.request.query)
             jsonParser(['repoid', 'type'], query)
 

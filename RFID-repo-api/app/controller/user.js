@@ -7,15 +7,10 @@ const {
 class UserController extends Controller {
     async get() {
         try {
-            const query = this.ctx.request.query;
-            const accept_keys = ['name', 'id', 'instanceid'];
-            const accept_query = {};
-            const result = {};
-            accept_keys.forEach(key => {
-                if (query[key] !== undefined) accept_query[key] = query[key];
-            });
-            result.data = await this.ctx.service.user.get(accept_query);
-            this.ctx.body = result;
+
+            const query = paramFilter(['name', 'id', 'instanceid', 'repoid'], this.ctx.request.query)
+
+            this.ctx.body = await this.ctx.service.user.get(query);
         } catch (error) {
             throw error;
         }
@@ -41,13 +36,52 @@ class UserController extends Controller {
     async update() {
         try {
             const query = paramFilter(['id', 'name', 'avatarUrl', 'instanceid', 'repoid', 'character'], this.ctx.request.body)
-            console.log(query)
+
+
             this.ctx.body = await this.ctx.service.user.update(query)
         } catch (error) {
             throw error
         }
     }
 
+    async join() {
+        try {
+            const query = paramFilter(['id', 'instanceid', 'repoid', 'character'], this.ctx.request.body)
+            await this.ctx.service.task.add({
+                instanceid: query.instanceid,
+                repoid: query.repoid,
+                createrid: query.id,
+                type: 2,
+                status: 2,
+                name: '加入仓库'
+            })
+            this.ctx.body = await this.ctx.service.user.update(query)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async quit() {
+        try {
+            const query = paramFilter(['id', 'instanceid', 'repoid', 'character'], this.ctx.request.body)
+            await this.ctx.service.task.add({
+                instanceid: query.instanceid,
+                repoid: query.repoid,
+                createrid: query.id,
+                type: 3,
+                status: 2,
+                name: '退出仓库'
+            })
+            this.ctx.body = await this.ctx.service.user.update({
+                id: query.id,
+                instanceid: null,
+                repoid: null,
+                character: 0
+            })
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 module.exports = UserController;

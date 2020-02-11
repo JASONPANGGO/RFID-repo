@@ -10,7 +10,7 @@ class GoodsService extends Service {
         try {
             let querystring = []
             let orderstring = ''
-            for (key in query) {
+            for (let key in query) {
                 if (query[key] instanceof Array) {
 
                     if (key === 'type') {
@@ -39,7 +39,6 @@ class GoodsService extends Service {
                                 orderstring = ' amount DESC'
                                 break;
                             default:
-                                console.log('nononononono')
                                 break;
                         }
                         orderstring = 'ORDER BY' + orderstring

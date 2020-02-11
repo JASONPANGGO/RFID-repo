@@ -46,7 +46,6 @@ Page({
     // 从本地缓存取得已登录用户的数据
     const user = wx.getStorageSync('user')
     if (user.name) {
-      console.log(user)
       this.setData({
         name: user.name,
         avatarUrl: user.avatarUrl,

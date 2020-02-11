@@ -84,7 +84,7 @@ Page({
   },
   join() {
     request({
-      url: app.service.user.update,
+      url: app.service.user.join,
       header: {
         'cookie': wx.getStorageSync('cookie')
       },
@@ -94,7 +94,8 @@ Page({
         instanceid: this.data.instance.id,
         repoid: this.data.repo.id
       },
-      method: 'post'
+      method: 'post',
+      updateTask: 1
     }).then(res => {
       console.log(res)
       if (res.statusCode == 200) {

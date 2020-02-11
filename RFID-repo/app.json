@@ -1,14 +1,15 @@
 {
   "pages": [
+    "pages/task/task",
+    "pages/createTask/createTask",
     "pages/my/my",
+    "pages/goods/goods",
     "pages/memberManage/memberManage",
     "pages/joinRepo/joinRepo",
     "pages/repoManage/repoManage",
-    "pages/goods/goods",
     "pages/addGoods/addGoods",
     "pages/index/index",
-    "pages/createRepo/createRepo",
-    "pages/task/task"
+    "pages/createRepo/createRepo"
   ],
   "tabBar": {
     "custom": true,

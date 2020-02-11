@@ -1,0 +1,45 @@
+/* pages/createTask/createTask.wxss */
+
+@import "../../utils/preview.wxss"
+
+.creater {
+  width: 90%;
+  margin: 10px auto;
+  height: 50px;
+  position: relative;
+}
+
+.creater .label {
+  position: absolute;
+  top: 20px;
+  font-size: 15px;
+}
+
+image.avatar {
+  position: absolute;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  left: 82px;
+}
+
+.creater .creater-name {
+  position: absolute;
+  top: 19px;
+  left: 128px;
+}
+
+.bottom-button {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.bottom-button van-button {
+  width: 100vw;
+}
+
+.bottom-button button {
+  width: 100vw;
+  border-radius: none;
+}

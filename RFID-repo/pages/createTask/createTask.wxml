@@ -1,0 +1,74 @@
+<!--pages/createTask/createTask.wxml-->
+<view class="header-small">
+  创建任务
+</view>
+
+<view class="header-small-gap">
+  <van-cell-group>
+    <view class="creater">
+      <view class="label">创建人</view>
+      <image class="avatar" src="{{user.avatarUrl}}"></image>
+      <view class="creater-name">{{user.name}}</view>
+    </view>
+    <van-field label="任务名称" data-field="name" value="{{ name }}" placeholder="请输入任务名称" bind:input="onInput" />
+    <van-field label="任务类型" required value="{{type.name}}" placeholder="请选择类型" bindtap="onSelectType" read-only />
+    <van-field wx:if="{{type}}" label="{{type.value ? '入库商品' : '出库商品'}}" required value="{{goods.name}}" placeholder="请选择商品" bindtap="onSelectGoods" read-only />
+    <van-field wx:if="{{repo}}" label="仓库" read-only value="{{repo.name}}" />
+    <van-field wx:if="{{type.value === 1}}" required label="入库数量" value="{{amount}}" data-field="amount" type="number" bind:change="onInput" />
+    <van-field wx:if="{{type.value === 0}}" required label="出库数量" value="{{amount}}" data-field="amount" type="number" bind:change="onInput" placeholder="剩余库存为{{outMaxAmount}}个" />
+    <van-field wx:if="{{repo.id}}" label="指定负责人" value="{{nextUser.text}}" read-only bindtap="onSelectNext" placeholder="非必填" />
+    <van-field label="备注" data-field="comment" value="{{comment}}" bind:input="onInput" />
+  </van-cell-group>
+</view>
+
+<view class="bottom-button">
+  <van-button disabled="{{!amount}}" type="info" bindtap="preview">
+    预 览
+  </van-button>
+</view>
+
+<van-overlay show="{{showPreview}}" bind:click="onClose" z-index='999'>
+
+  <van-transition show="{{showPreview}}" name="fade-down">
+    <view class="preview">
+      <view class="preview-title">{{type.name}}</view>
+      <view class="preview-name">{{name}}</view>
+      <image class="preview-goods-img" src="{{goods.img_url}}"></image>
+      <view class="preview-goods">商品名称：{{goods.name}}</view>
+      <view class="preview-amount">数量：{{amount}}</view>
+      <view class="preview-repo">所属仓库：
+        <van-icon name="points" />{{repo.name}}
+      </view>
+      <view class="preview-comment">备注：{{comment}}</view>
+      <image src="/image/bar-code.png" class="preview-bar-code"></image>
+      <view class="preview-nextUser">
+        <image class="avatar" src="{{nextUser.avatarUrl}}"></image>
+        <view class="preview-nextUser-name">{{nextUser.text}}</view>
+      </view>
+      <view class="preview-create-time">{{create_time}}</view>
+    </view>
+  </van-transition>
+
+  <view class="bottom-button">
+    <van-button type="primary" bindtap="submit">
+      提 交
+    </van-button>
+  </view>
+
+</van-overlay>
+
+
+<van-popup show="{{showTypesPicker}}" bind:close="onClose" position="bottom">
+  <van-picker show-toolbar columns="{{task_types}}" bind:cancel="onClose" bind:confirm="onPickType" />
+</van-popup>
+
+<van-popup show="{{showGoodsPicker}}" bind:close="onClose" position="bottom">
+  <van-picker show-toolbar bind:change="onGoodsChange" columns="{{goods_picker}}" bind:cancel="onClose" bind:confirm="onPickGoods" />
+</van-popup>
+
+<van-popup show="{{showUserPicker}}" bind:close="onClose" position="bottom">
+  <van-picker show-toolbar columns="{{user_picker}}" bind:cancel="onClose" bind:confirm="onPickNext" />
+</van-popup>
+
+
+<van-toast id="van-toast" />

@@ -27,7 +27,7 @@ Component({
         pagePath: "/pages/task/task",
         iconPath: "/image/task.png",
         selectedIconPath: "/image/task_HL.png",
-        text: "任务",
+        text: "消息",
         styleClass: 'tab-bar-item tab-bar-task'
       },
       {

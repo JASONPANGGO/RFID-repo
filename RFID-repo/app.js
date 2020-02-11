@@ -1,6 +1,6 @@
 //app.js
-// const SERVICE_URL = 'http://127.0.0.1:7001'
-const SERVICE_URL = 'https://jasonpanggo.com/rfid'
+const SERVICE_URL = 'http://127.0.0.1:7001'
+// const SERVICE_URL = 'https://jasonpanggo.com/rfid'
 
 const config = require('./config.js')
 const {
@@ -10,11 +10,15 @@ const {
 
 App({
   onLaunch: function() {
+
     // 从storage获取user用户信息
     let user = wx.getStorageSync('user')
-    if (user) {
+    if (user.name) {
       this.onLogin(user)
+    } else {
+      wx.clearStorageSync('user')
     }
+
   },
   onLogin(user) {
 
@@ -46,7 +50,9 @@ App({
     user: {
       login: SERVICE_URL + '/user/login',
       update: SERVICE_URL + '/user/update',
-      get: SERVICE_URL + '/user/get'
+      get: SERVICE_URL + '/user/get',
+      join: SERVICE_URL + '/user/join',
+      quit: SERVICE_URL + '/user/quit'
     },
     instance: {
       add: SERVICE_URL + '/instance/add',
@@ -62,6 +68,11 @@ App({
       get: SERVICE_URL + '/goods/get',
       add: SERVICE_URL + '/goods/add',
       upload: SERVICE_URL + '/goods/upload'
+    },
+    task: {
+      get: SERVICE_URL + '/task/get',
+      add: SERVICE_URL + '/task/add',
+      update: SERVICE_URL + '/task/update'
     }
 
   }

@@ -1,9 +1,78 @@
 <!--pages/task/task.wxml-->
 <van-tabs active="{{ activeTab }}" bind:change="onTabChange" swipeable animated>
-  <van-tab title="标签 1">内容 1</van-tab>
-  <van-tab title="标签 2">内容 2</van-tab>
-  <van-tab title="标签 3">内容 3</van-tab>
-  <van-tab title="标签 4">内容 4</van-tab>
-</van-tabs>
+  <van-tab title="仓库">
 
+    <view class="task-goods-item" wx:for="{{task_goods}}" wx:key="index">
+      <view class="name">{{item.name}}</view>
+      <view class="id">#{{item.id}}</view>
+      <view class="detail" data-index="{{index}}" bindtap="onPreview"><van-icon name="description" />详情</view>
+      <view class="type">
+        {{item.type_text}}
+      </view>
+      <view class="status">
+        <van-tag plain type="{{item.status_tag_type}}">
+          {{item.status_text}}
+        </van-tag>
+      </view>
+      <view class="operation" wx:if="{{item.status == 0}}">
+        <van-button size="mini" data-id="{{item.id}}" round type="primary" bindtap="accept" wx:if="{{user.character !== 1}}">接受</van-button>
+        <van-button size="mini" data-id="{{item.id}}" round wx:if="{{user.character == 1}}" bindtap="withdraw">撤回</van-button>
+      </view>
+      <view class="nextUser" wx:if="{{item.status !== 0 && item.nextUserid}}">
+        <image class="avatar" src="{{item.nextUser.avatarUrl}}"></image>
+        <text>{{item.nextUser.name}}</text>
+      </view>
+      <view class="create-time">{{item.create_time}}</view>
+    </view>
+    <view class="nomore">没有更多任务了~</view>
+
+
+  </van-tab>
+
+  <van-tab title="成员">
+
+    <view class="task-member-item" wx:for="{{task_member}}" wx:key="index">
+      <view class="user">
+        <image class="avatar" src="{{item.user.avatarUrl}}"></image>
+        <view class="member-name">{{item.user.name}}</view>
+      </view>
+      <view class="name">{{item.name}}</view>
+      <view class="repo-name">
+        <van-icon name="points" /> {{item.repo.name}}
+      </view>
+      <view class="time">{{item.create_time}}</view>
+    </view>
+    <view class="nomore">没有更多消息了~</view>
+
+  </van-tab>
+</van-tabs>
+<view class="task-add">
+  <van-button bindtap="goToCreate" round type="primary">
+    创建任务
+  </van-button>
+</view>
+
+<van-overlay show="{{showPreview}}" bind:click="onClose" z-index='999'>
+  <van-transition show="{{showPreview}}" name="fade-down">
+    <view class="preview">
+      <view class="preview-title">{{onPreviewItem.type_text}}</view>
+      <view class="preview-name">{{onPreviewItem.name}}</view>
+      <image class="preview-goods-img" src="{{onPreviewItem.goods.img_url}}"></image>
+      <view class="preview-goods">商品名称：{{onPreviewItem.goods.name}}</view>
+      <view class="preview-amount">数量：{{onPreviewItem.amount}}</view>
+      <view class="preview-repo">所属仓库：
+        <van-icon name="points" />{{onPreviewItem.repo.name}}
+      </view>
+      <view class="preview-comment">备注：{{onPreviewItem.comment}}</view>
+      <image src="/image/bar-code.png" class="preview-bar-code"></image>
+      <view class="preview-nextUser">
+        <image class="avatar" src="{{onPreviewItem.nextUser.avatarUrl}}"></image>
+        <view class="preview-nextUser-name">{{onPreviewItem.nextUser.text}}</view>
+      </view>
+      <view class="preview-create-time">{{onPreviewItem.create_time}}</view>
+    </view>
+  </van-transition>
+</van-overlay>
+
+<van-toast id="van-toast" />
 <van-dialog id="van-dialog" />

@@ -18,7 +18,10 @@ module.exports = {
     method: '',
     data: '',
     success: '',
-    fail: ''
+    fail: '',
+    header: {
+      'cookie': wx.getStorageSync('cookie')
+    }
   }),
   wxLogin: promisefy(wx.login)()
 }
