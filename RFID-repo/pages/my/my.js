@@ -5,6 +5,7 @@ const {
   request
 } = require('../../utils/promisefy.js')
 import Toast from '../../lib/vant-weapp/dist/toast/toast';
+import Dialog from '../../lib/vant-weapp/dist/dialog/dialog';
 // pages/my.js
 Page({
 
@@ -52,6 +53,14 @@ Page({
         character: config.character[user.character].name
       })
     }
+
+    // 登录过期
+    if (app.globalData.expire) {
+      Dialog.confirm({
+        title: '登录过期',
+        message: '请重新登录'
+      })
+    }
   },
   onLogin(res) {
 
@@ -80,10 +89,12 @@ Page({
         })
 
       } else {
-        Toast.fail('登录失败，请检查网络状态。')
+        Toast.fail(res.data)
+        console.log(res)
       }
     }).catch(e => {
-        Toast.fail('登录失败，请检查网络状态。')
+      console.log(res)
+      Toast.fail('登录失败，请检查网络状态。')
     })
 
 

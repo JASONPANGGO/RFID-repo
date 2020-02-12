@@ -6,6 +6,5 @@ module.exports = (options, app) => {
         else ctx.body = {
             message: 'login expire'
         }
-
     }
 }

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/task/task",
     "pages/createTask/createTask",
+    "pages/task/task",
     "pages/my/my",
     "pages/goods/goods",
     "pages/memberManage/memberManage",

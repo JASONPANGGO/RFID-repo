@@ -19,6 +19,7 @@ class UserController extends Controller {
     async login() {
         try {
             const query = paramFilter(['code', 'userInfo'], this.ctx.request.query);
+            console.log('登录：', userInfo)
             const code = query.code
             const wxLoginResult = await this.app.curl(`https://api.weixin.qq.com/sns/jscode2session?appid=${this.config.AppID}&secret=${this.config.AppSecret}&js_code=${code}&grant_type=authorization_code`, {
                 dataType: 'json',
@@ -36,8 +37,6 @@ class UserController extends Controller {
     async update() {
         try {
             const query = paramFilter(['id', 'name', 'avatarUrl', 'instanceid', 'repoid', 'character'], this.ctx.request.body)
-
-
             this.ctx.body = await this.ctx.service.user.update(query)
         } catch (error) {
             throw error

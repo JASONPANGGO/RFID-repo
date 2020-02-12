@@ -51,6 +51,9 @@ App({
 
 
   },
+  globalData: {
+    expire: false
+  },
   service: {
     img_url: SERVICE_URL + '/public/img/',
     user: {

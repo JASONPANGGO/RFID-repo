@@ -28,6 +28,7 @@ class UserService extends Service {
     }
 
     async register(query) {
+        console.log('注册：', query.userInfo)
         await this.app.mysql.insert(TABLE, {
             openid: query.openid,
             name: JSON.parse(query.userInfo)['nickName'],

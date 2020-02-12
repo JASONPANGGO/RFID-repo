@@ -211,6 +211,7 @@ Page({
     }
   },
   submit() {
+    console.log('submit', app.service.task.add)
     request({
       url: app.service.task.add,
       header: {
@@ -227,7 +228,8 @@ Page({
         comment: this.data.comment,
         createrid: this.data.user.id,
         status: 0
-      }
+      },
+      method: "post"
     }).then(res => {
       console.log(res)
       Toast.success('提交成功')
