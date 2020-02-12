@@ -193,4 +193,5 @@ page {
   text-align: center;
   font-size: 0.8em;
   color: #aaa;
+  margin-bottom: 80px;
 }

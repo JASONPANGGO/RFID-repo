@@ -9,8 +9,16 @@ const {
 } = require('./utils/promisefy.js')
 
 App({
-  onLaunch: function() {
-
+  onLaunch: function() {},
+  onShow: function() {
+    wx.checkSession({
+      success() {
+        console.log('登录有效')
+      },
+      fail() {
+        console.log('登录失效')
+      }
+    })
     // 从storage获取user用户信息
     let user = wx.getStorageSync('user')
     if (user.name) {
@@ -23,11 +31,10 @@ App({
   onLogin(user) {
 
     const userInfo = user
-    const _this = this
 
     wxLogin().then(res => {
       return request({
-        url: _this.service.user.login,
+        url: this.service.user.login,
         data: {
           code: res.code,
           userInfo: userInfo
@@ -36,7 +43,6 @@ App({
       })
     }).then(res => {
       const user = res.data
-      console.log(user)
       wx.setStorageSync('user', user)
       wx.setStorageSync('cookie', res.cookies[0])
     }).catch(res => {
