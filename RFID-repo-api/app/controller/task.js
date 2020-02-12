@@ -8,9 +8,8 @@ const {
 
 class TaskController extends Controller {
     async get() {
-        console.log(this.ctx.request.header)
         const query = paramFilter(['id', 'instanceid', 'repoid'], this.ctx.request.query)
-        console.log(query)
+        console.log('get task', query)
         this.ctx.body = {
             taskData: await this.ctx.service.task.get(query),
             userData: await this.ctx.service.user.get(query),
@@ -20,7 +19,7 @@ class TaskController extends Controller {
     }
     async add() {
         const query = paramFilter(['instanceid', 'repoid', 'type', 'name', 'goodsid', 'amount', 'nextUserid', 'createrid', 'comment', 'status'], this.ctx.request.body)
-        console.log(query)
+        console.log('add task', query)
         this.ctx.body = await this.ctx.service.task.add(query)
     }
 

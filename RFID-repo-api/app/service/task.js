@@ -6,11 +6,9 @@ const TABLE = 'task'
 class TaskService extends Service {
     async get(query) {
         try {
-            console.log(query)
             const res = await this.app.mysql.select(TABLE, {
                 where: query
             })
-            console.log(res)
             return res
         } catch (error) {
             throw error
@@ -19,7 +17,7 @@ class TaskService extends Service {
 
     async add(query) {
         try {
-            console.log('add', query)
+            console.log('service add task', query)
             return await this.app.mysql.insert(TABLE, query)
         } catch (error) {
             throw error
