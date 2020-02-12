@@ -27,7 +27,7 @@ class UserController extends Controller {
             });
             const result = await this.ctx.service.user.login({
                 openid: wxLoginResult.data.openid,
-                userInfo: JSON.parse(query.userInfo)
+                userInfo: query.userInfo
             })
             this.ctx.body = result;
         } catch (error) {

@@ -2,6 +2,7 @@ const promisefy = fn => defaultProps => extraProps => new Promise((resolve, reje
   ...defaultProps,
   ...extraProps,
   success: res => {
+    console.log(res)
     if (res && res.data && res.data.message === 'login expire') {
       const app = getApp()
       console.log('登录过期')
