@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/createTask/createTask",
     "pages/task/task",
     "pages/my/my",
@@ -8,7 +9,6 @@
     "pages/joinRepo/joinRepo",
     "pages/repoManage/repoManage",
     "pages/addGoods/addGoods",
-    "pages/index/index",
     "pages/createRepo/createRepo"
   ],
   "tabBar": {
