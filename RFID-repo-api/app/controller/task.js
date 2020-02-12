@@ -21,12 +21,12 @@ class TaskController extends Controller {
     async add() {
         const query = paramFilter(['instanceid', 'repoid', 'type', 'name', 'goodsid', 'amount', 'nextUserid', 'createrid', 'comment', 'status'], this.ctx.request.body)
         console.log(query)
-        this.ctx.body = this.ctx.service.task.add(query)
+        this.ctx.body = await this.ctx.service.task.add(query)
     }
 
     async update() {
         const query = paramFilter(['id', 'status', 'nextUserid'], this.ctx.request.body)
-        this.ctx.body = this.ctx.service.task.update(query)
+        this.ctx.body = await this.ctx.service.task.update(query)
     }
 }
 

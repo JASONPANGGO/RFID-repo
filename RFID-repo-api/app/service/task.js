@@ -19,6 +19,7 @@ class TaskService extends Service {
 
     async add(query) {
         try {
+            console.log('add', query)
             return await this.app.mysql.insert(TABLE, query)
         } catch (error) {
             throw error
