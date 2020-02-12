@@ -22,7 +22,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    console.log('user wx.storage：', wx.getStorageSync('user'))
   },
 
   /**
@@ -46,12 +46,8 @@ Page({
 
     // 从本地缓存取得已登录用户的数据
     const user = wx.getStorageSync('user')
-    if (user.name) {
-      this.setData({
-        name: user.name,
-        avatarUrl: user.avatarUrl,
-        character: config.character[user.character].name
-      })
+    if (user.id) {
+      this.initData(user.name, user.avatarUrl, user.character)
     }
 
     // 登录过期
@@ -63,31 +59,25 @@ Page({
     }
   },
   onLogin(res) {
-
-    const userInfo = res.detail.userInfo
+    console.log(res)
 
     wxLogin().then(res => {
       return request({
         url: app.service.user.login,
         data: {
           code: res.code,
-          userInfo: userInfo
+          userInfo: res.detail.userInfo
         },
-        method: 'GET'
+        method: 'post'
       })
     }).then(res => {
-      const user = res.data
       console.log(user)
-      if (user.id) {
+      const user = res.data
 
+      if (user.id) {
         wx.setStorageSync('user', user)
         wx.setStorageSync('cookie', res.cookies[0])
-        this.setData({
-          character: config.character[user.character].name,
-          name: user.name,
-          avatarUrl: user.avatarUrl
-        })
-
+        this.initData(user.name, user.avatarUrl, user.character)
       } else {
         Toast.fail(res.data)
         console.log(res)
@@ -96,8 +86,13 @@ Page({
       console.log(res)
       Toast.fail('登录失败，请检查网络状态。')
     })
-
-
+  },
+  initData(name, avatarUrl, character) {
+    this.setData({
+      name: name,
+      avatarUrl: avatarUrl,
+      character: config.character[character].name
+    })
   },
   navigate(e) {
     wx.navigateTo({

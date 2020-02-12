@@ -14,7 +14,7 @@ module.exports = app => {
 
   // user
   router.get('/user/get', controller.user.get);
-  router.get('/user/login', controller.user.login);
+  router.post('/user/login', controller.user.login);
   router.post('/user/update', middleware.auth(), controller.user.update);
   router.post('/user/join', middleware.auth(), controller.user.join);
   router.post('/user/quit', middleware.auth(), controller.user.quit);

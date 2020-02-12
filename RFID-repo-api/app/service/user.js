@@ -31,8 +31,8 @@ class UserService extends Service {
         console.log('注册：', query.userInfo)
         await this.app.mysql.insert(TABLE, {
             openid: query.openid,
-            name: JSON.parse(query.userInfo)['nickName'],
-            avatarUrl: JSON.parse(query.userInfo)['avatarUrl']
+            name: query.userInfo['nickName'],
+            avatarUrl: query.userInfo['avatarUrl']
         })
 
         return await this.app.mysql.get(TABLE, {

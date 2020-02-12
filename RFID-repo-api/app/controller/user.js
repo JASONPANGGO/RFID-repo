@@ -18,15 +18,16 @@ class UserController extends Controller {
 
     async login() {
         try {
-            const query = paramFilter(['code', 'userInfo'], this.ctx.request.query);
+            const query = paramFilter(['code', 'userInfo'], this.ctx.request.body);
             console.log('登录：', query.userInfo)
             const code = query.code
+            // 得到openid
             const wxLoginResult = await this.app.curl(`https://api.weixin.qq.com/sns/jscode2session?appid=${this.config.AppID}&secret=${this.config.AppSecret}&js_code=${code}&grant_type=authorization_code`, {
                 dataType: 'json',
             });
             const result = await this.ctx.service.user.login({
                 openid: wxLoginResult.data.openid,
-                userInfo: query.userInfo
+                userInfo: JSON.parse(query.userInfo)
             })
             this.ctx.body = result;
         } catch (error) {
