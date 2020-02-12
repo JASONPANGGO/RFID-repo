@@ -60,10 +60,6 @@ Page({
         selected: 3
       })
     }
-    Toast.loading({
-      mask: false,
-      message: '加载中...'
-    })
 
     const user = wx.getStorageSync('user')
     if (!user.id) {
@@ -85,6 +81,11 @@ Page({
         })
       })
     } else {
+      Toast.loading({
+        mask: false,
+        message: '加载中...'
+      })
+
       this.initData(user)
       this.setData({
         user: user

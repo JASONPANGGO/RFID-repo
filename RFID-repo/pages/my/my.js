@@ -48,6 +48,9 @@ Page({
     const user = wx.getStorageSync('user')
     if (user.id) {
       this.initData(user.name, user.avatarUrl, user.character)
+    } else {
+      wx.clearStorageSync('user')
+      wx.clearStorageSync('cookie')
     }
 
     // 登录过期
@@ -58,71 +61,36 @@ Page({
       })
     }
   },
-  onLogin(loginRes) {
-    console.log(loginRes)
-    wx.login({
-      success(wxRes) {
-        request({
-          url: app.service.user.login,
-          data: {
-            code: wxRes.code,
-            userInfo: loginRes.detail.userInfo
-          },
-          method: 'post'
-        }).then(res => {
-          const user = res.data
-          console.log(user)
-          if (user.id) {
-            wx.setStorageSync('user', user)
-            wx.setStorageSync('cookie', res.cookies[0])
-            this.initData(user.name, user.avatarUrl, user.character)
-          } else {
-            Toast.fail(res.data)
-            console.log(res)
-          }
-        }).catch(e => {
-          console.log(res)
-          Toast.fail('登录失败，请检查网络状态。')
-        })
-      },
-      fail(res) {
-        console.log('失败', res)
+  onLogin(authRes) {
+    wxLogin().then(loginRes => {
+      return request({
+        url: app.service.user.login,
+        data: {
+          code: loginRes.code,
+          userInfo: authRes.detail.userInfo
+        },
+        method: 'post'
+      })
+    }).then(res => {
+      const user = res.data
+      if (user.id) {
+        wx.setStorageSync('user', user)
+        wx.setStorageSync('cookie', res.cookies[0])
+        this.initData(user.name, user.avatarUrl, user.character)
+      } else {
+        Toast.fail(res.data)
+        console.log(res)
       }
+    }).catch(e => {
+      console.log(e)
+      Toast.fail('登录失败，请检查网络状态。')
     })
-
-
-
-    // wxLogin().then(res => {
-    //   return request({
-    //     url: app.service.user.login,
-    //     data: {
-    //       code: res.code,
-    //       userInfo: res.detail.userInfo
-    //     },
-    //     method: 'post'
-    //   })
-    // }).then(res => {
-    //   console.log(user)
-    //   const user = res.data
-
-    //   if (user.id) {
-    //     wx.setStorageSync('user', user)
-    //     wx.setStorageSync('cookie', res.cookies[0])
-    //     this.initData(user.name, user.avatarUrl, user.character)
-    //   } else {
-    //     Toast.fail(res.data)
-    //     console.log(res)
-    //   }
-    // }).catch(e => {
-    //   console.log(res)
-    //   Toast.fail('登录失败，请检查网络状态。')
-    // })
   },
   initData(name, avatarUrl, character) {
     this.setData({
       name: name,
       avatarUrl: avatarUrl,
-      character: config.character[character].name
+      character: config.character[character]
     })
   },
   navigate(e) {

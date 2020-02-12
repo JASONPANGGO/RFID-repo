@@ -4,51 +4,19 @@ const SERVICE_URL = 'https://jasonpanggo.com/rfid'
 
 const config = require('./config.js')
 const {
-  wxLogin,
-  request
+  wxLogin
 } = require('./utils/promisefy.js')
 
 App({
   onLaunch: function() {},
   onShow: function() {
-    wx.checkSession({
-      success() {
-        console.log('登录有效')
-      },
-      fail() {
-        console.log('登录失效')
-      }
-    })
+
     // 从storage获取user用户信息
     let user = wx.getStorageSync('user')
-    if (user.name) {
-      this.onLogin(user)
-    } else {
+    if (!user.name) {
       wx.clearStorageSync('user')
+      wx.clearStorageSync('cookie')
     }
-
-  },
-  onLogin(user) {
-
-    const userInfo = user
-
-    wxLogin().then(res => {
-      return request({
-        url: this.service.user.login,
-        data: {
-          code: res.code,
-          userInfo: userInfo
-        },
-        method: 'GET'
-      })
-    }).then(res => {
-      const user = res.data
-      wx.setStorageSync('user', user)
-      wx.setStorageSync('cookie', res.cookies[0])
-    }).catch(res => {
-      console.log('登陆失败', res)
-    })
-
 
   },
   globalData: {

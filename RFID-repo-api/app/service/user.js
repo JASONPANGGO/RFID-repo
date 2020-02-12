@@ -21,6 +21,7 @@ class UserService extends Service {
 
         if (!res) res = await this.register(query)
 
+        console.log('login res：', res)
         // 存储对应用户的userInfo，返回的时候伴随cookie，下次接口调用的时候识别cookie拿到该session
         this.ctx.session.userInfo = res
 
@@ -42,7 +43,7 @@ class UserService extends Service {
 
     async update(query) {
         try {
-            console.log(query)
+
             return await this.app.mysql.update(TABLE, query)
         } catch (error) {
             throw error
@@ -52,7 +53,7 @@ class UserService extends Service {
     checkSession() {
         try {
             const userInfo = this.ctx.session.userInfo
-            console.log(userInfo)
+         
             if (userInfo) return userInfo
             else this.ctx.body = {
                 message: 'expire'

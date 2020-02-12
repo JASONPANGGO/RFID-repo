@@ -1,7 +1,7 @@
 module.exports = {
   character: [{
       value: 0,
-      name: '普通用户'
+      name: '未加入仓库'
     },
     {
       value: 1,

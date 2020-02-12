@@ -32,6 +32,7 @@ class RepoController extends Controller {
 
     async update() {
         const userInfo = this.ctx.session.userInfo
+        console.log('session：', userInfo)
         const query = paramFilter(['id', 'name', 'status'], this.ctx.request.body)
         if (userInfo['character'] !== 1) {
             this.ctx.status = 403

@@ -10,15 +10,11 @@
       <image class="avatar" src="{{user.avatarUrl}}"></image>
       <view class="creater-name">{{user.name}}</view>
     </view>
-    <van-field size="large" label="任务名称" data-field="name" value="{{ name }}" placeholder="请输入任务名称" bind:input="onInput" />
-    <!-- <van-field size="large" label="任务类型" required value="{{type.name}}" placeholder="请选择类型" bindtap="onSelectType" read-only /> -->
-    <van-cell title="任务类型" bind:click="onSelectType" required size="large" value="{{name }}" is-link />
-
-    <van-field size="large" wx:if="{{type}}" label="{{type.value ? '入库商品' : '出库商品'}}" required value="{{goods.name}}" placeholder="请选择商品" bindtap="onSelectGoods" read-only />
-    <van-field size="large" wx:if="{{repo}}" label="仓库" read-only value="{{repo.name}}" />
-    <van-field size="large" wx:if="{{type.value === 1}}" required label="入库数量" value="{{amount}}" data-field="amount" type="number" bind:change="onInput" />
-    <van-field size="large" wx:if="{{type.value === 0}}" required label="出库数量" value="{{amount}}" data-field="amount" type="number" bind:change="onInput" placeholder="剩余库存为{{outMaxAmount}}个" />
-    <van-field size="large" wx:if="{{repo.id}}" label="指定负责人" value="{{nextUser.text}}" read-only bindtap="onSelectNext" placeholder="非必填" />
+    <van-field size="large" label="任务名称" data-field="name" value="{{ name }}" placeholder="请输入任务名称" title="任务类型" bind:click="onSelectType" required size="large" value="{{type.name }}" is-link />
+    <van-cell title="{{type.value ? '入库商品' : '出库商品'}}" bind:click="onSelectGoods" required size="large" value="{{goods.name}}" placeholder="请选择商品" />
+    <van-cell size="large" wx:if="{{repo}}" title="仓库" value="{{repo.name}}" />
+    <van-field size="large" wx:if="{{type}}" required label="{{type.value === 1 ? '入库数量':'出库数量'}}" value="{{amount}}" data-field="amount" type="number" bind:change="onInput" placeholder="剩余库存为{{outMaxAmount}}" />
+    <van-cell size="large" wx:if="{{repo.id}}" title="指定负责人" value="{{nextUser.text}}" bindtap="onSelectNext" placeholder="非必填" />
     <van-field size="large" label="备注" data-field="comment" value="{{comment}}" bind:input="onInput" />
   </van-cell-group>
 </view>

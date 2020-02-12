@@ -4,7 +4,8 @@ import Toast from '../../lib/vant-weapp/dist/toast/toast';
 import Dialog from '../../lib/vant-weapp/dist/dialog/dialog';
 const app = getApp()
 const {
-  request
+  request,
+  time
 } = require('../../utils/promisefy.js')
 const config = require('../../config.js')
 Page({
@@ -51,6 +52,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    console.log(new Date().toTimeString())
+    console.log(time)
     const user = wx.getStorageSync('user')
     if (!user.id) {
       Dialog.confirm({
@@ -76,12 +79,8 @@ Page({
     }
   },
   getInstance() {
-
     request({
       url: app.service.instance.get,
-      header: {
-        'cookie': wx.getStorageSync('cookie')
-      },
       data: {
         instanceid: wx.getStorageSync('user').instanceid
       },
@@ -112,9 +111,6 @@ Page({
   getRepos() {
     request({
       url: app.service.repo.get,
-      header: {
-        'cookie': wx.getStorageSync('cookie')
-      },
       data: {
         instanceid: wx.getStorageSync('user').instanceid
       },
@@ -147,6 +143,7 @@ Page({
     })
   },
   confirmNewRepo() {
+
     request({
       url: app.service.repo.add,
       method: 'post',

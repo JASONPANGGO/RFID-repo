@@ -38,7 +38,9 @@ class UserController extends Controller {
     async update() {
         try {
             const query = paramFilter(['id', 'name', 'avatarUrl', 'instanceid', 'repoid', 'character'], this.ctx.request.body)
-            this.ctx.body = await this.ctx.service.user.update(query)
+            const res = await this.ctx.service.user.update(query)
+            this.ctx.session.userInfo = res
+            this.ctx.body = res
         } catch (error) {
             throw error
         }

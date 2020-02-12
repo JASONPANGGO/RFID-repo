@@ -1,8 +1,6 @@
-const promisefy = fn => defaultProps => extraProps => new Promise((resolve, reject) => fn({
-  ...defaultProps,
+const promisefy = fn => extraProps => new Promise((resolve, reject) => fn({
   ...extraProps,
   success: res => {
-    console.log(res)
     if (res && res.data && res.data.message === 'login expire') {
       const app = getApp()
       console.log('登录过期')
@@ -12,29 +10,36 @@ const promisefy = fn => defaultProps => extraProps => new Promise((resolve, reje
       })
       wx.clearStorageSync('user')
       wx.clearStorageSync('cookie')
+    } else {
+      if (res.cookies && res.cookies[0]) {
+        wx.setStorageSync('cookie', res.cookies[0])
+      }
     }
     return resolve(res)
   },
   fail: err => reject(err),
-}));
+}))
 
 module.exports = {
-  showToast: promisefy(wx.showToast)({
-    title: '',
-    icon: "none",
-    duration: 2000,
-    confirmColor: '#ff673f',
-    mask: true
-  }),
-  request: promisefy(wx.request)({
-    url: '',
-    method: '',
-    data: '',
-    success: '',
-    fail: '',
-    header: {
-      'cookie': wx.getStorageSync('cookie')
-    }
-  }),
-  wxLogin: promisefy(wx.login)()
+  showToast: function(props) {
+    return promisefy(wx.showToast)({
+      title: '',
+      icon: "none",
+      duration: 2000,
+      confirmColor: '#ff673f',
+      mask: true,
+      ...props
+    })
+  },
+  request: function(props) {
+    return promisefy(wx.request)({
+      header: {
+        'cookie': wx.getStorageSync('cookie')
+      },
+      ...props
+    })
+  },
+  wxLogin: function() {
+    return promisefy(wx.login)()
+  }
 }

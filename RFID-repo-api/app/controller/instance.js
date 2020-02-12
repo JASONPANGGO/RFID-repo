@@ -17,7 +17,12 @@ class InstanceController extends Controller {
                 instanceid: res.insertId,
                 character: 1
             })
-            await this.ctx.service
+            this.ctx.session.userInfo = Object.assign(this.ctx.session.userInfo, {
+                id: userInfo.id,
+                instanceid: res.insertId,
+                character: 1
+            })
+            console.log('session：', this.ctx.session.userInfo)
             this.ctx.body = {
                 status: 'success',
                 instanceid: res.insertId
