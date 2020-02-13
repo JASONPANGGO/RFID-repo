@@ -20,6 +20,10 @@ class RepoService extends Service {
 
     async get(query) {
         try {
+            if (query['repoid']) {
+                query.id = query['repoid']
+                delete query['repoid']
+            }
             return await this.app.mysql.select(TABLE, {
                 where: query
             })
@@ -43,9 +47,9 @@ class RepoService extends Service {
         }
     }
 
-    async update(query){
+    async update(query) {
         try {
-            return await this.app.mysql.update(TABLE,query)
+            return await this.app.mysql.update(TABLE, query)
         } catch (error) {
             throw error
         }

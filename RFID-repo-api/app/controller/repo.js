@@ -8,7 +8,7 @@ const {
 class RepoController extends Controller {
 
     async get() {
-        const query = paramFilter(['id', 'instanceid', 'invite_code', 'repoid'], this.ctx.request.query)
+        const query = paramFilter(['id', 'instanceid', 'invite_code'], this.ctx.request.query)
         console.log(query)
         this.ctx.body = await this.ctx.service.repo.get(query)
     }
