@@ -15,17 +15,7 @@ Page({
   data: {
     user: {},
     activeTab: 0,
-    task_member: [{
-      user: {
-        name: 'JasonPang',
-        avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/WmxkCfNhM2jVmhkvl69qNaD6ZK6zHl3BRAdSzHQENXHnwY2jyjRmrbDFg9SJwNTFibk7JJ3NahWC39uCgWrOZoQ/132'
-      },
-      name: "加入仓库",
-      repo: {
-        name: '北京路店'
-      },
-      create_time: new Date().toLocaleString()
-    }],
+    task_member: [],
     task_goods: [],
     onPreviewItem: {},
     showPreview: false
@@ -103,7 +93,7 @@ Page({
       })
     } else {
       this.getTask({
-        repoid: repoid
+        repoid: user.repoid
       })
     }
   },

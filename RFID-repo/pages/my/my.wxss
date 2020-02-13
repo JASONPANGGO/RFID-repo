@@ -1,8 +1,8 @@
 /* pages/my.wxss */
-page{
+
+page {
   background-color: #eee;
 }
-
 
 .info-container {
   width: 80%;
@@ -10,6 +10,13 @@ page{
   padding-top: 10rpx;
   display: flex;
   justify-content: space-evenly;
+  position: relative;
+}
+
+.instance-name-tag {
+  position: absolute;
+  right: 0;
+  bottom: 30rpx;
 }
 
 .info {
@@ -33,7 +40,7 @@ page{
   justify-content: space-around;
 }
 
-.menu-title{
+.menu-title {
   width: 700rpx;
   margin: 0 auto;
   margin-top: 20rpx;
@@ -41,11 +48,11 @@ page{
   color: #555;
 }
 
-.menu{
-  width:700rpx;
+.menu {
+  width: 700rpx;
   margin: 0 auto;
   height: auto;
-  background-color: #fff; 
+  background-color: #fff;
   border-radius: 10px;
   margin-top: 10rpx;
 }

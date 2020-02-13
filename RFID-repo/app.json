@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/addGoods/addGoods",
     "pages/createTask/createTask",
     "pages/task/task",
     "pages/my/my",
@@ -8,7 +9,6 @@
     "pages/memberManage/memberManage",
     "pages/joinRepo/joinRepo",
     "pages/repoManage/repoManage",
-    "pages/addGoods/addGoods",
     "pages/createRepo/createRepo"
   ],
   "tabBar": {
@@ -50,7 +50,7 @@
     "navigationBarTitleText": "RFID智能仓库",
     "navigationBarTextStyle": "black"
   },
-  "style": "v2",
+
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
     "van-button": "./lib/vant-weapp/dist/button/index",

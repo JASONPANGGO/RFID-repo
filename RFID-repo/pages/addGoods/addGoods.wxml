@@ -18,13 +18,14 @@
   <view class="form">
     <van-cell-group>
       <van-field disabled label="创建时间" value="{{create_time}}" />
-      <van-field label="所属仓库" required placeholder="点击选择仓库" disabled value="{{repo.name}}" bindtap="onSelectRepo" />
-      <van-field label="商品类型" required value="{{type}}" placeholder="请选择类型" bindtap="onSelectType" disabled />
-      <van-field label="商品名称" value="{{name}}" required placeholder="请输入商品名称" data-field="name" bind:change="onInput" />
-      <van-field label="价格" value="{{price}}" required data-field="price" bind:change="onInput" placeholder="请输入价格" />
-      <van-field label="库存" value="{{amount}}" required data-field="amount" bind:change="onInput" placeholder="请输入库存" />
-      <van-field label="条形码" value="{{bar_code}}" data-field="bar_code" bind:change="onInput" placeholder="扫一扫或者手动输入" />
-      <van-field value="{{ comment }}" label="备注" data-field="comment" type="textarea" placeholder="请输入备注" bind:change="onInput" autosize />
+      <!-- <van-field label="所属仓库" required placeholder="点击选择仓库" disabled value="{{repo.name}}" bindtap="onSelectRepo" /> -->
+      <van-cell size="large" title="所属仓库" required placeholder="点击选择仓库" value="{{repo.name}}" bindtap="onSelectRepo" is-link />
+      <van-cell size="large" title="商品类型" required value="{{type}}" placeholder="请选择类型" bindtap="onSelectType" is-link />
+      <van-field size="large" label="商品名称" value="{{name}}" required placeholder="请输入商品名称" data-field="name" bind:change="onInput" />
+      <van-field size="large" label="价格" value="{{price}}" required data-field="price" bind:change="onInput" placeholder="请输入价格" />
+      <van-field size="large" label="库存" value="{{amount}}" required data-field="amount" bind:change="onInput" placeholder="请输入库存" />
+      <van-field size="large" label="条形码" value="{{bar_code}}" data-field="bar_code" bind:change="onInput" placeholder="扫一扫或者手动输入" />
+      <van-field size="large" value="{{ comment }}" label="备注" data-field="comment" type="textarea" placeholder="请输入备注" bind:change="onInput" autosize />
     </van-cell-group>
   </view>
 </view>

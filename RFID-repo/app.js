@@ -8,7 +8,9 @@ const {
 } = require('./utils/promisefy.js')
 
 App({
-  onLaunch: function() {},
+  onLaunch: function() {
+    wx.clearStorage()
+  },
   onShow: function() {
 
     // 从storage获取user用户信息

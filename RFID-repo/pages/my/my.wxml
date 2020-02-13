@@ -8,6 +8,7 @@
       <text class="character" wx:if="{{character}}">{{character.name}}</text>
       <button wx:else="{{avatarUrl}}" open-type="getUserInfo" bindgetuserinfo="onLogin">登录/注册</button>
     </view>
+    <van-tag type="primary" plain wx:if="{{instance_repo_name}}" class="instance-name-tag">{{instance_repo_name}}</van-tag>
   </view>
 
 </view>

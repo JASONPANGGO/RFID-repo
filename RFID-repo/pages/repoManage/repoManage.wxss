@@ -6,8 +6,9 @@ page {
 
 .info-container {
   width: 90%;
-  height: 180rpx;
+  height: 150rpx;
   margin: auto;
+  margin-top: 30rpx;
 }
 
 image.avatar {
@@ -48,14 +49,13 @@ image.avatar {
   line-height: 60rpx;
 }
 
-.avatar {
+.creater image.avatar {
   width: 40rpx;
   height: 40rpx;
 }
 
 .creater-name {
   color: #fff;
-  margin-left: 0.5em;
   display: inline;
 }
 
@@ -72,7 +72,6 @@ image.avatar {
   margin: 0 auto;
   margin-top: 10px;
   position: relative;
-  box-shadow: 10px 10px 10px #ddd;
 }
 
 .repo-item van-icon {
@@ -122,6 +121,10 @@ image.avatar {
   top: 5px;
 }
 
+.repo-status-1 {
+  color: green;
+}
+
 .repo-status-1::before {
   display: inline-block;
   content: '';
@@ -143,8 +146,12 @@ image.avatar {
   vertical-align: middle;
 }
 
+.repo-status-0 {
+  color: gray;
+}
+
 .arrow {
   position: absolute;
   right: 5px;
-  bottom: 0;
+  bottom: 5px;
 }

@@ -12,7 +12,7 @@
     <view class="member-item" data-user="{{item}}" bindtap="onSelectUser" wx:for="{{activeUsers}}" wx:key="index">
       <image class="avatar" src="{{item.avatarUrl}}"></image>
       <view class="member-name">{{item.name}}</view>
-      <view class="member-character">{{item.character}}</view>
+      <view class="member-character">{{item.character_text}}</view>
     </view>
   </view>
 

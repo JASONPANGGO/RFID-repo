@@ -15,7 +15,8 @@ Page({
   data: {
     avatarUrl: '../../image/my.png',
     name: null,
-    character: null
+    character: null,
+    instance_repo_name: ''
   },
 
   /**
@@ -47,7 +48,7 @@ Page({
     // 从本地缓存取得已登录用户的数据
     const user = wx.getStorageSync('user')
     if (user.id) {
-      this.initData(user.name, user.avatarUrl, user.character)
+      this.initData(user)
     } else {
       wx.clearStorageSync('user')
       wx.clearStorageSync('cookie')
@@ -76,7 +77,7 @@ Page({
       if (user.id) {
         wx.setStorageSync('user', user)
         wx.setStorageSync('cookie', res.cookies[0])
-        this.initData(user.name, user.avatarUrl, user.character)
+        this.initData(user)
       } else {
         Toast.fail(res.data)
         console.log(res)
@@ -86,11 +87,34 @@ Page({
       Toast.fail('登录失败，请检查网络状态。')
     })
   },
-  initData(name, avatarUrl, character) {
+  initData(user) {
+    if (user.instanceid) {
+      this.getInstance(user)
+    }
     this.setData({
-      name: name,
-      avatarUrl: avatarUrl,
-      character: config.character[character]
+      name: user.name,
+      avatarUrl: user.avatarUrl,
+      character: config.character[user.character]
+    })
+  },
+  getInstance(user) {
+    request({
+      url: app.service.instance.get,
+      data: {
+        instanceid: user.instanceid,
+        repoid: user.repoid
+      },
+      method: 'get'
+    }).then(res => {
+      if (user.character === 1) {
+        this.setData({
+          instance_repo_name: res.instanceData.name
+        })
+      } else {
+        this.setData({
+          instance_repo_name: `${res.data.instanceData.name} - ${res.data.repoData[0].name}`
+        })
+      }
     })
   },
   navigate(e) {

@@ -34,11 +34,16 @@ class InstanceController extends Controller {
 
     async get() {
         try {
-            const query = paramFilter(['instanceid'], this.ctx.request.query)
-
-            this.ctx.body = await this.ctx.service.instance.get({
+            const query = paramFilter(['instanceid', 'repoid'], this.ctx.request.query)
+            const res = await this.ctx.service.instance.get({
                 id: query.instanceid
             })
+            if (query.repoid) {
+                res['repoData'] = await this.ctx.service.repo.get({
+                    id: query.repoid
+                })
+            }
+            this.ctx.body = res
         } catch (error) {
             throw error
         }

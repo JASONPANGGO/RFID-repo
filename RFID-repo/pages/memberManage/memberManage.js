@@ -81,60 +81,64 @@ Page({
     this.setData({
       user: wx.getStorageSync('user')
     })
-    this.getRepos()
-    this.getUsers()
+    Promise.all([this.getRepos(), this.getUsers()]).then(() => {
+      this.onSelectRepo(0)
+    })
+  },
+  onSelectRepo(repoIndex) {
+    const repo = this.data.repo[repoIndex]
+    this.setData({
+      activeUsers: this.data.users.filter(u =>
+        u.repoid === repo.id ||
+        u.character === 1
+      )
+    })
   },
   getRepos() {
-    request({
-      url: app.service.repo.get,
-      data: {
-        instanceid: wx.getStorageSync('user').instanceid
-      },
-      method: 'get'
-    }).then(res => {
-      if (res.data) {
-        this.setData({
-          repo: res.data
-        })
-      } else {
-        Toast.fail('加载失败。')
-      }
+    return new Promise((resolve, reject) => {
+      request({
+        url: app.service.repo.get,
+        data: {
+          instanceid: wx.getStorageSync('user').instanceid
+        },
+        method: 'get'
+      }).then(res => {
+        if (res.data) {
+          this.setData({
+            repo: res.data
+          })
+          resolve()
+        } else {
+          Toast.fail('加载失败。')
+        }
+      })
     })
   },
   getUsers() {
-    request({
-      url: app.service.user.get,
-      data: {
-        instanceid: wx.getStorageSync('user').instanceid
-      },
-      method: 'get'
-    }).then(res => {
-      if (res.data) {
-        console.log(res.data)
-        if (res.data.data) {
-
+    return new Promise((resolve, reject) => {
+      request({
+        url: app.service.user.get,
+        data: {
+          instanceid: wx.getStorageSync('user').instanceid
+        },
+        method: 'get'
+      }).then(res => {
+        if (res.data) {
           this.setData({
             users: res.data.map(e => {
-              e.character = config.character[e.character].name
+              e.character_text = config.character[e.character].name
               return e
             })
           })
-          this.setData({
-            activeUsers: this.data.users.filter(e =>
-              e.repoid === this.data.repo[this.data.activeRepo].id ||
-              e.character === '创建者'
-            )
-          })
-
+          resolve()
         } else {
           this.setData({
             users: [],
             activeUsers: []
           })
+          Toast.fail('加载失败。')
         }
-      } else {
-        Toast.fail('加载失败。')
-      }
+      })
     })
   },
   onSelectUser(e) {
@@ -227,5 +231,8 @@ Page({
       }
 
     }
+  },
+  onChange(e) {
+    this.onSelectRepo(e.detail)
   }
 })

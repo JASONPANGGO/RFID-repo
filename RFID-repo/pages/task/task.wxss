@@ -20,6 +20,7 @@ page {
   width: 100%;
   position: relative;
   height: 90px;
+  background-color: #fff;
 }
 
 .task-member-item::after {
@@ -29,7 +30,7 @@ page {
   width: 90%;
   height: 1px;
   left: 5%;
-  background-color: #eee;
+  background-color: #ddd;
   bottom: 0px;
 }
 
@@ -84,7 +85,7 @@ page {
 
 .task-add button {
   width: 100%;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgb(0, 218, 100);
 }
 
 .goods-item {
@@ -128,7 +129,7 @@ page {
   font-size: 0.8em;
 }
 
-.task-goods-item van-icon{
+.task-goods-item van-icon {
   vertical-align: middle;
 }
 

@@ -192,6 +192,7 @@ Page({
         status: !this.data.selectedRepo.status * 1 // 布尔转数字
       }
     }).then(res => {
+      console.log(res)
       if (res.data.invite_code) {
         wx.setClipboardData({
           data: res.data.invite_code,
@@ -200,6 +201,8 @@ Page({
           title: '生成成功',
           message: '邀请码已复制到剪贴板。'
         })
+      } else if (res.statusCode === 403) {
+        Toast.fail('权限不足')
       } else {
         Toast.success('操作成功')
         this.getRepos()
