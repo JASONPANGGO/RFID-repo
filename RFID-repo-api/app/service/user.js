@@ -6,7 +6,7 @@ const TABLE = 'user'
 class UserService extends Service {
     async get(query) {
         try {
-            const res = await this.app.mysql.select(TABLE, {
+            let res = await this.app.mysql.select(TABLE, {
                 where: query
             })
             if (res.length >= 1) {
