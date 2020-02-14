@@ -121,8 +121,9 @@ Page({
 
           // 成员
           if (t.type === 2 || t.type === 3) {
-            t.name = t.name || config.task[t.type].name
+            t.name = decodeURI(t.name) || config.task[t.type].name
             t.user = user.find(u => u.id === t.createrid)
+            t.user.name = decodeURI(t.user.name)
             t.create_time = new Date(t.create_time).toLocaleString()
             t.repo = repo.find(r => r.id === t.repoid)
             task_member.unshift(t)

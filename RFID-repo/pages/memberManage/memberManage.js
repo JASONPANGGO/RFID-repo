@@ -91,7 +91,7 @@ Page({
       activeUsers: this.data.users.filter(u =>
         u.repoid === repo.id ||
         u.character === 1
-      )
+      ).sort((a, b) => a.character - b.character)
     })
   },
   getRepos() {

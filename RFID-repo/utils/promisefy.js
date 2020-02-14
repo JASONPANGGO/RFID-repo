@@ -6,9 +6,9 @@ const promisefy = fn => extraProps => new Promise((resolve, reject) => fn({
       const app = getApp()
       console.log('登录过期')
       app.globalData.expire = true
-      // wx.switchTab({
-      //   url: '/pages/my/my'
-      // })
+      wx.switchTab({
+        url: '/pages/my/my'
+      })
       wx.clearStorageSync('user')
       wx.clearStorageSync('cookie')
     } else {

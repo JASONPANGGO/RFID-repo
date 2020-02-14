@@ -80,6 +80,7 @@ Page({
     }).then(res => {
       const user = res.data
       if (user.id) {
+        user.name = decodeURI(user.name)
         wx.setStorageSync('user', user)
         wx.setStorageSync('cookie', res.cookies[0])
         this.initData(user)
@@ -90,6 +91,7 @@ Page({
       }
     }).catch(e => {
       console.log(e)
+
       Toast.fail('登录失败，请检查网络状态。')
     })
   },
