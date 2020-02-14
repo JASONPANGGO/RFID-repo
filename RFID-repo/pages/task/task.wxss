@@ -85,7 +85,7 @@ page {
 
 .task-add button {
   width: 100%;
-  box-shadow: 0 5px 10px rgb(0, 218, 100);
+  box-shadow: 0 5px 10px rgb(152, 255, 200);
 }
 
 .goods-item {
@@ -195,4 +195,5 @@ page {
   font-size: 0.8em;
   color: #aaa;
   margin-bottom: 80px;
+  margin-top: 10px;
 }

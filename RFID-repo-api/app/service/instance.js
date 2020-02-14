@@ -30,5 +30,13 @@ class InstanceService extends Service {
             throw error
         }
     }
+
+    async update(query) {
+        try {
+            return await this.app.mysql.update(TABLE, query)
+        } catch (error) {
+            throw error
+        }
+    }
 }
 module.exports = InstanceService;

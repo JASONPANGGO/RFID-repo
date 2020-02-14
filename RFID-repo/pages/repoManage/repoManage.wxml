@@ -2,8 +2,9 @@
 <view class="header">
   <view class="info-container">
     <view class="repo">
-      <view class="instance-name">
+      <view class="instance-name" bindtap="onChangeInstanceName">
         {{name}}
+        <van-icon name="edit" />
       </view>
       <view class="create-time">
         {{create_time}}
@@ -51,3 +52,12 @@
 
 <van-toast id="van-toast" />
 <van-dialog id="van-dialog" />
+
+
+<van-dialog use-slot title="修改仓库名称" show="{{onChangingInstanceName}}" show-cancel-button bind:confirm="confirmNewInstanceName" bind:cancel="onClose">
+  <van-field placeholder="请输入新的名称" focus="{{onChangingInstanceName}}" border="{{true}}" value="{{new_instance_name}}" data-field="new_instance_name" bind:change="onInput" />
+</van-dialog>
+
+<van-dialog use-slot title="修改仓库名称" show="{{onChangingRepoName}}" show-cancel-button bind:confirm="confirmNewRepoName" bind:cancel="onClose">
+  <van-field placeholder="请输入新的名称" focus="{{onChangingRepoName}}" border="{{true}}" value="{{new_repo_name}}" data-field="new_repo_name" bind:change="onInput" />
+</van-dialog>

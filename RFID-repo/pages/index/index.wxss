@@ -1,1 +1,81 @@
 /* pages/index/index.wxss */
+
+van-icon {
+  vertical-align: middle;
+}
+
+.info-container {
+  width: 700rpx;
+  margin: auto;
+}
+
+.info-container van-icon {
+  vertical-align: middle;
+}
+
+.refresh {
+  position: absolute;
+  bottom: 10px;
+  right: 25rpx;
+  font-size: 0.7em;
+  color: #fff;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 10px;
+  background-color: #1296db;
+  padding: 0 10px;
+}
+
+.greet {
+  position: absolute;
+  right: 25rpx;
+  top: 10px;
+  font-size: 0.8em;
+  color: #fff;
+}
+
+.greet van-icon{
+  margin-right: 3px;
+}
+
+.refresh van-icon {
+  margin-right: 3px;
+}
+
+.instance-name {
+  font-size: 0.8em;
+  color: #fff;
+}
+
+.repo-name {
+  font-size: 2em;
+  color: #fff;
+}
+
+.pie-container {
+  z-index: 0;
+  width: 100%;
+  height: 500rpx;
+}
+
+.line-container {
+  z-index: 0;
+  width: 100%;
+  height: 800rpx;
+}
+
+.bar-container {
+  z-index: 0;
+  width: 100%;
+  height: 1200rpx;
+}
+
+ec-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.bottom-gap {
+  width: 100%;
+  height: 60px;
+}

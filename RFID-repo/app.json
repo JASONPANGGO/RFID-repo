@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/my/my",
     "pages/addGoods/addGoods",
     "pages/createTask/createTask",
     "pages/task/task",
-    "pages/my/my",
     "pages/goods/goods",
     "pages/memberManage/memberManage",
     "pages/joinRepo/joinRepo",
@@ -50,7 +50,6 @@
     "navigationBarTitleText": "RFID智能仓库",
     "navigationBarTextStyle": "black"
   },
-
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
     "van-button": "./lib/vant-weapp/dist/button/index",
@@ -74,6 +73,8 @@
     "van-sidebar-item": "./lib/vant-weapp/dist/sidebar-item/index",
     "van-tab": "./lib/vant-weapp/dist/tab/index",
     "van-tabs": "./lib/vant-weapp/dist/tabs/index",
+    "van-sticky": "./lib/vant-weapp/dist/sticky/index",
+    "van-notice-bar": "./lib/vant-weapp/dist/notice-bar/index",
     "i-cell-group": "./lib/iview-weapp/dist/cell-group/index",
     "i-cell": "./lib/iview-weapp/dist/cell/index",
     "i-icon": "./lib/iview-weapp/dist/icon/index"

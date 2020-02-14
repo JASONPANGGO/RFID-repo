@@ -49,6 +49,7 @@ class GoodsService extends Service {
                     }
                 }
             }
+            console.log(`SELECT * FROM ${TABLE} WHERE ${querystring.join(' AND ')} ${orderstring}`)
             return await this.app.mysql.query(`SELECT * FROM ${TABLE} WHERE ${querystring.join(' AND ')} ${orderstring}`)
         } catch (error) {
             throw error
@@ -63,19 +64,5 @@ class GoodsService extends Service {
         }
     }
 
-    async upload(file) {
-        try {
-            const fileName = `${Date.now()}.jpg`
-            const filePath = path.join('./app/public/img', fileName)
-            fs.writeFileSync(filePath, fs.readFileSync(file.filepath))
-            return {
-                code: 200,
-                message: 'ok',
-                img_url: fileName
-            }
-        } catch (error) {
-            throw error
-        }
-    }
 }
 module.exports = GoodsService

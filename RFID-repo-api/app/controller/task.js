@@ -13,7 +13,9 @@ class TaskController extends Controller {
         this.ctx.body = {
             taskData: await this.ctx.service.task.get(query),
             userData: await this.ctx.service.user.get(query),
-            repoData: await this.ctx.service.repo.get(query),
+            repoData: await this.ctx.service.repo.get({
+                id: query.repoid
+            }),
             goodsData: await this.ctx.service.goods.get(query)
         }
     }

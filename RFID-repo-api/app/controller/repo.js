@@ -21,7 +21,11 @@ class RepoController extends Controller {
     async invite() {
         const userInfo = this.ctx.session.userInfo
         const repoid = this.ctx.request.body.id
-        if (userInfo['character'] !== 1) {
+        const user = (await this.ctx.service.user.get({
+            id: userInfo.id
+        }))[0]
+        this.ctx.session.userInfo = user
+        if (user['character'] !== 1) {
             this.ctx.status = 403
         } else {
             this.ctx.body = {
@@ -34,10 +38,14 @@ class RepoController extends Controller {
         const userInfo = this.ctx.session.userInfo
         console.log('session：', userInfo)
         const query = paramFilter(['id', 'name', 'status'], this.ctx.request.body)
-        if (userInfo['character'] !== 1) {
-            this.ctx.status = 403
-        } else {
+        const user = (await this.ctx.service.user.get({
+            id: userInfo.id
+        }))[0]
+        this.ctx.session.userInfo = user
+        if (user['character'] === 1 || (user['character'] === 2 && user['repoid'] === query.id)) {
             this.ctx.body = await this.ctx.service.repo.update(query)
+        } else {
+            this.ctx.status = 403
         }
     }
 }

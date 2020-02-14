@@ -24,6 +24,10 @@ Page({
     repoMoreShow: false,
     selectedRepo: {},
     actions: [{
+      name: '修改名称',
+      color: '#000',
+      api: app.service.repo.update
+    }, {
       name: '生成邀请码',
       color: '#1890ff',
       api: app.service.repo.invite
@@ -31,7 +35,11 @@ Page({
       name: '弃用/恢复',
       color: '#f5222d',
       api: app.service.repo.update
-    }]
+    }],
+    onChangingInstanceName: false,
+    onChangingRepoName: false,
+    new_instance_name: '',
+    new_repo_name: ''
   },
 
   /**
@@ -175,41 +183,109 @@ Page({
   },
   onCloseMore() {
     this.setData({
-      selectedRepo: {},
       repoMoreShow: false
     })
   },
   onSelectAction(e) {
+    const query = {
+      id: this.data.selectedRepo.id
+    }
+    let needRequest = true
+    switch (e.detail.name) {
+      case '修改名称':
+        this.setData({
+          onChangingRepoName: true,
+          new_repo_name: this.data.selectedRepo.name
+        })
+        needRequest = false;
+        break;
+      case '生成邀请码':
+        break;
+      case '弃用/恢复':
+        query.status = !this.data.selectedRepo.status * 1
+        break;
+      default:
+        break;
+    }
+
+    if (needRequest) {
+      request({
+        url: e.detail.api,
+        header: {
+          'cookie': wx.getStorageSync('cookie')
+        },
+        method: 'post',
+        data: query
+      }).then(res => {
+        console.log(res)
+        if (res.data.invite_code) {
+          wx.setClipboardData({
+            data: res.data.invite_code,
+          })
+          Dialog.confirm({
+            title: '生成成功',
+            message: '邀请码已复制到剪贴板。'
+          })
+        } else {
+          Toast.success('操作成功')
+          this.getRepos()
+        }
+      }).catch(e => {
+        Toast.fail('操作失败')
+      })
+    }
+
+  },
+  confirmNewInstanceName() {
+    request({
+      url: app.service.instance.update,
+      data: {
+        id: this.data.instanceid,
+        name: this.data.new_instance_name
+      },
+      method: 'post'
+    }).then(res => {
+      if (res.statusCode === 200) {
+        Toast.success('操作成功')
+        this.getInstance()
+      } else {
+        Toast.fail('操作失败')
+        this.onClose()
+      }
+    })
+    this.setData({
+      onChangingInstanceName: false
+    })
+  },
+  confirmNewRepoName() {
 
     request({
-      url: e.detail.api,
-      header: {
-        'cookie': wx.getStorageSync('cookie')
-      },
-      method: 'post',
+      url: app.service.repo.update,
       data: {
         id: this.data.selectedRepo.id,
-        status: !this.data.selectedRepo.status * 1 // 布尔转数字
-      }
+        name: this.data.new_repo_name
+      },
+      method: 'post'
     }).then(res => {
-      console.log(res)
-      if (res.data.invite_code) {
-        wx.setClipboardData({
-          data: res.data.invite_code,
-        })
-        Dialog.confirm({
-          title: '生成成功',
-          message: '邀请码已复制到剪贴板。'
-        })
-      } else if (res.statusCode === 403) {
-        Toast.fail('权限不足')
-      } else {
+      if (res.statusCode === 200) {
         Toast.success('操作成功')
         this.getRepos()
+      } else {
+        Toast.fail('操作失败')
       }
-    }).catch(e => {
-      Toast.fail('操作失败')
     })
-
+    this.onClose()
+  },
+  onChangeInstanceName() {
+    this.setData({
+      onChangingInstanceName: true,
+      new_instance_name: this.data.name
+    })
+  },
+  onClose() {
+    this.setData({
+      onChangingInstanceName: false,
+      onChangingRepoName: false
+    })
   }
 })

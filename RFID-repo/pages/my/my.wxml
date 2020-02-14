@@ -4,9 +4,18 @@
   <view class="info-container">
     <image class="avatar" src="{{avatarUrl}}"></image>
     <view class="info" wx:if="{{avatarUrl}}">
-      <text class="nickName" wx:if="{{name}}">{{name}}</text>
-      <text class="character" wx:if="{{character}}">{{character.name}}</text>
-      <button wx:else="{{avatarUrl}}" open-type="getUserInfo" bindgetuserinfo="onLogin">登录/注册</button>
+      <view class="nickName" wx:if="{{name}}" bindtap="onChangeName">{{name}}
+        <van-icon name="edit" />
+      </view>
+      <text class="character" wx:if="{{character}}">
+        {{character.name}}
+      </text>
+      <view wx:else="{{avatarUrl}}">
+        <text class="remind-text">请先授权并登录到您的账号</text>
+        <button class="login-button" open-type="getUserInfo" bindgetuserinfo="onLogin">
+          <van-icon name="user-circle-o" />一键登录/注册
+        </button>
+      </view>
     </view>
     <van-tag type="primary" plain wx:if="{{instance_repo_name}}" class="instance-name-tag">{{instance_repo_name}}</van-tag>
   </view>
@@ -48,3 +57,8 @@
 
 <van-toast id="van-toast" />
 <van-dialog id="van-dialog" />
+
+
+<van-dialog use-slot title="修改昵称" show="{{onChangingName}}" show-cancel-button bind:confirm="confirmNewName" bind:cancel="onClose">
+  <van-field placeholder="请输入新的名字" focus="{{onChangingName}}" border="{{true}}" value="{{name}}" data-field="name" bind:change="onInput" />
+</van-dialog>

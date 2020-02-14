@@ -1,4 +1,36 @@
 <!--pages/index/index.wxml-->
-<text>pages/index/index.wxml</text>
+<van-sticky offset-top="{{ 0 }}">
+  <view class="header">
+    <view class="info-container">
+      <view class="instance-name">
+        <van-icon name="home-o" />{{instance.name}}</view>
+      <view class="repo-name">
+        {{repo.name}}</view>
+    </view>
+    <view class="greet">
+      <van-icon name="flower-o" />{{greet}}
+    </view>
+    <view class="refresh" bindtap="initData">
+      <van-icon name="replay" />刷新数据
+    </view>
+  </view>
+</van-sticky>
+<view class="header-gap">
+  <van-notice-bar left-icon="volume-o" backgroundColor="#ECF9FF" color="#1296db" text="{{noticeText}}" />
+  <view class="pie-container" wx:if="{{dataReady}}">
+    <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ecPie }}" bind:init="echartInitPie"></ec-canvas>
+  </view>
+
+  <view class="line-container" wx:if="{{dataReady}}">
+    <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ecLine }}" bind:init="echartInitLine"></ec-canvas>
+  </view>
+
+  <view class="bar-container" wx:if="{{dataReady}}">
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ecBar }}" bind:init="echartInitBar"></ec-canvas>
+  </view>
+</view>
+
+<view class="bottom-gap"></view>
 
 <van-dialog id="van-dialog" />
+<van-toast id="van-toast" />s

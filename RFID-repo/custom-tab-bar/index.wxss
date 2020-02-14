@@ -52,6 +52,6 @@
   border-radius: 50%;
   background-color: #1296db;
   left: 325rpx;
-  margin-top: 10rpx;
+  margin-top: 9rpx;
+  box-shadow: 0 5px 13px #3dbbff;
 }
-

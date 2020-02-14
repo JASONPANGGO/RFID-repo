@@ -1,3 +1,4 @@
+import Toast from '../lib/vant-weapp/dist/toast/toast';
 const promisefy = fn => extraProps => new Promise((resolve, reject) => fn({
   ...extraProps,
   success: res => {
@@ -17,7 +18,10 @@ const promisefy = fn => extraProps => new Promise((resolve, reject) => fn({
     }
     return resolve(res)
   },
-  fail: err => reject(err),
+  fail: err => {
+    Toast.fail('请检查网络')
+    return reject(err)
+  },
 }))
 
 module.exports = {

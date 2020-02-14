@@ -65,7 +65,7 @@ page {
 }
 
 .selector-item-selected {
-  color: #009900;
+  color: #090;
 }
 
 .selector-item-order {
@@ -116,7 +116,7 @@ page {
   font-weight: bold;
 }
 
-.goods-type{
+.goods-type {
   position: absolute;
   left: 100px;
   top: 23px;
@@ -149,7 +149,7 @@ page {
 .goods-amount {
   position: absolute;
   bottom: 5px;
-  right: 5px;
+  right: 10px;
 }
 
 .goods-amount::before {
@@ -159,8 +159,9 @@ page {
 .goods-price {
   position: absolute;
   font-size: 0.8em;
-  bottom: 23px;
-  right: 5px;
+  left: 100px;
+  bottom: 34px;
+  color: #bbb;
 }
 
 .goods-price::before {
@@ -170,11 +171,23 @@ page {
 .goods-repo {
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 10px;
   font-size: 0.8em;
+  color: #1f9de0;
 }
 
 .goods-repo-icon {
   vertical-align: middle;
   margin-right: 3px;
+  color: #1f9de0;
+}
+
+.rfid-bg {
+  position: absolute;
+  right: 3px;
+  bottom: 13px;
+  font-size: 80px;
+  display: inline;
+  height: 80px;
+  color: rgba(0, 0, 0, 0.02);
 }

@@ -30,14 +30,7 @@ class GoodsController extends Controller {
         }
     }
 
-    async upload() {
-        try {
-            const file = this.ctx.request.files[0]
-            this.ctx.body = await this.ctx.service.goods.upload(file)
-        } catch (error) {
-            throw error
-        }
-    }
+
 
 }
 

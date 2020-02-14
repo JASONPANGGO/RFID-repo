@@ -49,5 +49,13 @@ class InstanceController extends Controller {
         }
     }
 
+    async update() {
+        try {
+            const query = paramFilter(['id', 'name', 'goods_type'], this.ctx.request.body)
+            this.ctx.body = await this.ctx.service.instance.update(query)
+        } catch (error) {
+            throw error
+        }
+    }
 }
 module.exports = InstanceController;

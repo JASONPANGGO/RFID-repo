@@ -176,11 +176,9 @@ Page({
       goods: e.detail.value[1],
       showGoodsPicker: false
     })
-    if (this.data.type.value === 0) {
-      this.setData({
-        outMaxAmount: e.detail.value[1].amount
-      })
-    }
+    this.setData({
+      outMaxAmount: e.detail.value[1].amount
+    })
     this.getUser(e.detail.value[1].repoid)
   },
   onPickNext(e) {

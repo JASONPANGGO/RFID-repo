@@ -50,10 +50,13 @@
 
 <view class="goods-list">
   <view class="goods-item" wx:for="{{goods}}" wx:key="index">
+    <view class="rfid-bg">RFID</view>
     <image src="{{item.img_url}}"></image>
-    <view class="goods-name">{{item.name}}</view>
-    <view class="goods-type">
-      <van-tag type="primary">
+    <view class="goods-name">
+    {{item.name}}
+    <!-- </view>
+    <view class="goods-type"> -->
+      <van-tag mark type="primary">
         {{item.type}}
       </van-tag>
     </view>

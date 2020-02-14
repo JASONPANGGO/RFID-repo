@@ -2,8 +2,7 @@
 import Dialog from '../../lib/vant-weapp/dist/dialog/dialog';
 
 const {
-  request,
-  wxGetStorage
+  request
 } = require('../../utils/promisefy.js')
 const app = getApp()
 
@@ -90,14 +89,12 @@ Page({
 
       request({
         url: app.service.goods.add,
-        header: {
-          'cookie': wx.getStorageSync('cookie')
-        },
         data: {
           name: name,
           price: price,
-          bar_code: bar_code,
+          bar_code: bar_code, 
           amount: amount,
+          instanceid: this.data.user.instanceid,
           repoid: repo.id,
           img_url: img_url,
           comment: comment,
@@ -187,7 +184,7 @@ Page({
       header: {
         'cookie': wx.getStorageSync('cookie')
       },
-      url: app.service.goods.upload,
+      url: app.service.util.upload,
       filePath: file.path,
       name: 'file',
       success(res) {

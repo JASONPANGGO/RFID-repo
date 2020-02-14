@@ -67,7 +67,8 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     AppID: 'wx2f4db5dd499270e9',
-    AppSecret: '6210364d346367b6bd0d85f611bfb0df'
+    AppSecret: '6210364d346367b6bd0d85f611bfb0df',
+    imgUrl: './app/public/img'
   };
 
   return {

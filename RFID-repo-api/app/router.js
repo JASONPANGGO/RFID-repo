@@ -22,6 +22,7 @@ module.exports = app => {
   // instance
   router.post('/instance/add', middleware.auth(), controller.instance.add)
   router.get('/instance/get', middleware.auth(), controller.instance.get)
+  router.post('/instance/update', middleware.auth(), controller.instance.update)
 
   // repo
   router.get('/repo/get', middleware.auth(), controller.repo.get)
@@ -32,11 +33,13 @@ module.exports = app => {
   // goods 
   router.get('/goods/get', middleware.auth(), controller.goods.get)
   router.post('/goods/add', middleware.auth(), controller.goods.add)
-  router.post('/goods/upload', middleware.auth(), controller.goods.upload)
 
   // task
   router.get('/task/get', middleware.auth(), controller.task.get)
   router.post('/task/add', middleware.auth(), controller.task.add)
   router.post('/task/update', middleware.auth(), controller.task.update)
+
+  // util
+  router.post('/util/upload', middleware.auth(), controller.util.upload)
 
 };

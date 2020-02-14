@@ -12,7 +12,7 @@
     </view>
     <van-field size="large" label="任务名称" data-field="name" value="{{ name }}" placeholder="请输入任务名称" bind:input="onInput" />
     <van-cell title="任务类型" bind:click="onSelectType" required size="large" value="{{type.name }}" is-link />
-    <van-cell title="{{type.value ? '入库商品' : '出库商品'}}" bind:click="onSelectGoods" required size="large" value="{{goods.name}}" placeholder="请选择商品" />
+    <van-cell title="{{type.value ? '入库商品' : '出库商品'}}" bind:click="onSelectGoods" required size="large" value="{{goods.name}}" placeholder="请选择商品" is-link />
     <van-cell size="large" wx:if="{{repo}}" title="仓库" value="{{repo.name}}" />
     <van-field size="large" wx:if="{{type}}" required label="{{type.value === 1 ? '入库数量':'出库数量'}}" value="{{amount}}" data-field="amount" type="number" bind:change="onInput" placeholder="剩余库存为{{outMaxAmount}}" />
     <van-cell size="large" wx:if="{{repo.id}}" title="指定负责人" value="{{nextUser.text}}" bindtap="onSelectNext" placeholder="非必填" />

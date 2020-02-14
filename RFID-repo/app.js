@@ -9,7 +9,7 @@ const {
 
 App({
   onLaunch: function() {
-    wx.clearStorage()
+    // wx.clearStorage()
   },
   onShow: function() {
 
@@ -35,7 +35,8 @@ App({
     },
     instance: {
       add: SERVICE_URL + '/instance/add',
-      get: SERVICE_URL + '/instance/get'
+      get: SERVICE_URL + '/instance/get',
+      update: SERVICE_URL + '/instance/update'
     },
     repo: {
       get: SERVICE_URL + '/repo/get',
@@ -45,13 +46,15 @@ App({
     },
     goods: {
       get: SERVICE_URL + '/goods/get',
-      add: SERVICE_URL + '/goods/add',
-      upload: SERVICE_URL + '/goods/upload'
+      add: SERVICE_URL + '/goods/add'
     },
     task: {
       get: SERVICE_URL + '/task/get',
       add: SERVICE_URL + '/task/add',
       update: SERVICE_URL + '/task/update'
+    },
+    util: {
+      upload: SERVICE_URL + '/util/upload'
     }
 
   }

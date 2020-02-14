@@ -178,15 +178,13 @@ Page({
     this.initData(user)
   },
   accept(e) {
+    const user = wx.getStorageSync('user')
     Dialog.confirm({
       title: '接受任务',
       message: '是否确定接受该任务？'
     }).then(() => {
       request({
         url: app.service.task.update,
-        header: {
-          'cookie': wx.getStorageSync('cookie')
-        },
         data: {
           id: e.currentTarget.dataset.id,
           status: 1,
@@ -206,9 +204,6 @@ Page({
     }).then(() => {
       request({
         url: app.service.task.update,
-        header: {
-          'cookie': wx.getStorageSync('cookie')
-        },
         data: {
           id: e.currentTarget.dataset.id,
           status: 3

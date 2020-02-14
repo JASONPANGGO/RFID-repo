@@ -13,10 +13,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    avatarUrl: '../../image/my.png',
+    avatarUrl: '../../image/user.png',
     name: null,
     character: null,
-    instance_repo_name: ''
+    instance_repo_name: '',
+    onChangingName: false
   },
 
   /**
@@ -63,6 +64,10 @@ Page({
     }
   },
   onLogin(authRes) {
+    Toast.loading({
+      mask: false,
+      message: '加载中...'
+    })
     wxLogin().then(loginRes => {
       return request({
         url: app.service.user.login,
@@ -78,6 +83,7 @@ Page({
         wx.setStorageSync('user', user)
         wx.setStorageSync('cookie', res.cookies[0])
         this.initData(user)
+        Toast.clear()
       } else {
         Toast.fail(res.data)
         console.log(res)
@@ -120,6 +126,47 @@ Page({
   navigate(e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.to,
+    })
+  },
+  onChangeName() {
+    this.setData({
+      onChangingName: true
+    })
+  },
+  onInput(e) {
+    const key = e.currentTarget.dataset.field;
+    this.setData({
+      [key]: e.detail
+    })
+  },
+  confirmNewName() {
+    const user = wx.getStorageSync('user')
+    request({
+      url: app.service.user.update,
+      data: {
+        id: user.id,
+        name: this.data.name
+      },
+      method: "post"
+    }).then(res => {
+      console.log(res)
+      if (res.statusCode === 200) {
+        user.name = this.data.name
+        wx.setStorageSync('user', user)
+        this.setData({
+          onChangingName: false
+        })
+        Toast.success('操作成功')
+      } else {
+        this.onClose()
+        Toast.fail('检查网络')
+      }
+    })
+  },
+  onClose() {
+    this.setData({
+      onChangingName: false,
+      name: wx.getStorageSync('user').name
     })
   }
 })

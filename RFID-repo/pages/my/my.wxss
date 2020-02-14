@@ -11,6 +11,7 @@ page {
   display: flex;
   justify-content: space-evenly;
   position: relative;
+  margin: auto;
 }
 
 .instance-name-tag {
@@ -20,12 +21,42 @@ page {
 }
 
 .info {
-  width: 300rpx;
+  width: 400rpx;
   height: 120rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: #fff;
+  margin: 0 auto;
+}
+
+.info van-icon {
+  vertical-align: middle;
+}
+
+.remind-text {
+  width: 500rpx;
+  font-size: 0.9em;
+}
+
+.login-button {
+  width: 254rpx;
+  text-align: center;
+  margin-top: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 25rpx;
+  margin-left: 0;
+}
+
+.login-button van-icon {
+  vertical-align: middle;
+  top: 9px;
+  left: 19px;
+  font-size: 14px;
+  margin-right: 5px;
 }
 
 .repo-container {
