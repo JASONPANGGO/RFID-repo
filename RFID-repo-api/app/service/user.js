@@ -32,7 +32,7 @@ class UserService extends Service {
         console.log('注册：', query.userInfo)
         await this.app.mysql.insert(TABLE, {
             openid: query.openid,
-            name: query.userInfo['nickName'],
+            name: encodeURI(query.userInfo['nickName']), // 如果是emoji昵称需要转码
             avatarUrl: query.userInfo['avatarUrl']
         })
 
@@ -52,7 +52,7 @@ class UserService extends Service {
     checkSession() {
         try {
             const userInfo = this.ctx.session.userInfo
-         
+
             if (userInfo) return userInfo
             else this.ctx.body = {
                 message: 'expire'
