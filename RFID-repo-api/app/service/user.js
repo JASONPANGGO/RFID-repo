@@ -10,7 +10,10 @@ class UserService extends Service {
                 where: query
             })
             if (res.length >= 1) {
-                res = res.map(u => u.name = decodeURI(u.name))
+                res = res.map(u => {
+                    u.name = decodeURI(u.name)
+                    return u
+                })
             }
             return res
         } catch (error) {
