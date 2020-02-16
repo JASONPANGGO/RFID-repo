@@ -19,7 +19,8 @@ module.exports = appInfo => {
   config.middleware = [];
 
   config.multipart = {
-    mode: 'file'
+    mode: 'file',
+    fileSize: '10mb'
   }
 
   // 服务器
