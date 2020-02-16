@@ -1,6 +1,7 @@
 /* pages/createTask/createTask.wxss */
 
-@import "../../utils/preview.wxss"
+@import "../preview/preview.wxss";
+
 
 .creater {
   width: 90%;

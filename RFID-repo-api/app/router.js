@@ -33,6 +33,8 @@ module.exports = app => {
   // goods 
   router.get('/goods/get', middleware.auth(), controller.goods.get)
   router.post('/goods/add', middleware.auth(), controller.goods.add)
+  router.post('/goods/update', middleware.auth(), controller.goods.update)
+  router.post('/goods/delete', middleware.auth(), controller.goods.delete)
 
   // task
   router.get('/task/get', middleware.auth(), controller.task.get)

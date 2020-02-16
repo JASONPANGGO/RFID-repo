@@ -1,4 +1,6 @@
 <!--pages/createTask/createTask.wxml-->
+<import src="../preview/preview.wxml" />
+
 <view class="header-small">
   创建任务
 </view>
@@ -26,7 +28,7 @@
   </van-button>
 </view>
 
-<van-overlay show="{{showPreview}}" bind:click="onClose" z-index='999'>
+<!-- <van-overlay show="{{showPreview}}" bind:click="onClose" z-index='999'>
 
   <van-transition show="{{showPreview}}" name="fade-down">
     <view class="preview">
@@ -46,15 +48,15 @@
       </view>
       <view class="preview-create-time">{{create_time}}</view>
     </view>
-  </van-transition>
-
-  <view class="bottom-button">
-    <van-button type="primary" bindtap="submit">
-      提 交
-    </van-button>
-  </view>
-
-</van-overlay>
+  </van-transition> -->
+<template is="preview" data="{{onPreviewItem,showPreview,showSubmit}}">
+</template>
+<!-- <view class="bottom-button" wx:if="{{showPreview}}">
+  <van-button type="primary" bindtap="submit">
+    提 交
+  </van-button>
+</view> -->
+<!-- </van-overlay> -->
 
 
 <van-popup show="{{showTypesPicker}}" bind:close="onClose" position="bottom">

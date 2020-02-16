@@ -16,8 +16,10 @@ Page({
     repo_list: [],
     types: [],
     picker_list: [],
+    id: '',
     img_url: '',
     name: '',
+    type: '',
     create_time: '',
     price: '',
     amount: '',
@@ -25,14 +27,31 @@ Page({
     comment: '',
     show_select: false,
     repo: '',
-    user: {}
+    user: {},
+    update: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('editGoods', (goods) => {
+      this.setData({
+        id: goods.id,
+        name: goods.name,
+        type: goods.type,
+        create_time: new Date(goods.create_time).toLocaleDateString(),
+        price: goods.price,
+        amount: goods.amount,
+        bar_code: goods.bar_code,
+        comment: goods.comment,
+        repo: goods.repo,
+        img_url: goods.img_url,
+        update: true
+      })
+      console.log(goods)
+    })
   },
 
   /**
@@ -87,31 +106,59 @@ Page({
       })
     } else {
 
-      request({
-        url: app.service.goods.add,
-        data: {
-          name: name,
-          price: price,
-          bar_code: bar_code, 
-          amount: amount,
-          instanceid: this.data.user.instanceid,
-          repoid: repo.id,
-          img_url: img_url,
-          comment: comment,
-          type: type
-        },
-        method: 'post'
-      }).then(res => {
-        Dialog.alert({
-          title: '商品添加成功',
-          message: ''
+      if (this.data.update) {
+
+        request({
+          url: app.service.goods.update,
+          data: {
+            id: this.data.id,
+            name: name,
+            price: price,
+            bar_code: bar_code,
+            amount: amount,
+            repoid: repo.id,
+            img_url: img_url,
+            comment: comment,
+            type: type
+          },
+          method: 'post'
         }).then(res => {
-          wx.switchTab({
-            url: '/pages/goods/goods'
+          Dialog.alert({
+            title: '商品修改成功',
+            message: ''
+          }).then(res => {
+            wx.switchTab({
+              url: '/pages/goods/goods'
+            })
           })
         })
-      })
 
+      } else {
+        request({
+          url: app.service.goods.add,
+          data: {
+            name: name,
+            price: price,
+            bar_code: bar_code,
+            amount: amount,
+            instanceid: this.data.user.instanceid,
+            repoid: repo.id,
+            img_url: img_url,
+            comment: comment,
+            type: type
+          },
+          method: 'post'
+        }).then(res => {
+          Dialog.alert({
+            title: '商品添加成功',
+            message: ''
+          }).then(res => {
+            wx.switchTab({
+              url: '/pages/goods/goods'
+            })
+          })
+        })
+      }
     }
   },
   getRepos() {

@@ -1,12 +1,13 @@
 /* pages/index/index.wxss */
 
-.header{
+.header {
   position: relative;
   margin-bottom: 20rpx;
 }
 
 van-icon {
   vertical-align: middle;
+  margin-right: 3px;
 }
 
 .info-container {
@@ -39,7 +40,7 @@ van-icon {
   color: #fff;
 }
 
-.greet van-icon{
+.greet van-icon {
   margin-right: 3px;
 }
 

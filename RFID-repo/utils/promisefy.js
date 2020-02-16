@@ -2,6 +2,9 @@ import Toast from '../lib/vant-weapp/dist/toast/toast';
 const promisefy = fn => extraProps => new Promise((resolve, reject) => fn({
   ...extraProps,
   success: res => {
+    if (res.statusCode === 403) {
+      Toast.fail('权限不足')
+    }
     if (res && res.data && res.data.message === 'login expire') {
       const app = getApp()
       console.log('登录过期')

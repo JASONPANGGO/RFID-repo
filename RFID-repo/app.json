@@ -1,15 +1,17 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/goods/goods",
     "pages/my/my",
+    "pages/index/index",
     "pages/addGoods/addGoods",
     "pages/createTask/createTask",
     "pages/task/task",
-    "pages/goods/goods",
     "pages/memberManage/memberManage",
     "pages/joinRepo/joinRepo",
     "pages/repoManage/repoManage",
-    "pages/createRepo/createRepo"
+    "pages/createRepo/createRepo",
+    "pages/imgUpload/imgUpload",
+    "pages/goodsDetail/goodsDetail"
   ],
   "tabBar": {
     "custom": true,
@@ -75,6 +77,7 @@
     "van-tabs": "./lib/vant-weapp/dist/tabs/index",
     "van-sticky": "./lib/vant-weapp/dist/sticky/index",
     "van-notice-bar": "./lib/vant-weapp/dist/notice-bar/index",
+    "van-loading": "./lib/vant-weapp/dist/loading/index",
     "i-cell-group": "./lib/iview-weapp/dist/cell-group/index",
     "i-cell": "./lib/iview-weapp/dist/cell/index",
     "i-icon": "./lib/iview-weapp/dist/icon/index"

@@ -31,6 +31,14 @@ class TaskService extends Service {
             throw error
         }
     }
+
+    async delete(query) {
+        try {
+            return await this.app.mysql.delete(TABLE, query)
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 module.exports = TaskService

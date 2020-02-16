@@ -170,5 +170,44 @@ Page({
       onChangingName: false,
       name: wx.getStorageSync('user').name
     })
+  },
+
+  changeAvatar() {
+    const that = this
+    const user = wx.getStorageSync('user')
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success(res) {
+        const src = res.tempFilePaths[0]
+        wx.navigateTo({
+          url: `/pages/imgUpload/imgUpload?src=${src}`,
+          events: {
+            getImgUrl(img_url) {
+              request({
+                url: app.service.user.update,
+                data: {
+                  id: user.id,
+                  avatarUrl: img_url
+                },
+                method: 'post'
+              }).then(res => {
+                if (res.statusCode === 200) {
+                  Toast.success("操作成功")
+                  user.avatarUrl = img_url
+                  wx.setStorageSync('user', user)
+                  that.setData({
+                    avatarUrl: img_url
+                  })
+                } else {
+                  Toast.fail('操作失败')
+                }
+              })
+            }
+          }
+        })
+      }
+    })
   }
 })

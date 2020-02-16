@@ -1,11 +1,15 @@
 <!--pages/task/task.wxml-->
+
+<import src="../preview/preview.wxml" />
+
 <van-tabs active="{{ activeTab }}" bind:change="onTabChange" swipeable animated>
   <van-tab title="仓库">
 
     <view class="task-goods-item" wx:for="{{task_goods}}" wx:key="index">
       <view class="name">{{item.name}}</view>
       <view class="id">#{{item.id}}</view>
-      <view class="detail" data-index="{{index}}" bindtap="onPreview"><van-icon name="description" />详情</view>
+      <view class="detail" data-index="{{index}}" bindtap="onPreview">
+        <van-icon name="description" />详情</view>
       <view class="type">
         {{item.type_text}}
       </view>
@@ -52,27 +56,8 @@
   </van-button>
 </view>
 
-<van-overlay show="{{showPreview}}" bind:click="onClose" z-index='999'>
-  <van-transition show="{{showPreview}}" name="fade-down">
-    <view class="preview">
-      <view class="preview-title">{{onPreviewItem.type_text}}</view>
-      <view class="preview-name">{{onPreviewItem.name}}</view>
-      <image class="preview-goods-img" src="{{onPreviewItem.goods.img_url}}"></image>
-      <view class="preview-goods">商品名称：{{onPreviewItem.goods.name}}</view>
-      <view class="preview-amount">数量：{{onPreviewItem.amount}}</view>
-      <view class="preview-repo">所属仓库：
-        <van-icon name="points" />{{onPreviewItem.repo.name}}
-      </view>
-      <view class="preview-comment">备注：{{onPreviewItem.comment}}</view>
-      <image src="/image/bar-code.png" class="preview-bar-code"></image>
-      <view class="preview-nextUser">
-        <image class="avatar" src="{{onPreviewItem.nextUser.avatarUrl}}"></image>
-        <view class="preview-nextUser-name">{{onPreviewItem.nextUser.text}}</view>
-      </view>
-      <view class="preview-create-time">{{onPreviewItem.create_time}}</view>
-    </view>
-  </van-transition>
-</van-overlay>
+<template is="preview" data="{{showPreview,onPreviewItem}}"></template>
+
 
 <van-toast id="van-toast" />
 <van-dialog id="van-dialog" />

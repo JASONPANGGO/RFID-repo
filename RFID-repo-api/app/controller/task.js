@@ -8,15 +8,19 @@ const {
 
 class TaskController extends Controller {
     async get() {
-        const query = paramFilter(['id', 'instanceid', 'repoid'], this.ctx.request.query)
+        const query = paramFilter(['id', 'instanceid', 'repoid', 'goodsid', 'status'], this.ctx.request.query)
         console.log('get task', query)
         this.ctx.body = {
             taskData: await this.ctx.service.task.get(query),
-            userData: await this.ctx.service.user.get(query),
-            repoData: await this.ctx.service.repo.get({
+            userData: await this.ctx.service.user.get(query.instanceid ? query : {
+                repoid: query.repoid
+            }),
+            repoData: await this.ctx.service.repo.get(query.instanceid ? query : {
                 id: query.repoid
             }),
-            goodsData: await this.ctx.service.goods.get(query)
+            goodsData: await this.ctx.service.goods.get(query.instanceid ? query : {
+                repoid: query.repoid
+            })
         }
     }
     async add() {
@@ -27,6 +31,7 @@ class TaskController extends Controller {
 
     async update() {
         const query = paramFilter(['id', 'status', 'nextUserid'], this.ctx.request.body)
+        const character = 
         this.ctx.body = await this.ctx.service.task.update(query)
     }
 }

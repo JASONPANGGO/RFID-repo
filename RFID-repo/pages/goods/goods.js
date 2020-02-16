@@ -20,7 +20,9 @@ Page({
     query: {},
     type: [],
     repoid: [],
-    status: [],
+    status: [
+      '进货中', '待进货', '出货中', '待出货'
+    ],
     currentSelector: [],
     orders: [
       '时间从远到近',
@@ -214,6 +216,14 @@ Page({
       query: Object.assign(this.data.query, {
         name: e.detail
       })
+    })
+  },
+  checkDetail(e) {
+    wx.navigateTo({
+      url: '/pages/goodsDetail/goodsDetail',
+      success(res) {
+        res.eventChannel.emit('goodsData', e.currentTarget.dataset.goods)
+      }
     })
   }
 })

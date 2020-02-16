@@ -46,7 +46,9 @@ App({
     },
     goods: {
       get: SERVICE_URL + '/goods/get',
-      add: SERVICE_URL + '/goods/add'
+      add: SERVICE_URL + '/goods/add',
+      update: SERVICE_URL + '/goods/update',
+      delete: SERVICE_URL + '/goods/delete'
     },
     task: {
       get: SERVICE_URL + '/task/get',

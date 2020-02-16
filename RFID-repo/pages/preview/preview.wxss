@@ -1,0 +1,130 @@
+.preview {
+  position: relative;
+  width: 680rpx;
+  margin: auto;
+  height: 70vh;
+  background-color: #fff;
+  margin-top: 15vh;
+  border-radius: 20px;
+}
+
+.preview-title {
+  position: absolute;
+  top: 15px;
+  font-weight: bold;
+  font-size: 1.5em;
+  width: 100%;
+  text-align: center;
+}
+
+.preview-title .line-left {
+  width: 200rpx;
+  height: 1px;
+  background-color: #000;
+  position: absolute;
+  left: 0;
+  bottom: 0.5em;
+}
+
+.preview-title .line-right {
+  width: 200rpx;
+  height: 1px;
+  background-color: #000;
+  position: absolute;
+  right: 0;
+  bottom: 0.5em;
+}
+
+.preview-name {
+  position: absolute;
+  top: 10vh;
+  left: 15px;
+  font-weight: bold;
+}
+
+.preview-goods-img {
+  position: absolute;
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 15px;
+  right: 15px;
+  top: 10vh;
+}
+
+.preview-goods {
+  position: absolute;
+  top: 15vh;
+  left: 15px;
+}
+
+.preview-amount {
+  position: absolute;
+  left: 15px;
+  top: 18vh;
+}
+
+.preview-repo {
+  position: absolute;
+  left: 15px;
+  top: 21vh;
+}
+
+.preview-repo van-icon {
+  vertical-align: middle;
+}
+
+.preview-create-time {
+  position: absolute;
+  bottom: 69px;
+  font-size: 0.8em;
+  right: 15px;
+}
+
+.preview-bar-code {
+  position: absolute;
+  width: 90%;
+  left: 5%;
+  height: 50px;
+  bottom: 15px;
+}
+
+.preview-comment {
+  position: absolute;
+  bottom: 150px;
+  font-size: 0.8em;
+  left: 15px;
+}
+
+.preview-nextUser {
+  position: absolute;
+  left: 15px;
+  bottom: 68px;
+  width: 200rpx;
+  height: 138rpx;
+}
+
+.preview-nextUser .avatar {
+  position: absolute;
+  left: 10px;
+}
+
+.preview-nextUser .preview-nextUser-name {
+  position: absolute;
+  bottom: 0;
+  font-size: 0.8em;
+}
+
+.rfid-bg {
+  position: absolute;
+  font-size: 200rpx;
+  color: rgba(0, 0, 0, 0.05);
+  bottom: 138rpx;
+  right: 10rpx;
+  z-index: 0;
+}
+
+.bottom-button {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

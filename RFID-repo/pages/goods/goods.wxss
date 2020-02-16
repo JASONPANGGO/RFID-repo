@@ -85,6 +85,10 @@ page {
   justify-content: space-around;
 }
 
+.selector-op button {
+  width: 350rpx;
+}
+
 .goods-list {
   margin-top: 110px;
   margin-bottom: 80px;

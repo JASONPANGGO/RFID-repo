@@ -64,5 +64,22 @@ class GoodsService extends Service {
         }
     }
 
+    async update(query) {
+        try {
+            return await this.app.mysql.update(TABLE, query)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async delete(query) {
+        try {
+            
+            return await this.app.mysql.delete(TABLE, query)
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 module.exports = GoodsService

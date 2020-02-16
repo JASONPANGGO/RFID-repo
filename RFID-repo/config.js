@@ -62,5 +62,6 @@ module.exports = {
     value: 3,
     text: '已终止',
     tag_type: 'default'
-  }]
+  }],
+  themeColor: '#1296db'
 }

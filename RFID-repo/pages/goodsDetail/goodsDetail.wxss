@@ -1,0 +1,180 @@
+/* pages/goodsDetail/goodsDetail.wxss */
+@import "../preview/preview.wxss";
+
+van-icon {
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
+.header-small-gap {
+  margin-top: 120rpx;
+}
+
+.goods-card {
+  width: 90%;
+  margin: 10px auto;
+  height: 460rpx;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px 0px #eee;
+  position: relative;
+}
+
+.goods-info {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 340rpx;
+  height: 340rpx;
+}
+
+.goods-img {
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+.type {
+  margin-top: 10px;
+  display: block;
+}
+
+.comment {
+  position: absolute;
+  top: 115px;
+  left: 10px;
+  width: 312rpx;
+}
+
+.name .id {
+  color: #ccc;
+  font-size: 0.6em;
+}
+
+.price {
+  margin-top: 10px;
+  font-size: 1.1em;
+  background-color: #eee;
+  display: inline-block;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+
+.comment {
+  font-size: 0.8em;
+}
+
+.goods-card .create_time {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #ccc;
+  font-size: 0.8em;
+}
+
+.amount {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 1.3em;
+}
+
+.amount text {
+  font-size: 0.6em;
+}
+
+.repo {
+  font-size: 0.8em;
+  color: #1296db;
+  display: inline;
+}
+
+.gap {
+  width: 680rpx;
+  margin: 0 auto;
+  height: 80rpx;
+  position: relative;
+}
+
+.tasks-title {
+  font-size: 12px;
+  color: #999;
+}
+
+.edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #1296db;
+  font-size: 13px;
+}
+
+.task-item {
+  width: 700rpx;
+  height: 100rpx;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 100rpx;
+  margin: 15px auto;
+}
+
+.task-name {
+  position: absolute;
+  left: 0;
+}
+
+.task-status {
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 0;
+}
+
+.task-create-time {
+  position: absolute;
+  color: #ccc;
+  font-size: 0.7em;
+  right: 0;
+  bottom: 0;
+  line-height: 0.7em;
+}
+
+.task-type-1 {
+  color: #389e0d;
+}
+
+.task-type-0 {
+  color: #cf1322;
+}
+
+.task-history-title {
+  display: flex;
+  justify-content: space-between;
+  color: #bbb;
+  font-size: 0.6em;
+  width: 700rpx;
+  margin: 10px auto;
+}
+
+.delete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 13px;
+  color: #333;
+}
+
+
+.unavailable {
+  color: #ddd;
+}

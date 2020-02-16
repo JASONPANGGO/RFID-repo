@@ -1,0 +1,70 @@
+<!--pages/goodsDetail/goodsDetail.wxml-->
+<import src="../preview/preview.wxml" />
+
+<view class="header-small">
+  <van-icon name="apps-o" style="vertical-align: middle;" /> 商品详情
+</view>
+
+<view class="header-small-gap">
+
+  <view class="goods-card">
+    <image class="goods-img" src="{{goods.img_url}}"></image>
+
+    <view class="goods-info">
+      <view class="name">
+        {{goods.name}}
+        <text class="id">#{{goods.id}}</text>
+      </view>
+      <van-tag type="primary" size="large" class="type">{{goods.type}}</van-tag>
+
+      <view class="price">￥{{goods.price}}</view>
+    </view>
+
+    <view class="comment">
+      {{comment}}
+    </view>
+
+    <view class="create_time">{{goods.create_time}}</view>
+    <view class="amount">
+      <view class="repo">
+        <van-icon name="points" />{{goods.repo.name}}
+      </view>
+      <text>库存</text> {{goods.amount}}
+    </view>
+  </view>
+
+  <view class="gap">
+    <view class="edit {{editable ? '' : 'unavailable'}}" bindtap="edit">
+      <van-icon name="edit" />编辑本商品
+    </view>
+    <view class="delete {{editable ? '' : 'unavailable'}}" bindtap="delete">
+      <van-icon name="delete" />删除本商品
+    </view>
+  </view>
+  <van-divider class="tasks-title" contentPosition="left" custom-style="font-size:12px">进出库记录</van-divider>
+  <view class="task-history">
+    <view class="task-history-title">
+      <view class="title" wx:for="{{history_title}}" wx:key="index">{{item}}</view>
+    </view>
+    <view style="width:100%;text-align:center;margin-top:30px;">
+      <van-loading wx:if="{{!loaded}}">数据加载中...</van-loading>
+      <view wx:if="{{loaded && tasks.length === 0}}" style="color:gray">无数据</view>
+    </view>
+    <view wx:for="{{tasks}}" wx:key="index">
+      <view class="task-item" bindtap="preview" data-item="{{item}}">
+        <view class="task-name {{item.type ? 'task-type-1':'task-type-0'}}">{{item.type_text}}</view>
+        <view class="task-amount">{{item.amount}}</view>
+        <van-tag type="{{item.status_tag_type}}" class="task-status">{{item.status_text}}</van-tag>
+        <view class="task-create-time">{{item.time}}</view>
+      </view>
+      <van-divider />
+    </view>
+  </view>
+
+</view>
+
+<template is="preview" data="{{showPreview,onPreviewItem}}"></template>
+
+
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />

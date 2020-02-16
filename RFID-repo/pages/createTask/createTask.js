@@ -31,7 +31,9 @@ Page({
     showGoodsPicker: false,
     showUserPicker: false,
     showPreview: false,
-    outMaxAmount: ''
+    showSubmit: false,
+    outMaxAmount: '',
+    onPreviewItem: {}
   },
 
   /**
@@ -160,7 +162,8 @@ Page({
       showTypesPicker: false,
       showGoodsPicker: false,
       showUserPicker: false,
-      showPreview: false
+      showPreview: false,
+      showSubmit: false
     })
   },
   onPickType(e) {
@@ -202,7 +205,18 @@ Page({
   preview() {
     if (this.data.amount) {
       this.setData({
-        showPreview: true
+        showPreview: true,
+        showSubmit: true,
+        onPreviewItem: {
+          type_text: this.data.type.name,
+          name: this.data.name,
+          goods: this.data.goods,
+          amount: this.data.amount,
+          repo: this.data.repo,
+          comment: this.data.comment,
+          nextUser: this.data.nextUser,
+          create_time: this.data.create_time
+        }
       })
     } else {
       Toast.fail('请先填完必填项目')

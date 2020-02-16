@@ -8,6 +8,8 @@ const {
 } = require('../../utils/promisefy.js')
 const config = require('../../config.js')
 
+const chartsColor = ["#37A2DA", "#32C5E9", "#67E0E3", "#91F2DE", "#FFDB5C", "#FF9F7F", "#a0d911", "#d3f261", "#13c2c2", "#9254de"]
+
 function initPieChart(canvas, width, height, data) {
   const chart = echarts.init(canvas, null, {
     width: width,
@@ -17,7 +19,7 @@ function initPieChart(canvas, width, height, data) {
 
   var option = {
     backgroundColor: "#ffffff",
-    color: ["#37A2DA", "#32C5E9", "#67E0E3", "#91F2DE", "#FFDB5C", "#FF9F7F"],
+    color: chartsColor,
     series: [{
       label: {
         normal: {
@@ -58,11 +60,11 @@ function initLineChart(canvas, width, height, data) {
       text: '',
       left: 'center'
     },
-    color: ["#37A2DA", "#67E0E3", "#9FE6B8"],
+    color: chartsColor,
     legend: {
       // data: ['A', 'B', 'C'],
       data: data.data.map(d => d.name),
-      top: 30,
+      top: 10,
       left: 'center',
       backgroundColor: '#eee',
       z: 100
@@ -122,7 +124,7 @@ function initBarChart(canvas, width, height, data) {
   canvas.setChart(chart);
 
   var option = {
-    color: ['#37a2da', '#32c5e9', '#67e0e3'],
+    color: chartsColor,
     tooltip: {
       trigger: 'axis',
       axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -309,7 +311,7 @@ Page({
       greet = '上午好~'
     }
     if (hours > 12 && hours < 18) {
-      greet = '下午好'
+      greet = '下午好~'
     }
     this.setData({
       dataReady: false,
@@ -353,10 +355,9 @@ Page({
           xAxis: []
         }
 
-        taskData = taskData.filter(t => t.type !== 2).reverse()
+        taskData = taskData.filter(t => t.type !== 2).sort((a, b) => b.create_time - a.create_time)
         const latestTask = taskData.find(t => t.status === 0)
         const noticeText = `[新任务]${latestTask.name} 任务类型：${config.task[latestTask.type].name} 商品：${goodsData.find(g => g.id === latestTask.goodsid).name} 数量：${latestTask.amount}`
-        const dataAmount = taskData.length
         const barDataType = ['outData', 'inData']
         // 条形图
         const barData = goodsData.map(g => {
@@ -365,6 +366,7 @@ Page({
           return g
         })
 
+        // const dataAmount = taskData.length
         taskData.forEach((t, i) => {
           const goodsName = goodsData.find(g => g.id === t.goodsid).name
           const goodsAmount = goodsData.find(g => g.id === t.goodsid).amount
@@ -376,20 +378,50 @@ Page({
           // 折线图数据格式化
           // 未有该任务类型的该商品
           const lineDataIndex = lineData.data.findIndex(e => (e.goodsid === t.goodsid && t.type === e.taskType))
-          if (lineDataIndex < 0) {
-            t.name = `${goodsName} - ${config.task[t.type].name.substr(2,2)}` //最后两个字
-            t.taskType = t.type
-            t.type = 'line'
-            t.smooth = 'true'
-            t.data = Array.apply(null, Array(dataAmount)).map(() => 0)
-            t.data[i] = t.amount
-            lineData.data.push(t)
-          } else {
-            // 已有该任务类型的该商品
-            lineData.data[lineDataIndex].data[i] = t.amount
-          }
+
           const date = new Date(t.create_time)
-          lineData.xAxis.push(`${date.getMonth() + 1}/${date.getDate()}`)
+          const date_text = `${date.getMonth() + 1}/${date.getDate()}`
+          const xAxisIndex = lineData.xAxis.indexOf(date_text)
+          t.name = `${goodsName} - ${config.task[t.type].name.substr(2, 2)}` //最后两个字
+          t.taskType = t.type
+          t.type = 'line'
+          t.smooth = 'true'
+
+          if (xAxisIndex < 0) {
+            lineData.xAxis.push(date_text)
+            if (lineDataIndex < 0) {
+              t.data = [t.amount]
+              lineData.data.push(t)
+            } else {
+              lineData.data[lineDataIndex].data.push(t.amount)
+            }
+          } else {
+            if (lineDataIndex < 0) {
+              t.data = [t.amount]
+              lineData.data.push(t)
+            } else {
+              lineData.data[lineDataIndex].data[xAxisIndex] += t.amount
+            }
+          }
+          // lineData.xAxis.push(`${date.getMonth() + 1}/${date.getDate()}`)
+
+          // if (lineDataIndex < 0) {
+
+          //   t.name = `${goodsName} - ${config.task[t.type].name.substr(2,2)}` //最后两个字
+          //   t.taskType = t.type
+          //   t.type = 'line'
+          //   t.smooth = 'true'
+          //   // t.data = [t.amount]
+          //   // t.data = Array.apply(null, Array(dataAmount)).map(() => 0)
+          //   t.data[i] = t.amount
+          //   lineData.data.push(t)
+
+          // } else {
+
+          //   // 已有该任务类型的该商品
+          //   lineData.data[lineDataIndex].data[i] = t.amount
+
+          // }
 
         })
 

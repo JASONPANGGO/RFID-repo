@@ -26,16 +26,19 @@
 
 <view class="selector-expand" wx:if="{{selectorStatus}}">
 
-  <view class="selector-item {{tool.includes(query[selectorStatus],item) ? 'selector-item-selected' : ''}}" wx:for="{{currentSelector}}" wx:if="{{selectorStatus!=='repoid'}}" wx:key="index" data-query="{{item}}" bindtap="onSelect">
-    {{item}}
-    <van-icon name="success" color="#52c41a" style="visibility:{{tool.includes(query[selectorStatus],item) ? '' : 'hidden'}}" />
-  </view>
-
+  <!-- 仓库 -->
   <view class="selector-item {{tool.includes(query[selectorStatus],item.id) ? 'selector-item-selected' : ''}}" wx:for="{{currentSelector}}" wx:if="{{selectorStatus === 'repoid'}}" wx:key="index" data-query="{{item.id}}" bindtap="onSelect">
     {{item.name}}
     <van-icon name="success" color="#52c41a" style="visibility:{{tool.includes(query[selectorStatus],item.id) ? '' : 'hidden'}}" />
   </view>
 
+  <!-- 分类,状态 -->
+  <view class="selector-item {{tool.includes(query[selectorStatus],item) ? 'selector-item-selected' : ''}}" wx:for="{{currentSelector}}" wx:if="{{selectorStatus!=='repoid'}}" wx:key="index" data-query="{{item}}" bindtap="onSelect">
+    {{item}}
+    <van-icon name="success" color="#52c41a" style="visibility:{{tool.includes(query[selectorStatus],item) ? '' : 'hidden'}}" />
+  </view>
+
+  <!-- 排序 -->
   <view class="selector-item-order {{query.order == index ? 'selector-item-selected' : ''}}" data-query="{{index}}" bindtap="onSelectOrder" wx:for="{{orders}}" wx:if="{{selectorStatus == 'order'}}" wx:key="index">
     {{item}}
     <van-icon name="success" color="#52c41a" style="visibility:{{query.order == index ? '' : 'hidden'}}" />
@@ -49,13 +52,11 @@
 </view>
 
 <view class="goods-list">
-  <view class="goods-item" wx:for="{{goods}}" wx:key="index">
+  <view class="goods-item" wx:for="{{goods}}" wx:key="index" bindtap="checkDetail" data-goods="{{item}}">
     <view class="rfid-bg">RFID</view>
     <image src="{{item.img_url}}"></image>
     <view class="goods-name">
-    {{item.name}}
-    <!-- </view>
-    <view class="goods-type"> -->
+      {{item.name}}
       <van-tag mark type="primary">
         {{item.type}}
       </van-tag>
@@ -66,7 +67,6 @@
       <van-icon class="goods-repo-icon" name="points" />{{item.repo.name}}</view>
     <view class="goods-amount">{{item.amount}}</view>
     <view class="goods-price">{{item.price}}</view>
-
   </view>
 </view>
 

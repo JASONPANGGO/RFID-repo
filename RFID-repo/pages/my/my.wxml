@@ -1,8 +1,10 @@
 <!--pages/my.wxml-->
+
+
 <view class="header">
 
   <view class="info-container">
-    <image class="avatar" src="{{avatarUrl}}"></image>
+    <image class="avatar" src="{{avatarUrl}}" bindtap="changeAvatar"></image>
     <view class="info" wx:if="{{avatarUrl}}">
       <view class="nickName" wx:if="{{name}}" bindtap="onChangeName">{{name}}
         <van-icon name="edit" />

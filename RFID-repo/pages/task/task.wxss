@@ -1,6 +1,7 @@
 /* pages/task/task.wxss */
 
-@import "../../utils/preview.wxss"
+
+@import "../preview/preview.wxss";
 
 van-tabs .van-tabs__line {
   background-color: #3dbbff;
@@ -85,7 +86,7 @@ page {
 
 .task-add button {
   width: 100%;
-  box-shadow: 0 5px 10px rgb(152, 255, 200);
+  box-shadow: 0 5px 10px rgba(181, 255, 215, 0.61);
 }
 
 .goods-item {

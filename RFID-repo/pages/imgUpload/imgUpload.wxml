@@ -1,0 +1,18 @@
+<!--pages/imgUpload/imgUpload.wxml-->
+
+<import src="../../lib/we-cropper/we-cropper.wxml" />
+
+
+<view class="cropper-wrapper">
+  <template is="we-cropper" data="{{...cropperOpt}}" />
+  <view class="cropper-buttons">
+    <view class="upload btn upload" bindtap="uploadTap">
+      上传图片
+    </view>
+    <view class="getCropperImage btn" bindtap="getCropperImage">
+      确认
+    </view>
+  </view>
+</view>
+
+<van-toast id="van-toast" />

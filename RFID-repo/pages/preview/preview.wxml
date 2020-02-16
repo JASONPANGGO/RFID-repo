@@ -1,0 +1,33 @@
+<template name="preview">
+  <van-overlay show="{{showPreview}}" bind:click="onClose" z-index='999'>
+    <van-transition show="{{showPreview}}" name="fade-down">
+      <view class="preview">
+        <view class="preview-title">
+          <view class="line-left"></view>
+          {{onPreviewItem.type_text}}
+          <view class="line-right"></view>
+        </view>
+        <view class="preview-name">{{onPreviewItem.name}}</view>
+        <image class="preview-goods-img" src="{{onPreviewItem.goods.img_url}}"></image>
+        <view class="preview-goods">商品名称：{{onPreviewItem.goods.name}}</view>
+        <view class="preview-amount">数量：{{onPreviewItem.amount}}</view>
+        <view class="preview-repo">仓库：
+          <van-icon name="points" />{{onPreviewItem.repo.name}}
+        </view>
+        <view class="preview-comment">备注：{{onPreviewItem.comment}}</view>
+        <image src="/image/bar-code.png" class="preview-bar-code"></image>
+        <view class="preview-nextUser">
+          <image class="avatar" src="{{onPreviewItem.nextUser.avatarUrl}}"></image>
+          <view class="preview-nextUser-name">{{onPreviewItem.nextUser.text}}</view>
+        </view>
+        <view class="preview-create-time">{{onPreviewItem.create_time}}</view>
+        <view class="rfid-bg">RFID</view>
+      </view>
+    </van-transition>
+    <view class="bottom-button" wx:if="{{showSubmit}}">
+      <van-button type="primary" bindtap="submit">
+        提 交
+      </van-button>
+    </view>
+  </van-overlay>
+</template>
