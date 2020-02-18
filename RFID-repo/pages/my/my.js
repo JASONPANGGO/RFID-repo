@@ -53,6 +53,7 @@ Page({
     } else {
       wx.clearStorageSync('user')
       wx.clearStorageSync('cookie')
+      wx.clearStorage()
     }
 
     // 登录过期

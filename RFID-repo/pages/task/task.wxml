@@ -2,7 +2,7 @@
 
 <import src="../preview/preview.wxml" />
 
-<van-tabs active="{{ activeTab }}" bind:change="onTabChange" swipeable animated>
+<van-tabs active="{{ activeTab }}" bind:change="onTabChange" swipeable animated sticky>
   <van-tab title="仓库">
 
     <view class="task-goods-item" wx:for="{{task_goods}}" wx:key="index">

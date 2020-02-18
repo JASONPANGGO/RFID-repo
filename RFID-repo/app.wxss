@@ -35,5 +35,5 @@ image.avatar {
 }
 
 .header-small-gap {
-  margin-top: 100rpx;
+  margin-top: 120rpx;
 }

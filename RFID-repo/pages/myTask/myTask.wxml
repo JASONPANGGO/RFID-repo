@@ -1,0 +1,75 @@
+<!--pages/myTask/myTask.wxml-->
+<!--pages/task/task.wxml-->
+
+<import src="../preview/preview.wxml" />
+
+<van-tabs active="{{ activeTab }}" bind:change="onTabChange" swipeable animated sticky>
+  <van-tab title="我接受的">
+
+    <view class="task-goods-item" wx:for="{{task_accept}}" wx:key="index">
+      <view class="name">{{item.name}}</view>
+      <view class="id">#{{item.id}}</view>
+      <view class="detail" data-index="{{index}}" bindtap="onPreview">
+        <van-icon name="description" />详情</view>
+      <view class="type">
+        {{item.type_text}}
+      </view>
+      <view class="status">
+        <van-tag plain type="{{item.status_tag_type}}">
+          {{item.status_text}}
+        </van-tag>
+      </view>
+      <view class="operation" wx:if="{{item.status == 0}}">
+        <van-button size="mini" data-id="{{item.id}}" round type="primary" bindtap="accept" wx:if="{{user.character !== 1}}">接受</van-button>
+        <van-button size="mini" data-id="{{item.id}}" round wx:if="{{user.character == 1}}" bindtap="withdraw">撤回</van-button>
+      </view>
+      <view class="nextUser" wx:if="{{item.status !== 0 && item.nextUserid}}">
+        <van-button size="mini" data-item="{{item}}" round type="info" bindtap="process" wx:if="{{item.nextUserid === user.id && item.status === 1}}">进度</van-button>
+        <image class="avatar" src="{{item.nextUser.avatarUrl}}"></image>
+        <text>{{item.nextUser.name}}</text>
+      </view>
+      <view class="create-time">{{item.create_time}}</view>
+    </view>
+    <view class="nomore">没有更多任务了~</view>
+
+
+  </van-tab>
+
+  <van-tab title="我发起的">
+
+    <view class="task-goods-item" wx:for="{{task_create}}" wx:key="index">
+      <view class="name">{{item.name}}</view>
+      <view class="id">#{{item.id}}</view>
+      <view class="detail" data-index="{{index}}" bindtap="onPreview">
+        <van-icon name="description" />详情</view>
+      <view class="type">
+        {{item.type_text}}
+      </view>
+      <view class="status">
+        <van-tag plain type="{{item.status_tag_type}}">
+          {{item.status_text}}
+        </van-tag>
+      </view>
+      <view class="operation" wx:if="{{item.status == 0}}">
+        <van-button size="mini" data-item="{{item}}" round type="info" bindtap="process" wx:if="{{item.nextUserid === user.id && item.status === 1}}">进度</van-button>
+        <van-button size="mini" data-id="{{item.id}}" round type="primary" bindtap="accept" wx:if="{{user.character !== 1}}">接受</van-button>
+        <van-button size="mini" data-id="{{item.id}}" round wx:if="{{item.createrid === user.id}}" bindtap="withdraw">撤回</van-button>
+        <van-button size="mini" data-id="{{item.id}}" round wx:if="{{item.createrid === user.id}}" bindtap="edit" data-item="{{item}}">修改</van-button>
+      </view>
+      <view class="nextUser" wx:if="{{item.status !== 0 && item.nextUserid}}">
+        <image class="avatar" src="{{item.nextUser.avatarUrl}}"></image>
+        <text>{{item.nextUser.name}}</text>
+      </view>
+      <view class="create-time">{{item.create_time}}</view>
+    </view>
+    <view class="nomore">没有更多任务了~</view>
+
+  </van-tab>
+
+</van-tabs>
+
+<template is="preview" data="{{showPreview,onPreviewItem}}"></template>
+
+
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />

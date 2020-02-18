@@ -1,10 +1,12 @@
 {
   "pages": [
-    "pages/goods/goods",
-    "pages/my/my",
     "pages/index/index",
+    "pages/myTask/myTask",
+    "pages/taskDetail/taskDetail",
+    "pages/my/my",
+    "pages/goods/goods",
     "pages/addGoods/addGoods",
-    "pages/createTask/createTask",
+    "pages/createTask/createTask",  
     "pages/task/task",
     "pages/memberManage/memberManage",
     "pages/joinRepo/joinRepo",
@@ -78,6 +80,7 @@
     "van-sticky": "./lib/vant-weapp/dist/sticky/index",
     "van-notice-bar": "./lib/vant-weapp/dist/notice-bar/index",
     "van-loading": "./lib/vant-weapp/dist/loading/index",
+    "van-circle": "./lib/vant-weapp/dist/circle/index",
     "i-cell-group": "./lib/iview-weapp/dist/cell-group/index",
     "i-cell": "./lib/iview-weapp/dist/cell/index",
     "i-icon": "./lib/iview-weapp/dist/icon/index"

@@ -302,6 +302,10 @@ Page({
     initBarChart(e.detail.canvas, e.detail.width, e.detail.height, this.data.barData);
   },
   initData() {
+    Toast.loading({
+      mask: false,
+      message: '加载中...'
+    })
     const hours = new Date().getHours()
     let greet = '晚上好~'
     if (hours > 0 && hours < 6) {
@@ -316,10 +320,6 @@ Page({
     this.setData({
       dataReady: false,
       greet: greet
-    })
-    Toast.loading({
-      mask: false,
-      message: '加载中...'
     })
     const user = wx.getStorageSync('user')
     const query = {}
@@ -377,54 +377,49 @@ Page({
 
           // 折线图数据格式化
           // 未有该任务类型的该商品
-          const lineDataIndex = lineData.data.findIndex(e => (e.goodsid === t.goodsid && t.type === e.taskType))
-
           const date = new Date(t.create_time)
           const date_text = `${date.getMonth() + 1}/${date.getDate()}`
-          const xAxisIndex = lineData.xAxis.indexOf(date_text)
           t.name = `${goodsName} - ${config.task[t.type].name.substr(2, 2)}` //最后两个字
           t.taskType = t.type
-          t.type = 'line'
           t.smooth = 'true'
-
+          const lineDataIndex = lineData.data.findIndex(e => (e.goodsid === t.goodsid && t.taskType === e.taskType))
+          const xAxisIndex = lineData.xAxis.indexOf(date_text)
+          if (t.type === 0) {
+            t.amount = -t.amount
+          }
           if (xAxisIndex < 0) {
             lineData.xAxis.push(date_text)
+            for (let i = 0; i < lineData.data.length; i++) {
+              lineData.data[i].data.push(0)
+            }
             if (lineDataIndex < 0) {
-              t.data = [t.amount]
+              t.data = Array.apply(null, Array(lineData.xAxis.length)).map(() => 0)
+
+              t.data[lineData.xAxis.length - 1] = t.amount
               lineData.data.push(t)
             } else {
-              lineData.data[lineDataIndex].data.push(t.amount)
+              for (let i = 0; i < lineData.data.length; i++) {
+                lineData.data[i].data.push(0)
+              }
+              lineData.data[lineDataIndex].data[lineData.xAxis.length - 1] = t.amount
             }
           } else {
+
             if (lineDataIndex < 0) {
               t.data = [t.amount]
               lineData.data.push(t)
+
             } else {
               lineData.data[lineDataIndex].data[xAxisIndex] += t.amount
             }
           }
-          // lineData.xAxis.push(`${date.getMonth() + 1}/${date.getDate()}`)
 
-          // if (lineDataIndex < 0) {
-
-          //   t.name = `${goodsName} - ${config.task[t.type].name.substr(2,2)}` //最后两个字
-          //   t.taskType = t.type
-          //   t.type = 'line'
-          //   t.smooth = 'true'
-          //   // t.data = [t.amount]
-          //   // t.data = Array.apply(null, Array(dataAmount)).map(() => 0)
-          //   t.data[i] = t.amount
-          //   lineData.data.push(t)
-
-          // } else {
-
-          //   // 已有该任务类型的该商品
-          //   lineData.data[lineDataIndex].data[i] = t.amount
-
-          // }
 
         })
-
+        lineData.data = lineData.data.map(l => {
+          l.type = 'line'
+          return l
+        })
 
         this.setData({
           // 饼图数据格式化

@@ -8,17 +8,23 @@ const {
 
 class TaskController extends Controller {
     async get() {
-        const query = paramFilter(['id', 'instanceid', 'repoid', 'goodsid', 'status'], this.ctx.request.query)
+        const query = paramFilter(['id', 'instanceid', 'repoid', 'goodsid', 'status', 'nextUserid', 'createrid'], this.ctx.request.query)
         console.log('get task', query)
         this.ctx.body = {
             taskData: await this.ctx.service.task.get(query),
-            userData: await this.ctx.service.user.get(query.instanceid ? query : {
+            userData: await this.ctx.service.user.get(query.instanceid ? {
+                instanceid: query.instanceid
+            } : {
                 repoid: query.repoid
             }),
-            repoData: await this.ctx.service.repo.get(query.instanceid ? query : {
+            repoData: await this.ctx.service.repo.get(query.instanceid ? {
+                instanceid: query.instanceid
+            } : {
                 id: query.repoid
             }),
-            goodsData: await this.ctx.service.goods.get(query.instanceid ? query : {
+            goodsData: await this.ctx.service.goods.get(query.instanceid ? {
+                instanceid: query.instanceid
+            } : {
                 repoid: query.repoid
             })
         }
@@ -31,8 +37,8 @@ class TaskController extends Controller {
 
     async update() {
         const query = paramFilter(['id', 'status', 'nextUserid'], this.ctx.request.body)
-        const character = 
-        this.ctx.body = await this.ctx.service.task.update(query)
+        const character =
+            this.ctx.body = await this.ctx.service.task.update(query)
     }
 }
 

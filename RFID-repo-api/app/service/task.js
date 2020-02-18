@@ -6,10 +6,13 @@ const TABLE = 'task'
 class TaskService extends Service {
     async get(query) {
         try {
-            const res = await this.app.mysql.select(TABLE, {
-                where: query
-            })
-            return res
+            if (query['createrid'] && query['nextUserid']) {
+                return await this.app.mysql.query(`select * from ${TABLE} where ${query.instanceid ? 'instanceid='+query.instanceid : 'repoid='+query.repoid} and (createrid=${query.createrid} or nextUserid=${query.nextUserid})`)
+            } else {
+                return await this.app.mysql.select(TABLE, {
+                    where: query
+                })
+            }
         } catch (error) {
             throw error
         }

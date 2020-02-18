@@ -2,7 +2,7 @@
 <import src="../preview/preview.wxml" />
 
 <view class="header-small">
-  创建任务
+  {{update? '修改':'创建'}}任务
 </view>
 
 <view class="header-small-gap">

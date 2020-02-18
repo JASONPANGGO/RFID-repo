@@ -174,7 +174,6 @@ van-icon {
   color: #333;
 }
 
-
 .unavailable {
   color: #ddd;
 }

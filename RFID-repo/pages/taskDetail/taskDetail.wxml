@@ -1,0 +1,53 @@
+<!--pages/taskDetail/taskDetail.wxml-->
+<import src="../preview/preview.wxml" />
+
+<view class="header-small">
+  <text>任务进度</text>
+</view>
+
+<view class="header-small-gap">
+  <view class="arrow-container">
+    <view class="goods" bindtap="goToGoodsDetail">
+      <image src="{{task.goods.img_url}}"></image>
+      <view class="goods-name">
+        {{task.goods.name}}</view>
+    </view>
+    <view class="arrow">
+      <view class="task-type">{{task.type_text}}</view>
+      <image src="../../image/arrow-right.png" wx:if="{{task.type === 1}}"></image>
+      <image src="../../image/arrow-left.png" wx:if="{{task.type === 0}}"></image>
+      <view class="task-amount">数量：{{task.amount}}</view>
+    </view>
+    <view class="repo">
+      <van-icon name="points" />
+      <view class="repo-name">{{task.repo.name}}</view>
+    </view>
+  </view>
+  <view class="progress">
+    <van-circle value="{{ task.progress * 100 / task.amount  }}" stroke-width="12" color="{{ confirmFinish ? '#52c41a' : gradientColor }}" size="150" text="{{task.progress}}/{{task.amount}}" />
+  </view>
+  <view class="user-title">操作人</view>
+  <view class="user">
+    <image class="avatar" src="{{user.avatarUrl}}"></image>
+    <view class="name">{{user.name}}</view>
+    <view class="character">
+      <van-icon name="manager-o" />{{user.character.name}}</view>
+  </view>
+  <view class="preview-button" bindtap="preview">
+    <van-icon name="description" />任务详情
+  </view>
+</view>
+
+<template is="preview" data="{{showPreview,onPreviewItem}}"></template>
+
+<view class="bottom-button">
+  <van-button bindtap="abort" type="danger">终止</van-button>
+  <van-button bindtap="finish" type="primary" disabled="{{task.progress !== task.amount}}">确认完成</van-button>
+</view>
+
+<van-dialog use-slot title="终止任务" show="{{ onAbort }}" show-cancel-button bind:close="onClose" bind:confirm="confirmAbort">
+  <van-field autosize label="原因" bind:input="onInput" placeholder="请输入终止原因" border type="textarea" value="{{task.abort_comment}}" />
+</van-dialog>
+
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />

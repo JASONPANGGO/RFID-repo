@@ -1,7 +1,7 @@
 <!--pages/addGoods/addGoods.wxml-->
 <view class="header-small">
   <view>
-    <van-icon name="home-o" style="vertical-align: middle;" /> 添加商品
+    <van-icon name="home-o" style="vertical-align: middle;" /> {{update ? '修改' : '添加'}}商品
   </view>
 </view>
 

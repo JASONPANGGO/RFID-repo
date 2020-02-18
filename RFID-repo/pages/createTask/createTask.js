@@ -15,6 +15,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    id: '',
     name: '',
     type: '',
     repo: '',
@@ -33,14 +34,30 @@ Page({
     showPreview: false,
     showSubmit: false,
     outMaxAmount: '',
-    onPreviewItem: {}
+    onPreviewItem: {},
+    update: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('editTask', (task) => {
+      this.setData({
+        id: task.id,
+        name: task.name,
+        type: config.task[task.type],
+        create_time: new Date(task.create_time).toLocaleDateString(),
+        amount: task.amount,
+        comment: task.comment,
+        repo: task.repo,
+        goods: task.goods,
+        goodsid: task.goodsid,
+        nextUserid: task.nextUserid,
+        update: true
+      })
+    })
   },
 
   /**
@@ -223,33 +240,60 @@ Page({
     }
   },
   submit() {
-    console.log('submit', app.service.task.add)
-    request({
-      url: app.service.task.add,
-      header: {
-        'cookie': wx.getStorageSync('cookie')
-      },
-      data: {
-        name: this.data.name,
-        type: this.data.type.value,
-        instanceid: this.data.repo.instanceid,
-        repoid: this.data.repo.id,
-        goodsid: this.data.goods.id,
-        amount: this.data.amount,
-        nextUserid: this.data.nextUser.id,
-        comment: this.data.comment,
-        createrid: this.data.user.id,
-        status: 0
-      },
-      method: "post"
-    }).then(res => {
-      console.log(res)
-      Toast.success('提交成功')
-      setTimeout(() => {
-        wx.navigateBack({
-          delta: 1
-        })
-      }, 2000)
-    })
+    if (this.data.update) {
+      request({
+        url: app.service.task.update,
+        data: {
+          id: this.data.id,
+          name: this.data.name,
+          type: this.data.type.value,
+          instanceid: this.data.repo.instanceid,
+          repoid: this.data.repo.id,
+          goodsid: this.data.goods.id,
+          amount: this.data.amount,
+          nextUserid: this.data.nextUser.id,
+          comment: this.data.comment,
+          createrid: this.data.user.id,
+          status: 0
+        },
+        method: "post"
+      }).then(res => {
+        console.log(res)
+        Toast.success('修改成功')
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 1
+          })
+        }, 2000)
+      })
+    } else {
+      request({
+        url: app.service.task.add,
+        header: {
+          'cookie': wx.getStorageSync('cookie')
+        },
+        data: {
+          name: this.data.name,
+          type: this.data.type.value,
+          instanceid: this.data.repo.instanceid,
+          repoid: this.data.repo.id,
+          goodsid: this.data.goods.id,
+          amount: this.data.amount,
+          nextUserid: this.data.nextUser.id,
+          comment: this.data.comment,
+          createrid: this.data.user.id,
+          status: 0
+        },
+        method: "post"
+      }).then(res => {
+        console.log(res)
+        Toast.success('提交成功')
+        setTimeout(() => {
+          wx.navigateBack({
+            delta: 1
+          })
+        }, 2000)
+      })
+    }
   }
 })

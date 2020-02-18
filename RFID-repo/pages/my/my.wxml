@@ -40,6 +40,9 @@
       <i-cell title="成员管理" is-link url="/pages/memberManage/memberManage">
         <i-icon color="#2d8cf0" type="group" slot="icon" />
       </i-cell>
+      <i-cell title="我的任务" is-link url="/pages/myTask/myTask">
+        <i-icon color="#2d8cf0" type="createtask" slot="icon" />
+      </i-cell>
     </i-cell-group>
   </view>
 

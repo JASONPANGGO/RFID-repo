@@ -1,0 +1,126 @@
+/* pages/myTask/myTask.wxss */
+@import "../preview/preview.wxss";
+
+page {
+  background-color: #eee;
+}
+
+van-tabs .van-tabs__line {
+  background-color: #3dbbff;
+}
+
+van-icon {
+  vertical-align: middle;
+}
+
+.goods-item {
+  width: 90%;
+  margin: 10px auto;
+  position: relative;
+  height: 90px;
+}
+
+.task-goods-item {
+  width: 700rpx;
+  margin: 10px auto;
+  position: relative;
+  height: 90px;
+  /* box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); */
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.task-goods-item .name {
+  position: absolute;
+  top: 35px;
+  left: 10px;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.task-goods-item .id {
+  position: absolute;
+  top: 2px;
+  left: 68px;
+  color: #aaa;
+  font-size: 0.8em;
+}
+
+.task-goods-item .detail {
+  position: absolute;
+  top: 7px;
+  right: 56px;
+  color: #1296db;
+  font-size: 0.8em;
+}
+
+.task-goods-item van-icon {
+  vertical-align: middle;
+}
+
+.task-goods-item .type {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  font-size: 0.8em;
+  width: 5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  text-align: center;
+  color: #fff;
+  background-color: #1296db;
+}
+
+.task-goods-item .create-time {
+  font-size: 0.8em;
+  color: #aaa;
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+}
+
+.task-goods-item .operation {
+  position: absolute;
+  width: 180px;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.task-goods-item .operation button {
+  width: 100%;
+}
+
+.task-goods-item .status {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.task-goods-item .nextUser {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  height: 30px;
+  font-size: 0.8em;
+}
+
+.task-goods-item .nextUser .avatar {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+/* 仓库 */
+
+.nomore {
+  width: 100%;
+  text-align: center;
+  font-size: 0.8em;
+  color: #aaa;
+  margin-bottom: 80px;
+  margin-top: 10px;
+}
