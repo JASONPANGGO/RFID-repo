@@ -24,7 +24,7 @@
     </view>
   </view>
   <view class="progress">
-    <van-circle value="{{ task.progress * 100 / task.amount  }}" stroke-width="12" color="{{ confirmFinish ? '#52c41a' : gradientColor }}" size="150" text="{{task.progress}}/{{task.amount}}" />
+    <van-circle value="{{ task.progress * 100 / task.amount  }}" stroke-width="12" color="{{ confirmFinish ? '#52c41a' : gradientColor }}" size="150" text="{{task.progress}} / {{task.amount}}" />
   </view>
   <view class="user-title">操作人</view>
   <view class="user">

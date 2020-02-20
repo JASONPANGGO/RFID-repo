@@ -87,7 +87,11 @@ van-icon {
   right: 10px;
   bottom: 10px;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
+}
+
+.operation van-button {
+  margin-left: 10px;
 }
 
 .task-goods-item .operation button {

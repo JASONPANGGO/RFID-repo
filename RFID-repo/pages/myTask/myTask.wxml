@@ -51,13 +51,13 @@
         </van-tag>
       </view>
       <view class="operation" wx:if="{{item.status == 0}}">
-        <van-button size="mini" data-item="{{item}}" round type="info" bindtap="process" wx:if="{{item.nextUserid === user.id && item.status === 1}}">进度</van-button>
         <van-button size="mini" data-id="{{item.id}}" round type="primary" bindtap="accept" wx:if="{{user.character !== 1}}">接受</van-button>
         <van-button size="mini" data-id="{{item.id}}" round wx:if="{{item.createrid === user.id}}" bindtap="withdraw">撤回</van-button>
         <van-button size="mini" data-id="{{item.id}}" round wx:if="{{item.createrid === user.id}}" bindtap="edit" data-item="{{item}}">修改</van-button>
       </view>
       <view class="nextUser" wx:if="{{item.status !== 0 && item.nextUserid}}">
-        <image class="avatar" src="{{item.nextUser.avatarUrl}}"></image>
+        <van-button size="mini" data-item="{{item}}" round type="info" bindtap="progress" wx:if="{{item.status === 1}}">进度</van-button>
+        <image class="avatar" src="{{item.nextUser.avatarUrl}}"></image> 
         <text>{{item.nextUser.name}}</text>
       </view>
       <view class="create-time">{{item.create_time}}</view>

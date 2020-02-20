@@ -80,12 +80,42 @@ Page({
     })
   },
   scan() {
+    const that = this
     wx.scanCode({
       success(e) {
         console.log(e)
+        that.findGoodsByBarCode(e.result)
       },
       fail() {
         console.log(e)
+      }
+    })
+  },
+  findGoodsByBarCode(code) {
+    Toast.loading({
+      mask: false,
+      message: '加载中...'
+    })
+    request({
+      url: app.service.goods.get,
+      data: {
+        bar_code: code
+      },
+      method: 'get'
+    }).then(res => {
+      console.log(res)
+      if (res.date.length === 0) {
+        this.setData({
+          bar_code: code
+        })
+      } else {
+        const goods = res.data[0]
+        wx.navigateTo({
+          url: '/pages/goodsDetail/goodsDetail',
+          success: function(res) {
+            res.eventChannel.emit('goodsData', goods)
+          }
+        })
       }
     })
   },

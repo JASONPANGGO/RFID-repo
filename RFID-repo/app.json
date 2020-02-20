@@ -6,7 +6,7 @@
     "pages/my/my",
     "pages/goods/goods",
     "pages/addGoods/addGoods",
-    "pages/createTask/createTask",  
+    "pages/createTask/createTask",   
     "pages/task/task",
     "pages/memberManage/memberManage",
     "pages/joinRepo/joinRepo",

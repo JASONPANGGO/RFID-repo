@@ -124,6 +124,8 @@ Page({
             t.name = decodeURI(t.name) || config.task[t.type].name
             t.user = user.find(u => u.id === t.createrid)
             t.user.name = decodeURI(t.user.name)
+            let date = new Date(t.create_time)
+            t.create_time = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()}`
             t.create_time = new Date(t.create_time).toLocaleString()
             t.repo = repo.find(r => r.id === t.repoid)
             task_member.unshift(t)
@@ -135,7 +137,8 @@ Page({
             t.type_text = config.task[t.type].name
             t.status_text = config.status[t.status].text
             t.status_tag_type = config.status[t.status].tag_type
-            t.create_time = new Date(t.create_time).toLocaleString()
+            let date = new Date(t.create_time)
+            t.create_time = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
             t.repo = repo.find(r => r.id === t.repoid)
             t.nextUser = user.find(u => u.id === t.nextUserid)
             t.goods = goods.find(g => g.id === t.goodsid)
@@ -214,6 +217,15 @@ Page({
         console.log(res)
         Toast.success('撤回成功')
       })
+    })
+  },
+  progress(e) {
+    console.log(e)
+    wx.navigateTo({
+      url: '/pages/taskDetail/taskDetail',
+      success: function(res) {
+        res.eventChannel.emit('taskDetail', e.currentTarget.dataset.item)
+      }
     })
   }
 })

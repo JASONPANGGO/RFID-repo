@@ -157,16 +157,24 @@ page {
   left: 10px;
 }
 
+
 .task-goods-item .operation {
   position: absolute;
-  width: 60px;
+  width: 180px;
   right: 10px;
   bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.operation van-button {
+  margin-left: 10px;
 }
 
 .task-goods-item .operation button {
   width: 100%;
 }
+
 
 .task-goods-item .status {
   position: absolute;

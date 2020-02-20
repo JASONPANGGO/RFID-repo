@@ -1,14 +1,14 @@
 <!--pages/createRepo/createRepo.wxml-->
 <view class="header-small">
   <view>
-    <van-icon name="home-o" style="vertical-align: middle;" /> 创建仓库
+    <van-icon name="home-o" style="vertical-align: middle;" /> {{update ? '更新':'创建'}}仓库
   </view>
 </view>
 
 <view class="header-small-gap">
   <view class="form">
     <van-cell-group>
-      <van-field label="仓库名称" value="{{name}}" required placeholder="请输入仓库名称" data-field="name" bind:change="onInput" />
+      <van-field label="仓库名称" disabled="{{update}}" value="{{name}}" required placeholder="请输入仓库名称" data-field="name" bind:change="onInput" />
       <van-field disabled label="创建时间" value="{{create_time}}" />
       <van-cell title="自定义商品分类">
         <view>

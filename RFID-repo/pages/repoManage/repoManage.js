@@ -104,6 +104,7 @@ Page({
         const date = new Date(instance.create_time)
         const create_time = date.getFullYear() + '/' + (date.getMonth() + 1) + "/" + date.getDate()
         this.setData({
+          instance: instance,
           instanceid: instance.id,
           name: instance.name,
           create_time: create_time,
@@ -286,6 +287,15 @@ Page({
     this.setData({
       onChangingInstanceName: false,
       onChangingRepoName: false
+    })
+  },
+  configTypes() {
+    const instance = this.data.instance
+    wx.navigateTo({
+      url: '/pages/createRepo/createRepo',
+      success: function(res) {
+        res.eventChannel.emit('instanceData', instance)
+      }
     })
   }
 })

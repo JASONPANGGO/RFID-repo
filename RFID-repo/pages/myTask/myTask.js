@@ -168,7 +168,7 @@ Page({
       activeTab: !this.data.activeTab * 1
     })
   },
-  process(e) {
+  progress(e) {
     console.log(e)
     wx.navigateTo({
       url: '/pages/taskDetail/taskDetail',

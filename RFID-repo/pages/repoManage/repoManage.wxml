@@ -18,6 +18,9 @@
         {{creater.name}}
       </view>
     </view>
+    <view class="config" bindtap="configTypes">
+      <van-icon name="setting-o" />配置商品类型
+    </view>
   </view>
 </view>
 

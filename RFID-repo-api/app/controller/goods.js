@@ -9,7 +9,7 @@ const {
 class GoodsController extends Controller {
     async get() {
         try {
-            const query = paramFilter(['instanceid', 'repoid', 'type', 'order', 'name'], this.ctx.request.query)
+            const query = paramFilter(['instanceid', 'repoid', 'type', 'order', 'name','bar_code'], this.ctx.request.query)
             jsonParser(['repoid', 'type'], query)
             console.log('get goods', query)
             this.ctx.body = await this.ctx.service.goods.get(query)
