@@ -1,6 +1,6 @@
 // pages/addGoods/addGoods.js
+import Toast from '../../lib/vant-weapp/dist/toast/toast';
 import Dialog from '../../lib/vant-weapp/dist/dialog/dialog';
-
 const {
   request
 } = require('../../utils/promisefy.js')
@@ -104,7 +104,10 @@ Page({
       method: 'get'
     }).then(res => {
       console.log(res)
-      if (res.date.length === 0) {
+      console.log(res.data)
+      console.log(res.data.length)
+      if (res.data.length === 0) {
+        console.log("扫码成功")
         this.setData({
           bar_code: code
         })

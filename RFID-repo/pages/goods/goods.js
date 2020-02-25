@@ -225,5 +225,10 @@ Page({
         res.eventChannel.emit('goodsData', e.currentTarget.dataset.goods)
       }
     })
+  },
+  goToAddGoods(){
+    wx.navigateTo({
+      url: '/pages/addGoods/addGoods'
+    })
   }
 })

@@ -4,6 +4,20 @@ page {
   background-color: #eee;
 }
 
+.van-search--withaction {
+  width: 700rpx;
+  margin-left: 50rpx;
+}
+
+.add-button {
+  position: absolute;
+  left: 13rpx;
+  top: 27rpx;
+  font-size: 1.5em;
+  color: #fff;
+}
+
+
 .header {
   height: 100px;
   border-radius: 0;

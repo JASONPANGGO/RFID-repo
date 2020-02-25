@@ -1,6 +1,6 @@
 //app.js
-const SERVICE_URL = 'http://127.0.0.1:7001'
-// const SERVICE_URL = 'https://jasonpanggo.com/rfid'
+// const SERVICE_URL = 'http://127.0.0.1:7001'
+const SERVICE_URL = 'https://jasonpanggo.com/rfid'
 
 const config = require('./config.js')
 const {

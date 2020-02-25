@@ -21,6 +21,7 @@
   </view>
 
   <view class="types">
+    <view class="remind">轻点分类标签可以删除该分类噢</view>
     <van-tag type="primary" wx:for="{{types}}" wx:key="index" data-index="{{index}}" size="medium" closable bindtap="onClose" class="type-tag">{{item}}</van-tag>
   </view>
 

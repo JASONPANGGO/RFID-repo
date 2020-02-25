@@ -40,7 +40,7 @@ page {
 }
 
 .login-button {
-  width: 254rpx;
+  width: 290rpx;
   text-align: center;
   margin-top: 5px;
   background-color: rgba(0, 0, 0, 0.3);

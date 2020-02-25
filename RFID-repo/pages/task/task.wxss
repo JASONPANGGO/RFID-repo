@@ -47,8 +47,8 @@ page {
 }
 
 .task-member-item image.avatar {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 
 .task-member-item .name {

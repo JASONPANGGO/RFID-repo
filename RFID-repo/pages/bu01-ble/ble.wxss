@@ -1,0 +1,63 @@
+/* pages/bu01-ble/ble.wxss */
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-column.start{
+  align-items: flex-start;
+}
+
+.flex-column.center{
+  align-items: center;
+}
+
+.container-center{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.single-center{
+  text-align: center;
+}
+
+.grail{
+  display: flex;
+  margin: 20rpx;
+  border-width: 1rpx;
+  border-style:solid;
+  border-radius: 10rpx;
+  border-color: #d8d8d8;
+  background-color: #fafafa;
+}
+
+.middle{
+  width: 70%;
+  height: 100rpx;
+  float: left;
+  font-size: 14pt;
+  color: #353535;
+}
+
+.left{
+  width: 10%;
+  height: 100rpx;
+}
+
+.right{
+  width: 20%;
+  height: 100rpx;
+}
+
+.text-main{
+  font-size: 14pt;
+  color: #353535;
+}
+
+.text-sub{
+  font-size: 12pt;
+  color: #888;
+}

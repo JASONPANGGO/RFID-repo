@@ -33,7 +33,7 @@ Page({
       this.setData({
         id: instance.id,
         name: instance.name,
-        create_time: new Date(instance.create_time).toLocaleDateString,
+        create_time: new Date(instance.create_time).toLocaleString(),
         types: instance.goods_type.split(','),
         update: true
       })
@@ -51,9 +51,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.setData({
-      create_time: new Date().toLocaleString()
-    })
+    if (!this.data.update) {
+      this.setData({
+        create_time: new Date().toLocaleString()
+      })
+    }
 
 
     const user = wx.getStorageSync('user')

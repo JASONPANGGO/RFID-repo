@@ -1,0 +1,70 @@
+
+<view class="flex-column">
+
+  <view class='flex-column view-top'>
+    <van-row>
+      <van-col span="8">
+        <van-button type="ghost" bindtap='navToSetting' disabled="{{inventorying || btnInventorying}}">设置</van-button>
+      </van-col>
+      <van-col span="8" offset="8">
+        <van-button type="ghost" bindtap='navToDemo' disabled="{{inventorying || btnInventorying}}">演示</van-button>
+      </van-col>
+    </van-row>
+
+    <view class='flex-row'>
+      <view class='col-title no'>
+        <text>序号</text>
+      </view>
+      <view class='col-title epc'>
+        <text>EPC</text>
+      </view>
+      <view class='col-title count'>
+        <text>数量</text>
+      </view>
+      <view class='col-title rssi'>
+        <text>RSSI</text>
+      </view>
+    </view>
+  </view>
+
+  <view class='view-middle' style='height:{{middleHeight}}'>
+    <scroll-view scroll-y style='height:{{middleHeight}}'>
+      <block wx:for='{{epcItems}}' wx:key='epcWithSpace'>
+        <view class='flex-row' id='{{item.epcWithSpace}}' bindtap='navToOperation' disabled="{{inventorying || btnInventorying}}" hover-class='view-hover'>
+          <view class='col-content no'>
+            <text>{{item.no}}</text>
+          </view>
+          <view class='col-content epc'>
+            <text>{{item.epcWithSpace}}</text>
+          </view>
+          <view class='col-content count'>
+            <text>{{item.count}}</text>
+          </view>
+          <view class='col-content rssi'>
+            <text>{{item.rssi}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+  
+  <view class='flex-column view-bottom'>
+    <text class='col-title total'>总计：{{total}}</text>
+    <van-row>
+      <van-col span="8">
+        <van-button type="ghost" bindtap='clearList'>清空</van-button>
+      </van-col>
+      <van-col span="8">
+        <van-button type="primary" bindtap='singleInventory' disabled="{{inventorying || btnInventorying}}">单次清点</van-button>
+      </van-col>
+      <van-col span="8">
+        <van-button type="primary" bindtap='inventory' disabled="{{btnInventorying}}">{{inventorying ? '结束清点' : '开始清点'}}</van-button>
+      </van-col>
+    </van-row>
+  </view>
+  
+</view>
+
+
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />

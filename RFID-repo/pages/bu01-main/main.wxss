@@ -1,0 +1,66 @@
+@import "../bu01-ble/ble.wxss";
+page{
+  background-color: #f8f8f8;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.col-title{
+  font-size: 12pt;
+  text-align: center;
+}
+
+.col-content{
+  font-size: 11pt;
+  text-align: center;
+  padding: 10rpx 0rpx;
+}
+
+.no{
+  width: 10%;
+}
+
+.epc{
+  width: 65%;
+}
+
+.count{
+  width: 10%;
+}
+
+.rssi{
+  width: 15%;
+}
+
+.total{
+  text-align: right;
+  margin-right: 20rpx;
+}
+
+.view-hover{
+  background-color: #d8d8d8;
+}
+
+.view-top{
+  width: 100%;
+  height: 180rpx;
+  position: absolute;
+  top: 20rpx;
+}
+
+.view-bottom{
+  width: 100%;
+  height: 180rpx;
+  position: absolute;
+  bottom: 20rpx;
+}
+
+.view-middle{
+  width: 100%;
+  position: absolute;
+  margin-top: 200rpx;
+  margin-bottom: 200rpx;
+}

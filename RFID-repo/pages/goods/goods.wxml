@@ -5,6 +5,9 @@
   <van-search value="{{ query.name }}" bind:change="onInput" use-action-slot placeholder="请输入搜索名称关键词" background="rgba(0,0,0,0)">
     <view style="color:#fff" slot="action" bind:tap="getGoods">搜索</view>
   </van-search>
+  <view class="add-button" bindtap="goToAddGoods">
+    <van-icon name="add-o" />
+  </view>
   <view class="selector">
     <view class="repo" data-selector="repoid" bindtap="onSelector">
       <text>仓库</text>
@@ -14,10 +17,6 @@
       <text>分类</text>
       <van-icon name="{{selectorStatus == 'type' ? 'arrow-up' : 'arrow-down'}}" />
     </view>
-    <!-- <view class="status" data-selector="status" bindtap="onSelector">
-      <text>状态</text>
-      <van-icon name="{{selectorStatus == 'status'? 'arrow-up' : 'arrow-down'}}" />
-    </view> -->
     <view class="order" data-selector="order" bindtap="onSelector">
       <image class="order-icon" src="/image/selector-order.png"></image>
     </view>

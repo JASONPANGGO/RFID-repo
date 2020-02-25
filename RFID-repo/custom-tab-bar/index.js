@@ -46,7 +46,7 @@ Component({
       const url = data.path
       if (url === 'scan') {
         wx.navigateTo({
-          url: '/pages/addGoods/addGoods',
+          url: '/pages/bu01-ble/ble',
         })
       } else {
         wx.switchTab({

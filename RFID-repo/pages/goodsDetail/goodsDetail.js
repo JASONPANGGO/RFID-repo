@@ -54,7 +54,7 @@ Page({
     }
   },
   initData(goods) {
-    this.getTasks(goods.id, goods.repo.id)
+    this.getTasks(goods.id, goods.repoid)
   },
   getTasks(goodsid, repoid) {
     request({

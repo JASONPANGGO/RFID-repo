@@ -1,0 +1,33 @@
+<!--pages/bu01-ble/ble.wxml-->
+  <view class='single-center'> 
+    <text>{{discovering ? '正在搜索，下拉重启搜索' : '搜索结束，下拉重启搜索'}}</text>
+    <icon type="{{discovering ? 'search': 'success'}}" size='16'></icon>
+  </view>
+
+  <view class='flex-column'>
+    <block wx:for='{{devices}}' wx:key='deviceId'>
+      <view class='grail' id='{{item.deviceId}}' bindtap='connect' style="{{selectedId == item.deviceId? 'background-color: #d8d8d8':'background-color: #fafafa'}}">
+
+        <view class='left'>
+          <view class='container-center'>
+          </view>
+        </view>
+
+        <view class='middle'>
+          <view class='container-center'>
+            <view class='flex-column start'>
+              <text class='text-main'>{{item.localName}}</text>
+              <text hidden='{{nonAndroid}}' class='text-sub'>{{item.deviceId}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class='right'>
+          <view class='container-center'>
+            <text class='text-sub'>{{item.RSSI}}dB</text>
+          </view>
+        </view>
+
+      </view>
+    </block>
+  </view>
