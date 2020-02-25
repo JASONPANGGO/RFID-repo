@@ -10,8 +10,8 @@ class RfidService extends Service {
         })
     }
 
-    async add(query) {
-        return await this.app.mysql.insert(TABLE, query)
+    async add(dataList) {
+        return await this.app.mysql.insert(TABLE, dataList)
     }
 }
 

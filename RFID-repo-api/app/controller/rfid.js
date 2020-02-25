@@ -10,12 +10,19 @@ class RfidController extends Controller {
 
     async get() {
         const query = paramFilter(['rfid', 'goodsid'], this.ctx.request.query)
+        console.log('rfid/get', query)
         this.ctx.body = await this.ctx.service.rfid.get(query)
     }
 
     async add() {
         const query = paramFilter(['rfid', 'goodsid'], this.ctx.request.body)
-        this.ctx.body = await this.ctx.service.rfid.add(query)
+        let dataList = query.goodsid && query.rfid instanceof Array && query.rfid.map(d => {
+            return {
+                rfid: d,
+                goodsid: query.goodsid
+            }
+        })
+        this.ctx.body = await this.ctx.service.rfid.add(dataList)
     }
 
 }

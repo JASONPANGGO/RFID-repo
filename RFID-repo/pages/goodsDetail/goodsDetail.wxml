@@ -3,6 +3,7 @@
 
 <view class="header-small">
   <van-icon name="apps-o" style="vertical-align: middle;" /> 商品详情
+  <view class="rfid-entry-logo" bindtap="goToBle">RFID</view>
 </view>
 
 <view class="header-small-gap">
@@ -41,26 +42,54 @@
       <van-icon name="delete" />删除本商品
     </view>
   </view>
-  <van-divider class="tasks-title" contentPosition="left" custom-style="font-size:12px">进出库记录</van-divider>
-  <view class="task-history">
-    <view class="task-history-title">
-      <view class="title" wx:for="{{history_title}}" wx:key="index">{{item}}</view>
-    </view>
-    <view style="width:100%;text-align:center;margin-top:30px;">
-      <van-loading wx:if="{{!loaded}}">数据加载中...</van-loading>
-      <view wx:if="{{loaded && tasks.length === 0}}" style="color:gray">无数据</view>
-    </view>
-    <view wx:for="{{tasks}}" wx:key="index">
-      <view class="task-item" bindtap="preview" data-item="{{item}}">
-        <view class="task-name {{item.type ? 'task-type-1':'task-type-0'}}">{{item.type_text}}</view>
-        <view class="task-amount">{{item.amount}}</view>
-        <van-tag type="{{item.status_tag_type}}" class="task-status">{{item.status_text}}</van-tag>
-        <view class="task-create-time">{{item.time}}</view>
-      </view>
-      <van-divider />
-    </view>
-  </view>
 
+  <van-tabs active="{{ activeTab }}" bind:change="onTabChange" swipeable animated>
+    <van-tab title="进出库记录">
+      <!-- 
+      <van-divider class="tasks-title" contentPosition="left" custom-style="font-size:12px">进出库记录</van-divider> -->
+
+      <view class="task-history">
+        <view class="task-history-title">
+          <view class="title" wx:for="{{history_title}}" wx:key="index">{{item}}</view>
+        </view>
+        <view style="width:100%;text-align:center;margin-top:30px;">
+          <van-loading wx:if="{{!loaded}}">数据加载中...</van-loading>
+          <view wx:if="{{loaded && tasks.length === 0}}" style="color:gray">无数据</view>
+        </view>
+        <view wx:for="{{tasks}}" wx:key="index">
+          <view class="task-item" bindtap="preview" data-item="{{item}}">
+            <view class="task-name {{item.type ? 'task-type-1':'task-type-0'}}">{{item.type_text}}</view>
+            <view class="task-amount">{{item.amount}}</view>
+            <van-tag type="{{item.status_tag_type}}" class="task-status">{{item.status_text}}</van-tag>
+            <view class="task-create-time">{{item.time}}</view>
+          </view>
+          <van-divider />
+        </view>
+      </view>
+
+    </van-tab>
+    <van-tab title="RFID标签">
+      <van-row>
+        <van-col span="12" class="rfid-sum">
+          库存：{{goods.amount}}
+        </van-col>
+        <van-col span="12" class="rfid-sum">
+          RFID在库：{{rfidSum}}
+        </van-col>
+      </van-row>
+      <view class="task-history-title">
+        <view class="title" wx:for="{{rfid_title}}" wx:key="index">{{item}}</view>
+      </view>
+      <view wx:if="{{loaded && rfidList.length === 0}}" style="color:gray">无数据</view>
+      <van-row wx:for="{{rfidList}}" wx:key="index">
+        <van-col span="16">{{item.rfid}}</van-col>
+        <van-col span="8">{{item.status_text}}</van-col>
+      </van-row>
+      <van-row bindtap="addRfid">
+        <van-icon name="add-o" /> 添加
+      </van-row>
+    </van-tab>
+  </van-tabs>
 </view>
 
 <template is="preview" data="{{showPreview,onPreviewItem}}"></template>

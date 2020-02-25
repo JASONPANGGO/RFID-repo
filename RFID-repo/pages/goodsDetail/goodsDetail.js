@@ -16,10 +16,14 @@ Page({
     goods: {},
     tasks: [],
     history_title: ['进库/出库', '数量', '状态'],
+    rfid_title: ['EPC（RFID唯一识别码）', '状态'],
     loaded: false,
     editable: false,
     showPreview: false,
-    onPreviewItem: {}
+    onPreviewItem: {},
+    activeTab: 0,
+    rfidList: [],
+    addRfidList: []
   },
 
   /**
@@ -52,9 +56,12 @@ Page({
         editable: true
       })
     }
+    
+    console.log(this.data.addRfidList)
   },
   initData(goods) {
     this.getTasks(goods.id, goods.repoid)
+    this.getRfid(goods.id)
   },
   getTasks(goodsid, repoid) {
     request({
@@ -137,6 +144,36 @@ Page({
       showPreview: false,
       onPreviewItem: {}
     })
+  },
+  goToBle() {
+    wx.navigateTo({
+      url: '/pages/goodsRfidList/goodsRfidList?goodsid=' + this.data.goods.id
+    })
+  },
+  onTabChange() {
+    this.setData({
+      activeTab: !this.data.activeTab * 1
+    })
+  },
+  getRfid(goodsid) {
+    request({
+      url: app.service.rfid.get,
+      data: {
+        goodsid: goodsid
+      },
+      method: 'get'
+    }).then(res => {
+      console.log(res)
+      if (res.data) {
+        this.setData({
+          rfidList: res.data
+        })
+      }
+    })
+  },
+  addRfid() {
+    wx.navigateTo({
+      url: '/pages/bu01-ble/ble'
+    })
   }
-
 })

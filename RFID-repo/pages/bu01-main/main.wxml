@@ -1,4 +1,3 @@
-
 <view class="flex-column">
 
   <view class='flex-column view-top'>
@@ -7,7 +6,7 @@
         <van-button type="ghost" bindtap='navToSetting' disabled="{{inventorying || btnInventorying}}">设置</van-button>
       </van-col>
       <van-col span="8" offset="8">
-        <van-button type="ghost" bindtap='navToDemo' disabled="{{inventorying || btnInventorying}}">演示</van-button>
+        <van-button type="ghost" bindtap='navBack' disabled="{{inventorying || btnInventorying}}">完成</van-button>
       </van-col>
     </van-row>
 
@@ -47,7 +46,7 @@
       </block>
     </scroll-view>
   </view>
-  
+
   <view class='flex-column view-bottom'>
     <text class='col-title total'>总计：{{total}}</text>
     <van-row>
@@ -58,11 +57,11 @@
         <van-button type="primary" bindtap='singleInventory' disabled="{{inventorying || btnInventorying}}">单次清点</van-button>
       </van-col>
       <van-col span="8">
-        <van-button type="primary" bindtap='inventory' disabled="{{btnInventorying}}">{{inventorying ? '结束清点' : '开始清点'}}</van-button>
+        <van-button type="primary" bindtap='inventory' disabled="{{btnInventorying}}">{{inventorying ? '结束清点' : '连续清点'}}</van-button>
       </van-col>
     </van-row>
   </view>
-  
+
 </view>
 
 

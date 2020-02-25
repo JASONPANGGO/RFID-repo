@@ -37,3 +37,11 @@ image.avatar {
 .header-small-gap {
   margin-top: 120rpx;
 }
+
+.rfid-entry-logo {
+  padding: 2px 10px;
+  background-color: #1783bd;
+  border-radius: 1em;
+  position: absolute;
+  right: 16px;
+}

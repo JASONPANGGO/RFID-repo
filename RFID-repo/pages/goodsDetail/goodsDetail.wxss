@@ -1,6 +1,10 @@
 /* pages/goodsDetail/goodsDetail.wxss */
 @import "../preview/preview.wxss";
 
+van-tabs .van-tabs__line {
+  background-color: #3dbbff;
+}
+
 van-icon {
   vertical-align: middle;
   margin-right: 3px;

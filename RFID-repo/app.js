@@ -55,6 +55,10 @@ App({
       add: SERVICE_URL + '/task/add',
       update: SERVICE_URL + '/task/update'
     },
+    rfid: {
+      get: SERVICE_URL + '/rfid/get',
+      add: SERVICE_URL + '/rfid/add'
+    },
     util: {
       upload: SERVICE_URL + '/util/upload'
     }
