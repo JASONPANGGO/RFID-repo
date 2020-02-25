@@ -24,10 +24,10 @@ class RfidController extends Controller {
         })
 
         // 只有当库存多于该商品rfid数量的时候才不更新库存
-        if (query.amount <= query.rfidSum) {
+        if (query.amount <= query.rfidSum + dataList.length) {
             await this.ctx.service.goods.update({
                 id: query.goodsid,
-                amount: query.amount + dataList.length
+                amount: query.rfidSum + dataList.length
             })
         }
         this.ctx.body = await this.ctx.service.rfid.add(dataList)

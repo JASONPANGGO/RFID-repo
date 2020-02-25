@@ -68,14 +68,14 @@
 
     </van-tab>
     <van-tab title="RFID标签">
-      <van-row class="rfid-sum-row">
-        <van-col span="12" class="rfid-sum">
+      <view class="rfid-sum-row">
+        <view>
           库存：{{goods.amount}}
-        </van-col>
-        <van-col span="12" class="rfid-sum">
+        </view>
+        <view>
           RFID在库：{{rfidSum}}
-        </van-col>
-      </van-row>
+        </view>
+      </view>
       <view class="task-history-title">
         <view class="title" wx:for="{{rfid_title}}" wx:key="index">{{item}}</view>
       </view>
