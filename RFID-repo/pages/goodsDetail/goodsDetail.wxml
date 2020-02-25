@@ -3,7 +3,6 @@
 
 <view class="header-small">
   <van-icon name="apps-o" style="vertical-align: middle;" /> 商品详情
-  <view class="rfid-entry-logo" bindtap="goToBle">RFID</view>
 </view>
 
 <view class="header-small-gap">
@@ -69,7 +68,7 @@
 
     </van-tab>
     <van-tab title="RFID标签">
-      <van-row>
+      <van-row class="rfid-sum-row">
         <van-col span="12" class="rfid-sum">
           库存：{{goods.amount}}
         </van-col>
@@ -81,11 +80,15 @@
         <view class="title" wx:for="{{rfid_title}}" wx:key="index">{{item}}</view>
       </view>
       <view wx:if="{{loaded && rfidList.length === 0}}" style="color:gray">无数据</view>
-      <van-row wx:for="{{rfidList}}" wx:key="index">
+      <van-row class="rfid-list" wx:for="{{rfidList}}" wx:key="index">
         <van-col span="16">{{item.rfid}}</van-col>
-        <van-col span="8">{{item.status_text}}</van-col>
+        <van-col span="8">
+          <van-tag type="{{item.tag_type}}">
+            {{item.status_text}}
+          </van-tag>
+        </van-col>
       </van-row>
-      <van-row bindtap="addRfid">
+      <van-row class="rfid-add" bindtap="addRfid">
         <van-icon name="add-o" /> 添加
       </van-row>
     </van-tab>

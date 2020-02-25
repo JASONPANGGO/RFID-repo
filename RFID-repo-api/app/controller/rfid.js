@@ -15,13 +15,21 @@ class RfidController extends Controller {
     }
 
     async add() {
-        const query = paramFilter(['rfid', 'goodsid'], this.ctx.request.body)
+        const query = paramFilter(['rfid', 'goodsid', 'amount', 'rfidSum'], this.ctx.request.body)
         let dataList = query.goodsid && query.rfid instanceof Array && query.rfid.map(d => {
             return {
                 rfid: d,
                 goodsid: query.goodsid
             }
         })
+
+        // 只有当库存多于该商品rfid数量的时候才不更新库存
+        if (query.amount <= query.rfidSum) {
+            await this.ctx.service.goods.update({
+                id: query.goodsid,
+                amount: query.amount + dataList.length
+            })
+        }
         this.ctx.body = await this.ctx.service.rfid.add(dataList)
     }
 

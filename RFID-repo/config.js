@@ -63,5 +63,18 @@ module.exports = {
     text: '已终止',
     tag_type: 'default'
   }],
-  themeColor: '#1296db'
+  themeColor: '#1296db',
+  rfid_status: [{
+    value: 0,
+    text: '在库中',
+    tag_type: 'success'
+  }, {
+    value: 1,
+    text: '已出库',
+    tag_type: 'danger'
+  }, {
+    value: 3,
+    text: '已废弃',
+    tag_type: 'default'
+  }]
 }

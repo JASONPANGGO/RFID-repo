@@ -262,11 +262,18 @@ Page({
   navBack() {
     const pages = getCurrentPages()
     const previousPage = pages[pages.length - 3] // 上上个页面
-    previousPage.setData({
-      addRfidList: this.data.epcItems
-    })
-    wx.navigateBack({
-      delta: 2
+
+    Dialog({
+      title: "添加RFID标签",
+      message: "是否确认添加以上" + this.data.epcItems.length + "个标签？"
+    }).then(() => {
+      previousPage.setData({
+        addRfidList: this.data.epcItems
+      })
+      previousPage.bleFinish(this.data.epcItems)
+      wx.navigateBack({
+        delta: 2
+      })
     })
   }
 })

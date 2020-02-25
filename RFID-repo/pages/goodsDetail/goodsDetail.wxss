@@ -181,3 +181,27 @@ van-icon {
 .unavailable {
   color: #ddd;
 }
+
+.rfid-sum-row {
+  width: 700rpx;
+  margin: 5px auto;
+  display: flex;
+  justify-content: space-around;
+  font-size: 13px;
+}
+
+.rfid-list {
+  width: 700rpx;
+  margin: 10px auto;
+}
+
+.rfid-add {
+  width: 700rpx;
+  margin: 10px auto;
+  text-align: center;
+  color: #1296db;
+}
+
+.rfid-add van-icon {
+  vertical-align: middle;
+}

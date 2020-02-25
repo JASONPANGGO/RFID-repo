@@ -56,8 +56,8 @@ Page({
         editable: true
       })
     }
-    
-    console.log(this.data.addRfidList)
+
+
   },
   initData(goods) {
     this.getTasks(goods.id, goods.repoid)
@@ -145,11 +145,6 @@ Page({
       onPreviewItem: {}
     })
   },
-  goToBle() {
-    wx.navigateTo({
-      url: '/pages/goodsRfidList/goodsRfidList?goodsid=' + this.data.goods.id
-    })
-  },
   onTabChange() {
     this.setData({
       activeTab: !this.data.activeTab * 1
@@ -166,7 +161,11 @@ Page({
       console.log(res)
       if (res.data) {
         this.setData({
-          rfidList: res.data
+          rfidList: res.data.map(data => {
+            data.status_text = config.rfid_status[data.status]
+            data.tag_type = config.rfid_status[data.status]
+          }),
+          rfidSum: res.data.filter(d => d.status === 0).length
         })
       }
     })
@@ -174,6 +173,23 @@ Page({
   addRfid() {
     wx.navigateTo({
       url: '/pages/bu01-ble/ble'
+    })
+  },
+  // 添加rfid标签
+  bleFinish(addRfidList) {
+    console.log('添加RFID')
+    request({
+      url: app.service.rfid.add,
+      data: {
+        goodsid: this.data.goods.id,
+        rfid: addRfidList.map(e => e.epcWithSpace),
+        amount: this.data.goods.amount,
+        rfidSum: this.data.rfidSum
+      },
+      method: 'post'
+    }).then(res => {
+      console.log(res)
+      this.initData(goodsid)
     })
   }
 })
