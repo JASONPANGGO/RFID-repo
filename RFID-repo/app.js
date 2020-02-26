@@ -57,7 +57,8 @@ App({
     },
     rfid: {
       get: SERVICE_URL + '/rfid/get',
-      add: SERVICE_URL + '/rfid/add'
+      add: SERVICE_URL + '/rfid/add',
+      update: SERVICE_URL + '/rfid/update'
     },
     util: {
       upload: SERVICE_URL + '/util/upload'

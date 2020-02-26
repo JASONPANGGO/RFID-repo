@@ -135,6 +135,32 @@ Page({
   },
   finish() {
     if (this.data.task.progress === this.data.task.amount) {
+
+      if (this.data.task.type === 0) { // 出货
+        request({
+          url: app.service.rfid.update,
+          data: {
+            rfid: this.data.epcItems,
+            status: 1
+          },
+          method: 'post'
+        }).then(res => {
+          console.log(res)
+          Toast.success('RFID更新成功')
+        })
+      } else if (this.data.task.type === 1) { // 入货
+        request({
+          url: app.service.rfid.add,
+          data: {
+            rfid: this.data.epcItems,
+            goodsid: this.data.task.goodsid
+          },
+          method: 'post'
+        }).then(res => {
+          console.log(res)
+          Toast.success("RFID更新成功")
+        })
+      }
       request({
         url: app.service.task.update,
         data: {
@@ -142,10 +168,12 @@ Page({
           status: 2,
           nextUserid: this.data.user.id,
           progress: this.data.task.progress
-        }
+        },
+        method: 'post'
       }).then(res => {
-        Toast.success('本次任务已完成')
 
+        console.log(res)
+        Toast.success('本次任务已完成')
       })
     } else {
       Toast.fail('请先完成本次任务')

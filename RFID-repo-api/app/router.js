@@ -44,6 +44,7 @@ module.exports = app => {
   // rfid
   router.get('/rfid/get', middleware.auth(), controller.rfid.get)
   router.post('/rfid/add', middleware.auth(), controller.rfid.add)
+  router.post('/rfid/update', middleware.auth(), controller.rfid.update)
 
   // util
   router.post('/util/upload', middleware.auth(), controller.util.upload)
