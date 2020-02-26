@@ -174,6 +174,9 @@ Page({
 
         console.log(res)
         Toast.success('本次任务已完成')
+        wx.navigateBack({
+          delta: 1
+        })
       })
     } else {
       Toast.fail('请先完成本次任务')

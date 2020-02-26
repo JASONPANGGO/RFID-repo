@@ -15,7 +15,7 @@ class RfidService extends Service {
     }
 
     async update(query) {
-        return await this.app.mysql.query(`update ${TABLE} set status=${query.status} where ${query.rfid.map(r=>'rfid='+r).join(' OR ')}`)
+        return await this.app.mysql.query(`update ${TABLE} set status=${query.status} where ${query.rfid.map(r=>`rfid='${r}'`).join(' OR ')}`)
     }
 }
 
