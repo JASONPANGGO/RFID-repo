@@ -24,7 +24,7 @@
     </view>
   </view>
   <view class="progress">
-    <van-circle value="{{ task.progress * 100 / task.amount  }}" stroke-width="12" color="{{ confirmFinish ? '#52c41a' : gradientColor }}" size="150" text="{{task.progress}} / {{task.amount}}" />
+    <van-circle wx:if="{{!searchingBle}}" value="{{ task.progress * 100 / task.amount  }}" stroke-width="12" color="{{ confirmFinish ? '#52c41a' : gradientColor }}" size="150" text="{{task.progress}} / {{task.amount}}" />
   </view>
   <view class="user-title">操作人</view>
   <view class="user">
@@ -41,9 +41,59 @@
 <template is="preview" data="{{showPreview,onPreviewItem}}"></template>
 
 <view class="bottom-button">
-  <van-button bindtap="abort" type="danger">终止</van-button>
-  <van-button bindtap="finish" type="primary" disabled="{{task.progress !== task.amount}}">确认完成</van-button>
+  <van-button class="abort" bindtap="abort" type="danger">终止</van-button>
+  <van-button class="finish" wx:if="{{task.progress === task.amount}}" bindtap="finish" type="primary" disabled="{{task.progress !== task.amount}}">确认完成</van-button>
+  <van-button class="finish" wx:if="{{!reader}}" bindtap="start" type="info">连接设备并开始清点</van-button>
+  <van-button class="finish" wx:if="{{reader && task.progress !== task.amount}}" bindtap="singleInventory">单次清点</van-button>
+  <van-button class="finish" wx:if="{{reader && task.progress !== task.amount}}" bindtap="inventory" disabled="{{btnInventorying}}">
+    {{inventorying ? '结束清点' : '连续清点'}}</van-button>
 </view>
+
+<van-popup show="{{searchingBle}}" bind:close="onClose">
+  <view class="ble-container">
+    <view class='single-center'>
+      <text>{{discovering ? '正在搜索，下拉重启搜索' : '搜索结束，下拉重启搜索'}}</text>
+      <icon type="{{discovering ? 'search': 'success'}}" size='16'></icon>
+    </view>
+
+    <view class='flex-column'>
+      <block wx:for='{{devices}}' wx:key='deviceId'>
+        <view class='grail' id='{{item.deviceId}}' bindtap='connect' style="{{selectedId == item.deviceId? 'background-color: #d8d8d8':'background-color: #fafafa'}}">
+
+          <view class='left'>
+            <view class='container-center'>
+            </view>
+          </view>
+
+          <view class='middle'>
+            <view class='container-center'>
+              <view class='flex-column start'>
+                <text class='text-main'>{{item.localName}}</text>
+                <text hidden='{{nonAndroid}}' class='text-sub'>{{item.deviceId}}</text>
+              </view>
+            </view>
+          </view>
+
+          <view class='right'>
+            <view class='container-center'>
+              <text class='text-sub'>{{item.RSSI}}dB</text>
+            </view>
+          </view>
+
+        </view>
+      </block>
+    </view>
+
+    <view class="info-bottom">
+      <image class="info-rfid-watch" src="../../image/rfid-watch.png"></image>
+      <view class="info-text">
+        <view wx:for="{{infoText}}" wx:key="index">
+          {{item}}
+        </view>
+      </view>
+    </view>
+  </view>
+</van-popup>
 
 <van-dialog use-slot title="终止任务" show="{{ onAbort }}" show-cancel-button bind:close="onClose" bind:confirm="confirmAbort">
   <van-field autosize label="原因" bind:input="onInput" placeholder="请输入终止原因" border type="textarea" value="{{task.abort_comment}}" />

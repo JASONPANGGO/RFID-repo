@@ -180,6 +180,7 @@ Page({
       .then(() => end())
   },
 
+  // 连续清点
   inventory(e) {
     if (this.data.btnInventorying) {
       this.showData('inventorying', false)

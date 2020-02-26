@@ -36,7 +36,7 @@ class TaskController extends Controller {
     }
 
     async update() {
-        const query = paramFilter(['id', 'status', 'nextUserid'], this.ctx.request.body)
+        const query = paramFilter(['id', 'status', 'nextUserid', 'progress'], this.ctx.request.body)
         const character =
             this.ctx.body = await this.ctx.service.task.update(query)
     }

@@ -1,6 +1,6 @@
 /* pages/taskDetail/taskDetail.wxss */
-
 @import "../preview/preview.wxss";
+@import "../bu01-ble/ble.wxss";
 
 page {
   background-color: #eee;
@@ -104,6 +104,15 @@ page {
   position: fixed;
   bottom: 0;
   width: 100%;
+  display: flex;
+}
+
+.bottom-button .abort {
+  width: 30%;
+}
+
+.bottom-button .finish {
+  width: 70%;
 }
 
 .bottom-button button {
@@ -166,4 +175,11 @@ page {
 
 .preview-button van-icon {
   vertical-align: middle;
+}
+
+.ble-container {
+  margin: auto;
+  width: 700rpx;
+  height: 70vh;
+  z-index: 99999999;
 }

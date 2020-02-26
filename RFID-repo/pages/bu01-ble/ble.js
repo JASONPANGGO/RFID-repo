@@ -339,7 +339,7 @@ Page({
       .then(() => {
         // 连接成功根据场景跳转页面
         wx.hideToast()
-        this.naivageByScene(this.data.scene)
+        this.navigateByScene(this.data.scene)
       })
       .catch(res => {
         wx.hideToast()
@@ -349,7 +349,7 @@ Page({
         this.error.getErrorMsg('蓝牙连接超时', res)
       })
   },
-  naivageByScene(scene) {
+  navigateByScene(scene) {
     switch (scene) {
       case 'add':
         this.openMainPage(bleParams, scene)
@@ -357,6 +357,13 @@ Page({
       case 'check':
         this.openMainPage(bleParams, scene)
         break;
+      case 'task':
+        const pages = getCurrentPages()
+        const previousPage = pages[pages.length - 2] // 上个页面
+        previousPage.initReader(bleParams)
+        wx.navigateBack({
+          delta: 1
+        })
       default:
         break;
     }

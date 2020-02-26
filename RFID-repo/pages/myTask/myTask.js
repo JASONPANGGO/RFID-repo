@@ -104,7 +104,7 @@ Page({
         t.type_text = config.task[t.type].name
         t.status_text = config.status[t.status].text
         t.status_tag_type = config.status[t.status].tag_type
-        t.create_time = new Date(t.create_time).toLocaleString()
+        t.create_time = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
         t.repo = repoData.find(r => r.id === t.repoid)
         t.nextUser = userData.find(u => u.id === t.nextUserid)
         t.goods = goodsData.find(g => g.id === t.goodsid)
