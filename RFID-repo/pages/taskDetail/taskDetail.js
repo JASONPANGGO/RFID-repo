@@ -140,7 +140,8 @@ Page({
         data: {
           id: this.data.task.id,
           status: 2,
-          nextUserid: this.data.user.id
+          nextUserid: this.data.user.id,
+          progress: this.data.task.progress
         }
       }).then(res => {
         Toast.success('本次任务已完成')

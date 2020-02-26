@@ -40,7 +40,7 @@
 
 <template is="preview" data="{{showPreview,onPreviewItem}}"></template>
 
-<view class="bottom-button">
+<view class="bottom-button" wx:if="{{task.status !== 2}}">
   <van-button class="abort" bindtap="abort" type="danger">终止</van-button>
   <van-button class="finish" wx:if="{{task.progress === task.amount}}" bindtap="finish" type="primary" disabled="{{task.progress !== task.amount}}">确认完成</van-button>
   <van-button class="finish" wx:if="{{!reader}}" bindtap="start" type="info">连接设备并开始清点</van-button>
