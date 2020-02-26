@@ -1,0 +1,28 @@
+<!--pages/middlePage/middle.wxml-->
+<view class="header-small">
+  <text>快捷功能</text>
+</view>
+
+<view class="header-small-gap">
+
+  <view class="func-item" wx:for="{{funcs}}" wx:key="index">
+    <view class="func-name">
+      {{item.name}}
+    </view>
+    <view class="entry-container">
+      <view class="func-item-entry" data-entry="{{entry}}" bindtap="handleFunc" wx:for="{{item.entry}}" wx:key="index" wx:for-item="entry">
+        <view class="entry-logo-container">
+          <image src="{{entry.logo}}" class="item-entry-logo"></image>
+        </view>
+        {{entry.name}}
+      </view>
+    </view>
+  </view>
+  <view class="func-more">
+    {{more}}
+  </view>
+
+</view>
+
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />

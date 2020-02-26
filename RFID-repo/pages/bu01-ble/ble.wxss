@@ -1,18 +1,19 @@
 /* pages/bu01-ble/ble.wxss */
-.flex-column{
+
+.flex-column {
   display: flex;
   flex-direction: column;
 }
 
-.flex-column.start{
+.flex-column.start {
   align-items: flex-start;
 }
 
-.flex-column.center{
+.flex-column.center {
   align-items: center;
 }
 
-.container-center{
+.container-center {
   position: relative;
   top: 50%;
   left: 50%;
@@ -20,21 +21,21 @@
   text-align: center;
 }
 
-.single-center{
+.single-center {
   text-align: center;
 }
 
-.grail{
+.grail {
   display: flex;
   margin: 20rpx;
   border-width: 1rpx;
-  border-style:solid;
+  border-style: solid;
   border-radius: 10rpx;
   border-color: #d8d8d8;
   background-color: #fafafa;
 }
 
-.middle{
+.middle {
   width: 70%;
   height: 100rpx;
   float: left;
@@ -42,22 +43,41 @@
   color: #353535;
 }
 
-.left{
+.left {
   width: 10%;
   height: 100rpx;
 }
 
-.right{
+.right {
   width: 20%;
   height: 100rpx;
 }
 
-.text-main{
+.text-main {
   font-size: 14pt;
   color: #353535;
 }
 
-.text-sub{
+.text-sub {
   font-size: 12pt;
   color: #888;
+}
+
+.info-bottom {
+  position: fixed;
+  bottom: 50rpx;
+  width: 700rpx;
+  margin-left: 25rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.info-rfid-watch {
+  width: 300rpx;
+  height: 400rpx;
+}
+
+.info-text {
+  width: 300rpx;
 }

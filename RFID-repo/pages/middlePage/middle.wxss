@@ -1,0 +1,62 @@
+/* pages/middlePage/middle.wxss */
+
+.func-item {
+  width: 700rpx;
+  margin: 0px auto;
+  height: 180rpx;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+
+.func-name {
+  position: absolute;
+  left: 0;
+  width: 30%;
+  height: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9em;
+}
+
+.entry-container {
+  position: absolute;
+  right: 0;
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 180rpx;
+}
+
+.entry-logo-container {
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #1296db;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.entry-logo-container image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.func-item-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 0.8em;
+  color: #1296db;
+  height: 160rpx;
+}
+
+.func-more {
+  width: 100%;
+  margin: 20px auto;
+  text-align: center;
+  color: #ddd;
+}

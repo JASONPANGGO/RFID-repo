@@ -32,6 +32,7 @@ Page({
   onLoad: function(options) {
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('goodsData', (goods) => {
+      console.log('eventChannel receive', goods)
       this.setData({
         goods: goods
       })
@@ -162,8 +163,9 @@ Page({
       if (res.data) {
         this.setData({
           rfidList: res.data.map(data => {
-            data.status_text = config.rfid_status[data.status]
-            data.tag_type = config.rfid_status[data.status]
+            data.status_text = config.rfid_status[data.status].text
+            data.tag_type = config.rfid_status[data.status].tag_type
+            return data
           }),
           rfidSum: res.data.filter(d => d.status === 0).length
         })
@@ -172,7 +174,7 @@ Page({
   },
   addRfid() {
     wx.navigateTo({
-      url: '/pages/bu01-ble/ble'
+      url: '/pages/bu01-ble/ble?scene=add'
     })
   },
   // 添加rfid标签

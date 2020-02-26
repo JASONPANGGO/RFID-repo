@@ -37,7 +37,8 @@ Component({
         text: "我的",
         styleClass: 'tab-bar-item'
       }
-    ]
+    ],
+    middleShow: false
   },
   attached() {},
   methods: {
@@ -45,8 +46,11 @@ Component({
       const data = e.currentTarget.dataset
       const url = data.path
       if (url === 'scan') {
+        this.setData({
+          middleShow: true
+        })
         wx.navigateTo({
-          url: '/pages/bu01-ble/ble',
+          url: '/pages/middlePage/middle'
         })
       } else {
         wx.switchTab({
@@ -60,6 +64,11 @@ Component({
     },
     getClass(index) {
       return 'tab-bar-item'
+    },
+    onClose() {
+      this.setData({
+        middleShow: false
+      })
     }
   }
 

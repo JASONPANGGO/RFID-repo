@@ -87,7 +87,7 @@ Page({
         this.initData(user)
         Toast.clear()
       } else {
-        Toast.fail(res.data)
+        Toast.fail('登录失败：' + res.statusCode)
         console.log(res)
       }
     }).catch(e => {

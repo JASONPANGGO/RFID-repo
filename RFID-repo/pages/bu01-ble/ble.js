@@ -27,7 +27,8 @@ Page({
 
     nonAndroid: true,
 
-    redirect: ''
+    scene: '',
+    infoText: ['1. 确保设备开关已打开。', ' 2. 确保设备与手机的距离在10米以内。', ' 3. 确保设备有充足的电量。', ' 4. 请勿在设备充电的时候使用。']
   },
 
   /**
@@ -66,7 +67,7 @@ Page({
       //初始化蓝牙适配器
       this.ble = new bleUtil.BU01BleUtil(bleParams)
       this.setData({
-        redirect: options.redirect
+        scene: options.scene
       })
     }
   },
@@ -333,11 +334,12 @@ Page({
       duration: 30000,
       mask: true
     })
+
     this.ble.connect(e.currentTarget.id)
       .then(() => {
-        //打开主页面
+        // 连接成功根据场景跳转页面
         wx.hideToast()
-        this.openMainPage(bleParams)
+        this.naivageByScene(this.data.scene)
       })
       .catch(res => {
         wx.hideToast()
@@ -347,13 +349,25 @@ Page({
         this.error.getErrorMsg('蓝牙连接超时', res)
       })
   },
+  naivageByScene(scene) {
+    switch (scene) {
+      case 'add':
+        this.openMainPage(bleParams, scene)
+        break;
+      case 'check':
+        this.openMainPage(bleParams, scene)
+        break;
+      default:
+        break;
+    }
+  },
 
   /**
    * 跳转至读写器页面
    */
-  openMainPage(params) {
+  openMainPage(params, scene) {
     wx.navigateTo({
-      url: '../bu01-main/main?connectedDeviceId=' + params.connectedDeviceId + '&serviceId=' + params.serviceId + '&characteristicId=' + params.characteristicId,
+      url: '../bu01-main/main?connectedDeviceId=' + params.connectedDeviceId + '&serviceId=' + params.serviceId + '&characteristicId=' + params.characteristicId + '&scene=' + scene,
     })
   },
 })

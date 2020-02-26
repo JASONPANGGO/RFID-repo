@@ -9,7 +9,7 @@ const {
 
 App({
   onLaunch: function() {
-    wx.clearStorage()
+    // wx.clearStorage()
   },
   onShow: function() {
 

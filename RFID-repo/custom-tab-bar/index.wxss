@@ -55,3 +55,18 @@
   margin-top: 9rpx;
   box-shadow: 0 5px 13px #3dbbff;
 }
+
+.middleShowBar {
+  height: 200rpx;
+  z-index: 99999;
+  justify-content: space-around;
+  display: flex;
+  align-items: center;
+}
+
+.middleShowBar .logo {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-color: #1296db;
+}

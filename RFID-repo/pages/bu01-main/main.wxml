@@ -1,15 +1,13 @@
-<view class="flex-column">
+<view class="header-small">
+  <view class="header-button">
+    <view type="ghost" bindtap='navToSetting' disabled="{{inventorying || btnInventorying}}">设置</view>
+    <view type="ghost" class="header-button-finish" bindtap='navBack' disabled="{{inventorying || btnInventorying}}">完成</view>
+  </view>
+</view>
 
-  <view class='flex-column view-top'>
-    <van-row>
-      <van-col span="8">
-        <van-button type="ghost" bindtap='navToSetting' disabled="{{inventorying || btnInventorying}}">设置</van-button>
-      </van-col>
-      <van-col span="8" offset="8">
-        <van-button type="ghost" bindtap='navBack' disabled="{{inventorying || btnInventorying}}">完成</van-button>
-      </van-col>
-    </van-row>
-
+<view class="header-small-gap">
+  <!-- <view class="flex-column"> -->
+  <view class='flex-column'>
     <view class='flex-row'>
       <view class='col-title no'>
         <text>序号</text>
@@ -62,8 +60,8 @@
     </van-row>
   </view>
 
+  <!-- </view> -->
 </view>
-
 
 <van-toast id="van-toast" />
 <van-dialog id="van-dialog" />

@@ -80,14 +80,14 @@
         <view class="title" wx:for="{{rfid_title}}" wx:key="index">{{item}}</view>
       </view>
       <view wx:if="{{loaded && rfidList.length === 0}}" style="color:gray">无数据</view>
-      <van-row class="rfid-list" wx:for="{{rfidList}}" wx:key="index">
-        <van-col span="16">{{item.rfid}}</van-col>
-        <van-col span="8">
+      <view class="rfid-list-item" wx:for="{{rfidList}}" wx:key="index">
+        <view span="16">{{item.rfid}}</view>
+        <view span="8">
           <van-tag type="{{item.tag_type}}">
             {{item.status_text}}
           </van-tag>
-        </van-col>
-      </van-row>
+        </view>
+      </view>
       <van-row class="rfid-add" bindtap="addRfid">
         <van-icon name="add-o" /> 添加
       </van-row>

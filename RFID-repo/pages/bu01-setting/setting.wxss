@@ -1,0 +1,91 @@
+/* pages/bu01-setting/setting.wxss */
+.view.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.view.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.view.row-reverse{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.view.content {
+  flex-grow: 1;
+}
+
+.view.anchor{
+  margin-left: 40rpx;
+}
+
+.view.anchor-right{
+  margin-right: 40rpx;
+}
+
+.view.anchor-top{
+  margin-top: 40rpx;
+}
+
+.view.left{
+  float: left;
+}
+
+input{ 
+  border:1px;
+  border-style:solid;
+  border-color:#d8d8d8;
+  border-radius:10rpx;
+  padding: 10rpx;
+  margin: 15rpx 0rpx;
+  font-size: 11pt;
+}
+
+textarea{
+  width: 87%;
+  border:2rpx;
+  border-style:solid;
+  border-color:#d8d8d8;
+  border-radius:10rpx;
+  margin: 10rpx 0rpx 0rpx 40rpx;
+  padding: 10rpx;
+}
+
+.text.anchor{
+  font-size: 12pt;
+  font-weight: bold;
+  text-align: start;
+  margin: 20rpx 20rpx 20rpx 40rpx;
+}
+
+.text.content{
+  font-size: 12pt;
+  text-align: start;
+  margin: 20rpx 10rpx;
+}
+
+.text.hint{
+  font-size: 12pt;
+  color: #a8a8a8;
+  text-align: start;
+  margin: 20rpx 20rpx 20rpx 40rpx;
+}
+
+.group.flex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+radio{
+  padding: 10rpx;
+}
+
+checkbox{
+  padding: 10rpx;
+}

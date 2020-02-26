@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/middlePage/middle",
+    "pages/bu01-ble/ble",
+    "pages/bu01-main/main",
     "pages/myTask/myTask",
     "pages/taskDetail/taskDetail",
     "pages/my/my",
@@ -13,10 +16,7 @@
     "pages/repoManage/repoManage",
     "pages/createRepo/createRepo",
     "pages/imgUpload/imgUpload",
-    "pages/goodsDetail/goodsDetail",
-    "pages/bu01-ble/ble",
-    "pages/bu01-main/main",
-    "pages/goodsRfidList/goodsRfidList"
+    "pages/goodsDetail/goodsDetail"
   ],
   "tabBar": {
     "custom": true,

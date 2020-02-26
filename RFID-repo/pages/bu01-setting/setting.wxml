@@ -1,0 +1,164 @@
+<!--pages/bu01-setting/setting.wxml-->
+<van-message id="message" />
+
+<van-tabs current="{{tab}}" bindchange="handleTabChange">
+  <van-tab key="tab1" title="读写器设置"></van-tab>
+  <van-tab key="tab2" title="射频设置"></van-tab>
+  <van-tab key="tab3" title="读标签TID"></van-tab>
+</van-tabs>
+
+<view class='view anchor-top' hidden="{{!tab1Visible}}">
+
+  <view class='view row'>
+    <text class='text anchor'>电量:</text>
+    <text class='view content text content'>{{results.battery}}</text>
+    <van-button type="primary" inline bindtap='getBattery'>获取电量</van-button>
+  </view>
+
+  <view class='view row'>
+    <text class='text anchor'>蜂鸣器:</text>
+    <van-switch class='view content' value="{{results.buzzer}}" bind:change="onSwitchChange" slot="footer">
+      <view slot="open">开启</view>
+      <view slot="close">关闭</view>
+    </van-switch>
+    <van-button type="primary" inline bindtap='getBuzzer'>蜂鸣器状态</van-button>
+  </view>
+
+  <view class='view row'>
+    <text class='text anchor'>版本:</text>
+    <text class='view content text content'>{{results.version}}</text>
+    <van-button type="primary" inline bindtap='getReaderVersion'>获取版本</van-button>
+  </view>
+
+  <view class='view row'>
+    <text class='text anchor'>序列号:</text>
+    <text class='view content text content'>{{results.serialNumber}}</text>
+    <van-button type="primary" inline bindtap='getSerialNumber'>获取序列号</van-button>
+  </view>
+
+  <view class='view row'>
+    <text class='text anchor'>名称:</text>
+    <input class='view content' bindinput='inputReaderName' placeholder="在ASCII码范围内" maxlength="20" value="FindID" />
+    <van-button type="primary" inline bindtap='setReaderName'>设置名称</van-button>
+  </view>
+  <text class='text hint'>设置生效需要一些时间</text>
+
+  <view class='view row'>
+    <view class='view left'>
+      <text class='text anchor'>指示灯:</text>
+    </view>
+    <view class='view content'></view>
+    <view class='view row-reverse'>
+      <van-button type="primary" inline bindtap='getLightIndicator'>灯开关</van-button>
+      <van-button type="primary" inline bindtap='setLightIndicator'>设置灯</van-button>
+    </view>
+  </view>
+  <view class='view anchor'>
+    <checkbox-group bindchange="handleLightChange">
+      <label wx:for="{{lights}}" wx:key="{{id}}">
+        <checkbox value="{{item.id}}" checked="{{item.checked}}" color='#2D8CF0' />{{item.name}}
+      </label>
+    </checkbox-group>
+  </view>
+
+</view>
+
+<view class='view anchor-top' hidden="{{!tab2Visible}}">
+
+  <view class='view row'>
+    <text class='text anchor'>频段:</text>
+    <view class='view content'></view>
+    <view class='view row-reverse'>
+      <van-button type="primary" inline bindtap='getBandArea'>获取频段</van-button>
+      <van-button type="primary" inline bindtap='setBandArea'>设置频段</van-button>
+    </view>
+  </view>
+  <view class='view anchor'>
+    <radio-group class='group flex' bindchange="handleAreaChange">
+      <label wx:for="{{area}}" wx:key="id">
+        <radio value="{{item.id}}" checked="{{item.checked}}" color='#2D8CF0' />{{item.name}}
+      </label>
+    </radio-group>
+  </view>
+
+  <view class='view row'>
+    <text class='text anchor'>功率(dBm):</text>
+    <view class='view content'></view>
+    <view class='view row-reverse'>
+      <van-button type="primary" inline bindtap='getPower'>获取功率</van-button>
+      <van-button type="primary" inline bindtap='setPower'>设置功率</van-button>
+    </view>
+  </view>
+  <slider value="{{results.power}}" bindchange="handlePowerChange" min="15" max="25" show-value/>
+
+  <view class='view row'>
+    <text class='text anchor'></text>
+    <view class='view content'></view>
+    <view class='view row-reverse'>
+      <van-button type="primary" inline bindtap='getParameters'>获取参数</van-button>
+      <van-button type="primary" inline bindtap='setParameters'>设置参数</van-button>
+    </view>
+  </view>
+
+  <view class='view row'>
+    <text class='text anchor'>Session:</text>
+  </view>
+
+  <view class='view anchor'>
+    <radio-group class='group flex' bindchange="handleSessionChange">
+      <label wx:for="{{sessions}}" wx:key="id">
+        <radio value="{{item.id}}" checked="{{item.checked}}" color='#2D8CF0' />{{item.name}}
+      </label>
+    </radio-group>
+  </view>
+
+  <view class='view row'>
+    <text class='text anchor'>Target:</text>
+  </view>
+
+  <view class='view anchor'>
+    <radio-group class='group flex' bindchange="handleTargetChange">
+      <label wx:for="{{targets}}" wx:key="id">
+        <radio value="{{item.id}}" checked="{{item.checked}}" color='#2D8CF0' />{{item.name}}
+      </label>
+    </radio-group>
+  </view>
+
+  <view class='view row'>
+    <text class='text anchor'>Q:</text>
+  </view>
+
+  <slider value="{{results.Q}}" bindchange="handleQChange" min="0" max="15" show-value/>
+
+
+  <van-button type="warning" bindtap='handleModalOpen'>恢复出厂设置</van-button>
+  <van-modal visible="{{ modalVisible }}" actions="{{ modalAction }}" bind:click="handleModalClick">
+    <view>确认恢复出厂设置？</view>
+  </van-modal>
+
+</view>
+
+<view class='view anchor-top' hidden="{{!tab3Visible}}">
+
+  <view class='view row'>
+    <text class='text anchor'>访问密码(16进制):</text>
+    <input class='view content' bindinput='inputAccPwd' value='00000000' maxlength="8" placeholder='8位16进制' />
+    <view class='view anchor-right'></view>
+  </view>
+
+  <view class='view row'>
+    <text class='text anchor'>EPC:</text>
+    <text class='view content text content'>{{results.epc}}</text>
+  </view>
+
+  <view class='view row'>
+    <text class='text anchor'>TID:</text>
+    <text class='view content text content'>{{results.tid}}</text>
+  </view>
+
+  <van-button type="primary" bindtap='readEpcAndTid'>读标签</van-button>
+
+</view>
+
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />

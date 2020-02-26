@@ -190,9 +190,11 @@ van-icon {
   font-size: 13px;
 }
 
-.rfid-list {
+.rfid-list-item {
   width: 700rpx;
   margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 .rfid-add {

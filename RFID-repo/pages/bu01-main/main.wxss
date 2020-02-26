@@ -1,66 +1,72 @@
 @import "../bu01-ble/ble.wxss";
-page{
+
+page {
   background-color: #f8f8f8;
 }
 
-.flex-row{
+.flex-row {
   display: flex;
   flex-direction: row;
 }
 
-.col-title{
+.col-title {
   font-size: 12pt;
   text-align: center;
 }
 
-.col-content{
+.col-content {
   font-size: 11pt;
   text-align: center;
   padding: 10rpx 0rpx;
 }
 
-.no{
+.no {
   width: 10%;
 }
 
-.epc{
+.epc {
   width: 65%;
 }
 
-.count{
+.count {
   width: 10%;
 }
 
-.rssi{
+.rssi {
   width: 15%;
 }
 
-.total{
+.total {
   text-align: right;
   margin-right: 20rpx;
 }
 
-.view-hover{
+.view-hover {
   background-color: #d8d8d8;
 }
 
-.view-top{
+.view-top {
   width: 100%;
   height: 180rpx;
   position: absolute;
   top: 20rpx;
 }
 
-.view-bottom{
+.view-bottom {
   width: 100%;
-  height: 180rpx;
+  /* height: 180rpx; */
   position: absolute;
-  bottom: 20rpx;
+  bottom: 10rpx;
 }
 
-.view-middle{
+.view-middle {
   width: 100%;
-  position: absolute;
-  margin-top: 200rpx;
-  margin-bottom: 200rpx;
+}
+
+.header-button {
+  width: 660rpx;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
 }

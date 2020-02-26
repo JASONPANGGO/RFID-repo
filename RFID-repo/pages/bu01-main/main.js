@@ -3,6 +3,12 @@
 const bu01Reader = require('../../utils/bu01Reader.js')
 const errorCode = require('../../utils/errorCode.js')
 import Toast from '../../lib/vant-weapp/dist/toast/toast';
+import Dialog from '../../lib/vant-weapp/dist/dialog/dialog';
+const app = getApp()
+const {
+  request
+} = require('../../utils/promisefy.js')
+const config = require('../../config.js')
 
 var epcItem = function(no, epc, epcWithSpace, rssi) {
   this.no = no
@@ -22,6 +28,7 @@ Page({
     epcItems: [],
     epcs: [],
     total: 0,
+    scene: ''
     /**
       epcItems数组的成员
       {
@@ -62,10 +69,12 @@ Page({
     var that = this
     wx.getSystemInfo({
       success: function(res) {
-        var height = res.windowHeight * (750 / res.windowWidth) - 400 + 'rpx'
+        var height = res.windowHeight * (750 / res.windowWidth) - 280 + 'rpx'
         that.showData('middleHeight', height)
       },
     })
+
+    this.showData('scene', options.scene)
   },
 
   /**
@@ -203,14 +212,55 @@ Page({
         })
     }, 0)
   },
-
+  getRFIDbyEPC(rfid) {
+    console.log(rfid)
+    return new Promise((resolve, reject) => {
+      request({
+        url: app.service.rfid.get,
+        data: {
+          rfid: rfid
+        },
+        method: 'get'
+      }).then(res => {
+        if (res.data.length === 0) {
+          resolve(rfid)
+        } else {
+          if (this.data.scene === 'check') {
+            console.log('res.data[0]', res.data[0])
+            request({
+              url: app.service.goods.get,
+              data: {
+                id: res.data[0].goodsid
+              },
+              method: 'get'
+            }).then(goodsRes => {
+              console.log(goodsRes)
+              wx.navigateTo({
+                url: '/pages/goodsDetail/goodsDetail',
+                success(resolve) {
+                  resolve.eventChannel.emit('goodsData', goodsRes.data[0])
+                }
+              })
+            })
+          }
+          reject()
+        }
+      })
+    })
+  },
   addEpc(res) {
     Array.prototype.forEach.call(res, (elem, i) => {
       var index = this.data.epcs.indexOf(elem.epc)
       // 已扫描中不存在该标签
       if (index == -1) {
-        this.data.epcs.push(elem.epc)
-        this.data.epcItems.push(new epcItem(this.data.epcItems.length + 1, elem.epc, elem.epcWithSpace, elem.rssi))
+        // 检测仓库中有无该标签
+        this.getRFIDbyEPC(elem.epcWithSpace).then(() => {
+
+          this.handleEPCbyScene(elem)
+
+        }).catch(() => {
+          Toast.fail('仓库中已存在该标签')
+        })
       } else {
         // 已扫描中已存在该表情
         // this.data.epcItems[index].rssi = elem.rssi
@@ -263,18 +313,35 @@ Page({
     const pages = getCurrentPages()
     const previousPage = pages[pages.length - 3] // 上上个页面
 
-    Dialog({
-      title: "添加RFID标签",
-      message: "是否确认添加以上" + this.data.epcItems.length + "个标签？"
-    }).then(() => {
-      previousPage.setData({
-        addRfidList: this.data.epcItems
+    if (this.data.epcItems.length > 0) {
+      Dialog({
+        title: "添加RFID标签",
+        message: "是否确认添加以上" + this.data.epcItems.length + "个标签？"
+      }).then(() => {
+        previousPage.setData({
+          addRfidList: this.data.epcItems
+        })
+        previousPage.bleFinish(this.data.epcItems)
       })
-      previousPage.bleFinish(this.data.epcItems)
-      wx.navigateBack({
-        delta: 2
-      })
+    }
+    wx.navigateBack({
+      delta: 2
     })
+  },
+  handleEPCbyScene(elem) {
+    switch (this.data.scene) {
+      case 'add':
+        this.data.epcs.push(elem.epc)
+        this.data.epcItems.push(new epcItem(this.data.epcItems.length + 1, elem.epc, elem.epcWithSpace, elem.rssi))
+        break;
+      case 'check':
+        Toast.fail('仓库中不存在该标签。')
+        break;
+      default:
+        break;
+    }
+
+
   }
 })
 
