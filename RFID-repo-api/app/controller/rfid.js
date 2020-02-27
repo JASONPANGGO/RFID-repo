@@ -35,6 +35,7 @@ class RfidController extends Controller {
 
     async update() {
         const query = paramFilter(['rfid', 'goodsid', 'status'], this.ctx.request.body)
+        
         this.ctx.body = await this.ctx.service.rfid.update(query)
     }
 

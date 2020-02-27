@@ -40,6 +40,7 @@ module.exports = app => {
   router.get('/task/get', middleware.auth(), controller.task.get)
   router.post('/task/add', middleware.auth(), controller.task.add)
   router.post('/task/update', middleware.auth(), controller.task.update)
+  router.post('/task/finish', middleware.auth(), controller.task.finish)
 
   // rfid
   router.get('/rfid/get', middleware.auth(), controller.rfid.get)

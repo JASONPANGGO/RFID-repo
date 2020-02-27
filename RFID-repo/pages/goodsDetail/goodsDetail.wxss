@@ -199,7 +199,7 @@ van-icon {
 
 .rfid-add {
   width: 700rpx;
-  margin: 10px auto;
+  margin: 30px auto;
   text-align: center;
   color: #1296db;
 }

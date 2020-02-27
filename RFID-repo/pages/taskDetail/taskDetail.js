@@ -171,12 +171,13 @@ Page({
         },
         method: 'post'
       }).then(res => {
-
         console.log(res)
         Toast.success('本次任务已完成')
-        wx.navigateBack({
-          delta: 1
-        })
+        setTimeout(() => {
+          wx.switchTab({
+            url: '/pages/task/task',
+          })
+        }, 800)
       })
     } else {
       Toast.fail('请先完成本次任务')

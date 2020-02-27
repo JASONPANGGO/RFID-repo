@@ -39,6 +39,35 @@ class TaskController extends Controller {
         const query = paramFilter(['id', 'status', 'nextUserid', 'progress'], this.ctx.request.body)
         this.ctx.body = await this.ctx.service.task.update(query)
     }
+
+    async finish() {
+        const query = paramFilter(['id', 'progress', 'nextUserid', 'rfid', 'task_type', 'goodsid'], this.ctx.request.body)
+        console.log('task finish', query)
+        if (query.task_type === 1) { // 进货
+            await this.ctx.service.rfid.add(query.rfid.map(d => {
+                return {
+                    rfid: d,
+                    goodsid: query.goodsid
+                }
+            }))
+
+            await this.app.mysql.query(`update goods set amount=amount+${query.rfid.length} where id=${query.goodsid}`)
+        } else if (query.task_type === 0) { // 出货
+            await this.ctx.service.rfid.update({
+                rfid: query.rfid,
+                status: 1
+            })
+
+            await this.app.mysql.query(`update goods set amount=amount-${query.rfid.length} where id=${query.goodsid}`)
+        }
+
+        this.ctx.body = await this.ctx.service.task.update({
+            id: query.id,
+            status: 2,
+            progress: query.progress
+        })
+
+    }
 }
 
 module.exports = TaskController

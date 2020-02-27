@@ -183,7 +183,11 @@ Page({
     if (!query[key]) {
       query[key] = [value]
     } else if (query[key] instanceof Array && query[key].includes(value)) {
-      query[key].splice(query[key].indexOf(value), 1)
+      if (query[key].length === 1) {
+        delete query[key]
+      } else {
+        query[key].splice(query[key].indexOf(value), 1)
+      }
     } else {
       query[key].push(value)
     }
@@ -226,7 +230,7 @@ Page({
       }
     })
   },
-  goToAddGoods(){
+  goToAddGoods() {
     wx.navigateTo({
       url: '/pages/addGoods/addGoods'
     })
