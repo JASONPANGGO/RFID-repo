@@ -64,7 +64,8 @@ class TaskController extends Controller {
         this.ctx.body = await this.ctx.service.task.update({
             id: query.id,
             status: 2,
-            progress: query.progress
+            progress: query.progress,
+            nextUserid: query.nextUserid
         })
 
     }

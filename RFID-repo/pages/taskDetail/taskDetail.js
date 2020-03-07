@@ -80,7 +80,12 @@ Page({
       })
     })
   },
-
+  onUnload() {
+    wx.onBLEConnectionStateChange(res => {})
+    this.ble.closeBle().then(() => {
+      Toast.success('蓝牙设备已断开')
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -136,38 +141,15 @@ Page({
   finish() {
     if (this.data.task.progress === this.data.task.amount) {
 
-      if (this.data.task.type === 0) { // 出货
-        request({
-          url: app.service.rfid.update,
-          data: {
-            rfid: this.data.epcItems,
-            status: 1
-          },
-          method: 'post'
-        }).then(res => {
-          console.log(res)
-          Toast.success('RFID更新成功')
-        })
-      } else if (this.data.task.type === 1) { // 入货
-        request({
-          url: app.service.rfid.add,
-          data: {
-            rfid: this.data.epcItems,
-            goodsid: this.data.task.goodsid
-          },
-          method: 'post'
-        }).then(res => {
-          console.log(res)
-          Toast.success("RFID更新成功")
-        })
-      }
       request({
-        url: app.service.task.update,
+        url: app.service.task.finish,
         data: {
           id: this.data.task.id,
-          status: 2,
+          progress: this.data.task.progress,
           nextUserid: this.data.user.id,
-          progress: this.data.task.progress
+          rfid: this.data.epcItems,
+          task_type: this.data.task.type,
+          goodsid: this.data.task.goodsid
         },
         method: 'post'
       }).then(res => {
@@ -179,6 +161,54 @@ Page({
           })
         }, 800)
       })
+
+      // if (this.data.task.type === 0) { // 出货
+      //   request({
+      //     url: app.service.rfid.update,
+      //     data: {
+      //       rfid: this.data.epcItems,
+      //       status: 1
+      //     },
+      //     method: 'post'
+      //   }).then(res => {
+      //     console.log(res)
+      //     Toast.success('RFID更新成功')
+      //   })
+      //   request({
+
+      //   })
+
+      // } else if (this.data.task.type === 1) { // 入货
+      //   request({
+      //     url: app.service.rfid.add,
+      //     data: {
+      //       rfid: this.data.epcItems,
+      //       goodsid: this.data.task.goodsid
+      //     },
+      //     method: 'post'
+      //   }).then(res => {
+      //     console.log(res)
+      //     Toast.success("RFID更新成功")
+      //   })
+      // }
+      // request({
+      //   url: app.service.task.update,
+      //   data: {
+      //     id: this.data.task.id,
+      //     status: 2,
+      //     nextUserid: this.data.user.id,
+      //     progress: this.data.task.progress
+      //   },
+      //   method: 'post'
+      // }).then(res => {
+      //   console.log(res)
+      //   Toast.success('本次任务已完成')
+      //   setTimeout(() => {
+      //     wx.switchTab({
+      //       url: '/pages/task/task',
+      //     })
+      //   }, 800)
+      // })
     } else {
       Toast.fail('请先完成本次任务')
     }
@@ -214,6 +244,11 @@ Page({
     this.error = new errorCode.ErrorCode()
     this.setData({
       reader: true
+    })
+
+    Toast.success({
+      message: '蓝牙设备已连接',
+      duration: 800
     })
   },
   // 单次清点 
@@ -262,7 +297,9 @@ Page({
       }
       that.reader.singleInventory()
         .then(res => {
-          that.handleEPC(res)
+          if (res[0].epcWithSpace) {
+            that.handleEPC(res)
+          }
         })
         .catch(err => {
           console.log('error', err)
@@ -281,9 +318,14 @@ Page({
         })
     }, 0)
   },
+
+  // 处理扫到的标签
   handleEPC(res) {
     console.log('检查标签')
-    res.forEach((elem, i) => {
+
+    const elem = res[0]
+
+    if (this.data.task.progress < this.data.task.amount) { // 任务尚未完成
       if (this.data.epcItems.find(rfid => rfid === elem.epcWithSpace)) {
         Toast.fail('已扫描该标签')
       } else {
@@ -295,13 +337,23 @@ Page({
             epcItems: [...this.data.epcItems, elem.epcWithSpace],
             task: task
           })
+
         }).catch(() => {
           Toast.fail('仓库中已有该标签或该商品不是本任务所需的商品')
         })
       }
-    })
+    } else { // 数量已达到目标
+      Toast.fail('数量已达标')
+      wx.onBLEConnectionStateChange(res => {})
+      this.ble.closeBle().then(() => {
+        Toast.success('蓝牙设备已断开')
+      })
+    }
   },
+
+  // 通过查库验证电子标签的EPC码
   checkRFIDbyEPC(EPC) {
+    console.log('检查', EPC)
     return new Promise((resolve, reject) => {
       request({
         url: app.service.rfid.get,
@@ -313,7 +365,7 @@ Page({
         console.log(rfidRes)
         if (rfidRes.data.length === 0 && this.data.task.type === 1) { // 入货：确保仓库中无该标签
           resolve()
-        } else if (rfidRes.data.length === 1 && rfidRes.data[0].goodsid === this.data.task.goodsid && this.data.task.type === 0) { // 出货：确保仓库里有这个标签，并且是当前的商品
+        } else if (rfidRes.data.length === 1 && rfidRes.data[0].goodsid === this.data.task.goodsid && this.data.task.type === 0 && rfidRes.data[0].status === 0) { // 出货：确保仓库里有这个标签，并且是当前的商品，状态为0在库中
           resolve()
         } else {
           reject()
@@ -328,6 +380,7 @@ Page({
   },
 
   bleOnLoad() {
+
     var that = this
     wx.getSystemInfo({
       success: function(res) {
@@ -584,10 +637,12 @@ Page({
       .then(() => {
         wx.hideToast()
         this.initReader(bleParams)
-        this.setData({
-          searchingBle: false,
-          reader: true
-        })
+        setTimeout(() => {
+          this.setData({
+            searchingBle: false,
+            reader: true
+          })
+        }, 1000)
 
         this.reader.monitor(this.onBtnPress, this.onBtnRelease)
         wx.onBLEConnectionStateChange(res => {

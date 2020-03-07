@@ -9,7 +9,7 @@ const {
 
 App({
   onLaunch: function() {
-    // wx.clearStorage()
+    wx.clearStorage()
   },
   onShow: function() {
 
@@ -53,7 +53,8 @@ App({
     task: {
       get: SERVICE_URL + '/task/get',
       add: SERVICE_URL + '/task/add',
-      update: SERVICE_URL + '/task/update'
+      update: SERVICE_URL + '/task/update',
+      finish: SERVICE_URL + '/task/finish'
     },
     rfid: {
       get: SERVICE_URL + '/rfid/get',

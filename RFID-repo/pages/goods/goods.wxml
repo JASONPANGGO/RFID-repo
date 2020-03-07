@@ -24,19 +24,16 @@
 </view>
 
 <view class="selector-expand" wx:if="{{selectorStatus}}">
-
   <!-- 仓库 -->
   <view class="selector-item {{tool.includes(query[selectorStatus],item.id) ? 'selector-item-selected' : ''}}" wx:for="{{currentSelector}}" wx:if="{{selectorStatus === 'repoid'}}" wx:key="index" data-query="{{item.id}}" bindtap="onSelect">
     {{item.name}}
     <van-icon name="success" color="#52c41a" style="visibility:{{tool.includes(query[selectorStatus],item.id) ? '' : 'hidden'}}" />
   </view>
-
   <!-- 分类 -->
   <view class="selector-item {{tool.includes(query[selectorStatus],item) ? 'selector-item-selected' : ''}}" wx:for="{{currentSelector}}" wx:if="{{selectorStatus!=='repoid'}}" wx:key="index" data-query="{{item}}" bindtap="onSelect">
     {{item}}
     <van-icon name="success" color="#52c41a" style="visibility:{{tool.includes(query[selectorStatus],item) ? '' : 'hidden'}}" />
   </view>
-
   <!-- 排序 -->
   <view class="selector-item-order {{query.order == index ? 'selector-item-selected' : ''}}" data-query="{{index}}" bindtap="onSelectOrder" wx:for="{{orders}}" wx:if="{{selectorStatus == 'order'}}" wx:key="index">
     {{item}}
