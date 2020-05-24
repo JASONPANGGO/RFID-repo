@@ -28,6 +28,9 @@ class TestController extends Controller {
                 rfid: '11234',
                 goodsid: '2'
             },
+            {
+                fwefjojfjf
+            }
         ])
     }
 

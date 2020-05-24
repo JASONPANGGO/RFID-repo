@@ -12,6 +12,7 @@ class GoodsController extends Controller {
             const query = paramFilter(['id', 'instanceid', 'repoid', 'type', 'order', 'name', 'bar_code'], this.ctx.request.query)
             jsonParser(['repoid', 'type'], query)
             console.log('get goods', query)
+            console.log(await this.ctx.service.goods.get(query))
             this.ctx.body = await this.ctx.service.goods.get(query)
         } catch (error) {
             throw error

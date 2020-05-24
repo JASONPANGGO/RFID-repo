@@ -29,6 +29,7 @@ class UserController extends Controller {
                 openid: wxLoginResult.data.openid,
                 userInfo: query.userInfo
             })
+            console.log(result)
             this.ctx.body = result;
         } catch (error) {
             throw error;

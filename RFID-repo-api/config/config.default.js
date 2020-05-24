@@ -24,30 +24,30 @@ module.exports = appInfo => {
   }
 
   // 服务器
-  // config.mysql = {
-  //   client: {
-  //     host: '129.211.122.221',
-  //     port: '3306',
-  //     user: 'rfid-repo',
-  //     password: 'rfid-repo',
-  //     database: 'rfid'
-  //   },
-  //   app: true,
-  //   agent: false
-  // }
-
-  // 本地
   config.mysql = {
     client: {
-      host: '127.0.0.1',
+      host: '129.211.122.221',
       port: '3306',
-      user: 'rfid',
-      password: 'rfid',
+      user: 'rfid-repo',
+      password: 'rfid-repo',
       database: 'rfid'
     },
     app: true,
     agent: false
   }
+
+  // 本地
+  // config.mysql = {
+  //   client: {
+  //     host: '127.0.0.1',
+  //     port: '3306',
+  //     user: 'rfid',
+  //     password: 'rfid',
+  //     database: 'rfid'
+  //   },
+  //   app: true,
+  //   agent: false
+  // }
 
   config.session = {
 
