@@ -49,12 +49,12 @@
   <view class="menu-title">关于</view>
   <view class="menu">
     <i-cell-group>
-      <i-cell title="关于RFID" is-link>
+      <i-cell title="关于RFID" is-link url="/pages/aboutRFID/aboutRFID">
         <i-icon color="#2d8cf0" type="prompt" slot="icon" />
       </i-cell>
-      <i-cell title="关于本应用" is-link>
+      <!-- <i-cell title="关于本应用" is-link bindtap="preview">
         <i-icon color="#2d8cf0" type="prompt" slot="icon" />
-      </i-cell>
+      </i-cell> -->
     </i-cell-group>
   </view>
 

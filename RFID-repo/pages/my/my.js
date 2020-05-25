@@ -172,7 +172,26 @@ Page({
       name: wx.getStorageSync('user').name
     })
   },
-
+preview(){
+    let that=this
+    wx.downloadFile({
+        url: 'https://jasonpanggo.com/rfid/public/img/info.pdf',
+        success: function(res) {
+            console.log(res)
+            var Path = res.tempFilePath //返回的文件临时地址，用于后面打开本地预览所用
+            that.webview=Path
+            wx.openDocument({
+                filePath: Path,
+                success: function(res) {
+                    console.log('打开文档成功')
+                }
+            })
+        },
+        fail: function(res) {
+            console.log(res)
+        }
+    })
+},
   changeAvatar() {
     const that = this
     const user = wx.getStorageSync('user')

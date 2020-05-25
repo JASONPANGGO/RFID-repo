@@ -16,7 +16,9 @@
     "pages/repoManage/repoManage",
     "pages/createRepo/createRepo",
     "pages/imgUpload/imgUpload",
-    "pages/goodsDetail/goodsDetail"
+    "pages/goodsDetail/goodsDetail",
+    "pages/aboutApp/aboutApp",
+    "pages/aboutRFID/aboutRFID"
   ],
   "tabBar": {
     "custom": true,
