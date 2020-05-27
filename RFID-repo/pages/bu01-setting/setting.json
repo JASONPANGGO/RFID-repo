@@ -1,11 +1,3 @@
 {
-  "navigationBarTitleText": "设置",
-  "usingComponents": {
-    "i-tabs": "../../dist/tabs/index",
-    "i-tab": "../../dist/tab/index",
-    "i-button": "../../dist/button/index",
-    "i-message": "../../dist/message/index",
-    "i-switch": "../../dist/switch/index",
-    "i-modal": "../../dist/modal/index"
-  }
+  "navigationBarTitleText": "设置"
 }
